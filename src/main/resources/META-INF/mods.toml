@@ -1,0 +1,33 @@
+
+modLoader="javafml"
+loaderVersion="[31,)"
+[[mods]]
+modId="sworddisplay"
+version="${file.jarVersion}"
+displayName="Sword Displays"
+updateJSONURL="https://github.com/sokratis12GR/Sword-Displays"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/sword-displays"
+logoFile="logo.png"
+authors="SoFoDev"
+description='''
+Allows the user to display their swords via the use of a sword display block.
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.examplemod]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[31,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.sworddisplay]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
