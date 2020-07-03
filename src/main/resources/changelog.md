@@ -6,7 +6,7 @@
 
 * Added comparator input depending on the weapon's damaged state:
   * If the Sword Display is empty, it will emit 0 strength.
-  * if the Sword Display contains an undamaged sword, it will always emit 15 strength.
+  * If the Sword Display contains an undamaged sword, it will always emit 15 strength.
   * If the Sword Display contains a damaged sword it will follow the following formula:
     ```java
         int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());
