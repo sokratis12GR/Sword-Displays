@@ -1,0 +1,26 @@
+{
+  "group": "empty_sword_display",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "ILI",
+    "SSS"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:sea_lantern"
+    },
+    "I": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "S": {
+      "item": "minecraft:prismarine"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:sword_display"
+  }
+}

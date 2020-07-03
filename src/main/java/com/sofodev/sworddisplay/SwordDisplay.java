@@ -1,31 +1,23 @@
 package com.sofodev.sworddisplay;
 
+import com.sofodev.sworddisplay.blocks.SwordCaseBlock;
 import com.sofodev.sworddisplay.blocks.SwordDisplayBlock;
 import com.sofodev.sworddisplay.blocks.SwordDisplayTile;
 import com.sofodev.sworddisplay.blocks.TESRSwordDisplay;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.inventory.container.WorkbenchContainer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -33,13 +25,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY;
-import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY_TYPE;
+import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
 import static java.lang.String.format;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.*;
 
@@ -69,6 +61,9 @@ public class SwordDisplay {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
+        RenderTypeLookup.setRenderLayer(SWORD_CASE.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(WOODEN_SWORD_CASE.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(PRISMARINE_SWORD_CASE.get(), RenderType.getTranslucent());
         ClientRegistry.bindTileEntityRenderer(SWORD_DISPLAY_TYPE.get(), TESRSwordDisplay::new);
     }
 
@@ -77,9 +72,20 @@ public class SwordDisplay {
 
         public static List<RegistryObject<Block>> blocks = new ArrayList<>();
 
+        //Normal Sword Displays
         public static final RegistryObject<Block> SWORD_DISPLAY = regWithItem("sword_display", SwordDisplayBlock::new);
+        public static final RegistryObject<Block> WOODEN_SWORD_DISPLAY = regWithItem("wooden_sword_display", SwordDisplayBlock::new);
+        public static final RegistryObject<Block> PRISMARINE_SWORD_DISPLAY = regWithItem("prismarine_sword_display", SwordDisplayBlock::new);
+        //Sword Displays with Glass
+        public static final RegistryObject<Block> SWORD_CASE = regWithItem("sword_case", SwordCaseBlock::new);
+        public static final RegistryObject<Block> WOODEN_SWORD_CASE = regWithItem("wooden_sword_case", SwordCaseBlock::new);
+        public static final RegistryObject<Block> PRISMARINE_SWORD_CASE = regWithItem("prismarine_sword_case", SwordCaseBlock::new);
+        //TE
         public static final RegistryObject<TileEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
-                () -> build(TileEntityType.Builder.create(SwordDisplayTile::new, SWORD_DISPLAY.get())));
+                () -> build(TileEntityType.Builder.create(SwordDisplayTile::new,
+                        SWORD_DISPLAY.get(), WOODEN_SWORD_DISPLAY.get(), PRISMARINE_SWORD_DISPLAY.get(),
+                        SWORD_CASE.get(), WOODEN_SWORD_CASE.get(), PRISMARINE_SWORD_CASE.get()
+                )));
         public static final Set<RegistryObject<BlockItem>> ITEM_BLOCKS = registerBlockItems();
 
         public static RegistryObject<Block> register(String name, Supplier<? extends Block> sup) {

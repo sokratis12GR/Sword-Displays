@@ -1,3 +1,8 @@
+## 1.15.2-1.2.0
+
+* Added a wooden and a prismarine variant.
+* Added sword cases, they are displays with a glass case around them.
+
 ## 1.15.2-1.1.1
 
 * Added an updateJSON for easier updates.

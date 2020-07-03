@@ -1,5 +1,10 @@
 {
   "_comment": "en_us.lang File",
   "itemGroup.sworddisplay": "Sword Displays",
-  "block.sworddisplay.sword_display": "Sword Display"
+  "block.sworddisplay.sword_display": "Sword Display",
+  "block.sworddisplay.sword_case": "Sword Case",
+  "block.sworddisplay.wooden_sword_display": "Wooden Sword Display",
+  "block.sworddisplay.wooden_sword_case": "Wooden Sword Case",
+  "block.sworddisplay.prismarine_sword_display": "Prismarine Sword Display",
+  "block.sworddisplay.prismarine_sword_case": "Prismarine Sword Case"
 }

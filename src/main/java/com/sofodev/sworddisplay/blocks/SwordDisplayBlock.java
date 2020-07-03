@@ -2,9 +2,11 @@ package com.sofodev.sworddisplay.blocks;
 
 import com.sofodev.sworddisplay.SwordDisplay;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
@@ -27,6 +29,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -48,9 +52,13 @@ public class SwordDisplayBlock extends Block {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     protected static final VoxelShape VOXEL = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(0, 0, 0, 16, 2, 16), Block.makeCuboidShape(2, 2, 2, 14, 5, 14), OR);
 
-    public SwordDisplayBlock() {
-        super(Properties.create(Material.IRON).hardnessAndResistance(10.0f, 1000.0f).harvestLevel(1).harvestTool(PICKAXE));
+    public SwordDisplayBlock(Properties properties) {
+        super(properties.hardnessAndResistance(10.0f, 1000.0f).harvestLevel(1).harvestTool(PICKAXE));
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+
+    public SwordDisplayBlock() {
+        this(Properties.create(Material.GLASS));
     }
 
     @SuppressWarnings("deprecation")
@@ -197,5 +205,41 @@ public class SwordDisplayBlock extends Block {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return false;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1.0F;
+    }
+
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return false;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean canEntitySpawn(BlockState state, IBlockReader worldIn, BlockPos pos, EntityType<?> type) {
+        return false;
     }
 }
