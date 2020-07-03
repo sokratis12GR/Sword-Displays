@@ -1,5 +1,6 @@
 package com.sofodev.sworddisplay.blocks;
 
+import com.sofodev.sworddisplay.SwordDisplay;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -7,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,9 +31,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.sofodev.sworddisplay.SwordDisplay.MODID;
 import static net.minecraft.util.math.shapes.IBooleanFunction.OR;
 import static net.minecraftforge.common.ToolType.PICKAXE;
 
@@ -130,9 +134,35 @@ public class SwordDisplayBlock extends Block {
                         ((SwordDisplayTile) tileentity).getSword().copy()
                 );
             }
-
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean hasComparatorInputOverride(BlockState state) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
+        TileEntity te = world.getTileEntity(pos);
+        if (!world.isRemote && te instanceof SwordDisplayTile) {
+            SwordDisplayTile displayTile = (SwordDisplayTile) te;
+            ItemStack stack = displayTile.getSword();
+            if (!stack.isEmpty()) return calculateOutput(stack);
+        }
+        return 0;
+    }
+
+    private int calculateOutput(ItemStack stack){
+        if (stack.isDamaged()) {
+            int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());
+            x = x > 15 ? 14 : x == 15 ? 13 : x;
+            return 15 / x;
+        }
+        return 15;
     }
 
     @Nullable

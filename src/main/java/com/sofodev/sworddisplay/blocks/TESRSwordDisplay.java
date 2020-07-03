@@ -34,7 +34,7 @@ public class TESRSwordDisplay extends TileEntityRenderer<SwordDisplayTile> {
         switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
             case WEST:
             case EAST:
-                this.rotateItem(matrixStack, 180f, 90f, -45f); // default vlues
+                this.rotateItem(matrixStack, 180f, 90f, -45f); // default values
                 break;
             case NORTH:
             case SOUTH:
@@ -59,4 +59,18 @@ public class TESRSwordDisplay extends TileEntityRenderer<SwordDisplayTile> {
             this.renderItem(te, sword, matrixStack, buffer, combinedLight, combinedOverlay);
         }
     }
+
+    //         switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
+    //            case WEST:
+    //            case EAST:
+    //                this.rotateItem(matrixStack, 180f, 90f, 45f); // default vlues
+    //                break;
+    //            case NORTH:
+    //            case SOUTH:
+    //                this.rotateItem(matrixStack, 180f, 180f, 45f);
+    //                break;
+    //        }
+    //
+    //        renderer.renderItem(stack, NONE, combinedLight, combinedOverlay, matrixStack, buffer);
+
 }

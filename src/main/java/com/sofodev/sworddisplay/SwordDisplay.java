@@ -47,6 +47,8 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.*;
 public class SwordDisplay {
     public static final String MODID = "sworddisplay";
 
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
@@ -66,7 +68,6 @@ public class SwordDisplay {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void doClientStuff(final FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntityRenderer(SWORD_DISPLAY_TYPE.get(), TESRSwordDisplay::new);
     }
