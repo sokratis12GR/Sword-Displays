@@ -8,7 +8,7 @@ Sword Displays
 
 ## Crafting Recipe:
 
-![](https://raw.githubusercontent.com/sokratis12GR/Sword-Displays/master/recipe.png "Sword Display Recipe")
+![](https://raw.githubusercontent.com/sokratis12GR/Sword-Displays/master/recipes.png "Sword Display Recipe")
 
 ## Comparator Caculations
 
