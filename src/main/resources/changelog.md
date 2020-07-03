@@ -1,3 +1,7 @@
+## 1.15.2-1.1.1
+
+* Added an updateJSON for easier updates.
+
 ## 1.15.2-1.1.0
 
 * Added comparator input depending on the weapon's damaged state:
