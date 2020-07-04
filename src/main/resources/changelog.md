@@ -1,3 +1,7 @@
+## 1.15.2-1.2.1
+
+* The prismarine recipes should now give you the prismarine versions of the display and the case.
+
 ## 1.15.2-1.2.0
 
 * Added a wooden and a prismarine variant.
