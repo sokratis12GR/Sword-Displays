@@ -3,8 +3,8 @@ Sword Displays
 
 ![](https://i.imgur.com/BhNFAPN.png "Sword Displays")
 
-[![](https://cf.way2muchnoise.eu/title/sword-displays_Get_Today!.svg)](https://www.curseforge.com/minecraft/mc-mods/sword-displays)
-
+[![](http://cf.way2muchnoise.eu/full_sword-displays_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sword-displays)
+[![](http://cf.way2muchnoise.eu/versions/sword-displays.svg)](https://www.curseforge.com/minecraft/mc-mods/sword-displays)
 
 ## Crafting Recipes:
 
