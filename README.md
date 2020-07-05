@@ -1,14 +1,15 @@
 Sword Displays
 ---
 
-![](https://raw.githubusercontent.com/sokratis12GR/Sword-Displays/master/sworddisplay_logo.png "Sword Displays")
+![](https://i.imgur.com/BhNFAPN.png "Sword Displays")
 
 [![](https://cf.way2muchnoise.eu/title/sword-displays_Get_Today!.svg)](https://www.curseforge.com/minecraft/mc-mods/sword-displays)
 
 
-## Crafting Recipe:
+## Crafting Recipes:
 
-![](https://raw.githubusercontent.com/sokratis12GR/Sword-Displays/master/recipes.png "Sword Display Recipe")
+![](https://i.imgur.com/pGCvCtB.png "Sword Case Recipe")
+![](https://i.imgur.com/OqDhlsF.png "Sword Display Recipe")
 
 ## Comparator Caculations
 
