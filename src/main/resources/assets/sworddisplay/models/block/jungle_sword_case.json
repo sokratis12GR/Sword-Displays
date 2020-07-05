@@ -1,0 +1,9 @@
+{
+  "parent": "sworddisplay:block/base/sword_case_base",
+  "textures": {
+    "0": "sworddisplay:blocks/jungle_bot",
+    "1": "sworddisplay:blocks/jungle_top",
+    "2": "sworddisplay:blocks/glass",
+    "particle": "sworddisplay:blocks/jungle_top"
+  }
+}

@@ -13,6 +13,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import org.lwjgl.opengl.GL;
 
 import static net.minecraft.util.math.shapes.IBooleanFunction.*;
@@ -20,10 +21,10 @@ import static net.minecraftforge.common.ToolType.PICKAXE;
 
 public class SwordCaseBlock extends SwordDisplayBlock {
 
-    protected static final VoxelShape FULL_MODEL = VoxelShapes.or(Block.makeCuboidShape(0,2,0,16,21,16), VOXEL);
+    protected static final VoxelShape FULL_MODEL = VoxelShapes.or(Block.makeCuboidShape(0, 2, 0, 16, 21, 16), VOXEL);
 
-    public SwordCaseBlock() {
-        super(Properties.create(Material.GLASS).notSolid());
+    public SwordCaseBlock(ToolType type) {
+        super(Properties.create(Material.GLASS).notSolid(), type);
     }
 
     @SuppressWarnings("deprecation")

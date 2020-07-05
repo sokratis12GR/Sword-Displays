@@ -31,6 +31,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -52,13 +53,13 @@ public class SwordDisplayBlock extends Block {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     protected static final VoxelShape VOXEL = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(0, 0, 0, 16, 2, 16), Block.makeCuboidShape(2, 2, 2, 14, 5, 14), OR);
 
-    public SwordDisplayBlock(Properties properties) {
-        super(properties.hardnessAndResistance(10.0f, 1000.0f).harvestLevel(1).harvestTool(PICKAXE));
+    public SwordDisplayBlock(Properties properties, ToolType type) {
+        super(properties.hardnessAndResistance(10.0f, 1000.0f).harvestLevel(1).harvestTool(type));
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
-    public SwordDisplayBlock() {
-        this(Properties.create(Material.GLASS));
+    public SwordDisplayBlock(ToolType type) {
+        this(Properties.create(Material.GLASS), type);
     }
 
     @SuppressWarnings("deprecation")

@@ -1,20 +1,23 @@
 {
-  "group": "empty_sword_display",
   "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:case",
   "pattern": [
     "GGG",
-    "III",
-    "SSS"
+    "GLG",
+    "SCS"
   ],
   "key": {
-    "G": {
-      "item": "minecraft:glass"
-    },
-    "I": {
-      "item": "minecraft:oak_planks"
+    "L": {
+      "item": "minecraft:oak_slab"
     },
     "S": {
-      "item": "minecraft:oak_log"
+      "item": "minecraft:oak_stairs"
+    },
+    "C": {
+      "item": "minecraft:oak_planks"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
     }
   },
   "result": {

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:display",
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:spruce_slab"
+    },
+    "S": {
+      "item": "minecraft:spruce_stairs"
+    },
+    "C": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:spruce_sword_display"
+  }
+}

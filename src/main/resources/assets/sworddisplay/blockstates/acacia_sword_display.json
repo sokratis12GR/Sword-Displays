@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sworddisplay:block/acacia_sword_display"
+    },
+    "facing=south": {
+      "model": "sworddisplay:block/acacia_sword_display",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sworddisplay:block/acacia_sword_display",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "sworddisplay:block/acacia_sword_display",
+      "y": 270
+    }
+  }
+}

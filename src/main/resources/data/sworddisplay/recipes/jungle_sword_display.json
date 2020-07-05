@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:display",
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:jungle_slab"
+    },
+    "S": {
+      "item": "minecraft:jungle_stairs"
+    },
+    "C": {
+      "item": "minecraft:jungle_planks"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:jungle_sword_display"
+  }
+}

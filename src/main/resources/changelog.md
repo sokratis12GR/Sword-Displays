@@ -1,3 +1,11 @@
+## 1.15.2-1.3.0
+
+* Added the rest of the wood variants: Acacia, Birch, Dark Oak, Jungle, Spruce
+* The blocks should give the corresponding item variant when broken.
+* The Sword Case recipe should now give you the corresponding recipe output.
+* Updated the logo
+* Changed the recipes, automated the recipe creation process & advancements.
+
 ## 1.15.2-1.2.1
 
 * The prismarine recipes should now give you the prismarine versions of the display and the case.

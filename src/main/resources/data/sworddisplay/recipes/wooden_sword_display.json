@@ -1,17 +1,19 @@
 {
-  "group": "empty_sword_display",
   "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:display",
   "pattern": [
-    "   ",
-    "III",
-    "SSS"
+    " L ",
+    "SCS"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:oak_planks"
+    "L": {
+      "item": "minecraft:oak_slab"
     },
     "S": {
-      "item": "minecraft:oak_log"
+      "item": "minecraft:oak_stairs"
+    },
+    "C": {
+      "item": "minecraft:oak_planks"
     }
   },
   "result": {

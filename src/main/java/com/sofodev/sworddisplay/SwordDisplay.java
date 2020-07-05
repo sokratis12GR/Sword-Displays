@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -30,9 +31,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
 import static java.lang.String.format;
+import static net.minecraftforge.common.ToolType.AXE;
+import static net.minecraftforge.common.ToolType.PICKAXE;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.*;
 
 @Mod("sworddisplay")
@@ -61,10 +65,13 @@ public class SwordDisplay {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(SWORD_CASE.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(WOODEN_SWORD_CASE.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(PRISMARINE_SWORD_CASE.get(), RenderType.getTranslucent());
+        this.setRenderLayer(SWORD_CASE, WOODEN_SWORD_CASE, DARK_OAK_SWORD_CASE, BIRCH_SWORD_CASE, ACACIA_SWORD_CASE, JUNGLE_SWORD_CASE, SPRUCE_SWORD_CASE, PRISMARINE_SWORD_CASE);
         ClientRegistry.bindTileEntityRenderer(SWORD_DISPLAY_TYPE.get(), TESRSwordDisplay::new);
+    }
+
+    @SafeVarargs
+    private final void setRenderLayer(RegistryObject<Block>... blocks) {
+        Arrays.stream(blocks).forEach(block -> RenderTypeLookup.setRenderLayer(block.get(), RenderType.getTranslucent()));
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = MOD)
@@ -73,19 +80,32 @@ public class SwordDisplay {
         public static List<RegistryObject<Block>> blocks = new ArrayList<>();
 
         //Normal Sword Displays
-        public static final RegistryObject<Block> SWORD_DISPLAY = regWithItem("sword_display", SwordDisplayBlock::new);
-        public static final RegistryObject<Block> WOODEN_SWORD_DISPLAY = regWithItem("wooden_sword_display", SwordDisplayBlock::new);
-        public static final RegistryObject<Block> PRISMARINE_SWORD_DISPLAY = regWithItem("prismarine_sword_display", SwordDisplayBlock::new);
+        public static final RegistryObject<Block> SWORD_DISPLAY = regWithItem("sword_display", () -> new SwordDisplayBlock(PICKAXE));
+        public static final RegistryObject<Block> WOODEN_SWORD_DISPLAY = regWithItem("wooden_sword_display", () -> new SwordDisplayBlock(AXE));
+        public static final RegistryObject<Block> DARK_OAK_SWORD_DISPLAY = regWithItem("dark_oak_sword_display", () -> new SwordDisplayBlock(AXE));
+        public static final RegistryObject<Block> BIRCH_SWORD_DISPLAY = regWithItem("birch_sword_display", () -> new SwordDisplayBlock(AXE));
+        public static final RegistryObject<Block> ACACIA_SWORD_DISPLAY = regWithItem("acacia_sword_display", () -> new SwordDisplayBlock(AXE));
+        public static final RegistryObject<Block> JUNGLE_SWORD_DISPLAY = regWithItem("jungle_sword_display", () -> new SwordDisplayBlock(AXE));
+        public static final RegistryObject<Block> SPRUCE_SWORD_DISPLAY = regWithItem("spruce_sword_display", () -> new SwordDisplayBlock(AXE));
+        public static final RegistryObject<Block> PRISMARINE_SWORD_DISPLAY = regWithItem("prismarine_sword_display", () -> new SwordDisplayBlock(PICKAXE));
         //Sword Displays with Glass
-        public static final RegistryObject<Block> SWORD_CASE = regWithItem("sword_case", SwordCaseBlock::new);
-        public static final RegistryObject<Block> WOODEN_SWORD_CASE = regWithItem("wooden_sword_case", SwordCaseBlock::new);
-        public static final RegistryObject<Block> PRISMARINE_SWORD_CASE = regWithItem("prismarine_sword_case", SwordCaseBlock::new);
+        public static final RegistryObject<Block> SWORD_CASE = regWithItem("sword_case", () -> new SwordCaseBlock(PICKAXE));
+        public static final RegistryObject<Block> WOODEN_SWORD_CASE = regWithItem("wooden_sword_case", () -> new SwordCaseBlock(AXE));
+        public static final RegistryObject<Block> DARK_OAK_SWORD_CASE = regWithItem("dark_oak_sword_case", () -> new SwordCaseBlock(AXE));
+        public static final RegistryObject<Block> BIRCH_SWORD_CASE = regWithItem("birch_sword_case", () -> new SwordCaseBlock(AXE));
+        public static final RegistryObject<Block> ACACIA_SWORD_CASE = regWithItem("acacia_sword_case", () -> new SwordCaseBlock(AXE));
+        public static final RegistryObject<Block> JUNGLE_SWORD_CASE = regWithItem("jungle_sword_case", () -> new SwordCaseBlock(AXE));
+        public static final RegistryObject<Block> SPRUCE_SWORD_CASE = regWithItem("spruce_sword_case", () -> new SwordCaseBlock(AXE));
+        public static final RegistryObject<Block> PRISMARINE_SWORD_CASE = regWithItem("prismarine_sword_case", () -> new SwordCaseBlock(PICKAXE));
         //TE
         public static final RegistryObject<TileEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
                 () -> build(TileEntityType.Builder.create(SwordDisplayTile::new,
-                        SWORD_DISPLAY.get(), WOODEN_SWORD_DISPLAY.get(), PRISMARINE_SWORD_DISPLAY.get(),
-                        SWORD_CASE.get(), WOODEN_SWORD_CASE.get(), PRISMARINE_SWORD_CASE.get()
+                        SWORD_DISPLAY.get(), WOODEN_SWORD_DISPLAY.get(), DARK_OAK_SWORD_DISPLAY.get(), BIRCH_SWORD_DISPLAY.get(),
+                        ACACIA_SWORD_DISPLAY.get(), JUNGLE_SWORD_DISPLAY.get(), SPRUCE_SWORD_DISPLAY.get(), PRISMARINE_SWORD_DISPLAY.get(),
+                        SWORD_CASE.get(), WOODEN_SWORD_CASE.get(), DARK_OAK_SWORD_CASE.get(), BIRCH_SWORD_CASE.get(),
+                        ACACIA_SWORD_CASE.get(), JUNGLE_SWORD_CASE.get(), SPRUCE_SWORD_CASE.get(), PRISMARINE_SWORD_CASE.get()
                 )));
+
         public static final Set<RegistryObject<BlockItem>> ITEM_BLOCKS = registerBlockItems();
 
         public static RegistryObject<Block> register(String name, Supplier<? extends Block> sup) {

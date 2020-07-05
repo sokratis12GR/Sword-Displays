@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base",
+  "textures": {
+    "0": "sworddisplay:blocks/spruce_bot",
+    "1": "sworddisplay:blocks/spruce_top",
+    "particle": "sworddisplay:blocks/spruce_top"
+  }
+}

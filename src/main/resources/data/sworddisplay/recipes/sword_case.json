@@ -1,23 +1,26 @@
 {
-  "group": "empty_sword_display",
   "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:case",
   "pattern": [
     "GGG",
-    "III",
-    "SSS"
+    "GLG",
+    "SCS"
   ],
   "key": {
-    "G": {
-      "item": "minecraft:glass"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "L": {
+      "item": "minecraft:stone_slab"
     },
     "S": {
-      "item": "minecraft:stone_slab"
+      "item": "minecraft:stone_stairs"
+    },
+    "C": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
     }
   },
   "result": {
-    "item": "sworddisplay:sword_display"
+    "item": "sworddisplay:sword_case"
   }
 }

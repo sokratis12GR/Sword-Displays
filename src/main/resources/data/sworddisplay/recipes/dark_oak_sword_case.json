@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:case",
+  "pattern": [
+    "GGG",
+    "GLG",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:dark_oak_slab"
+    },
+    "S": {
+      "item": "minecraft:dark_oak_stairs"
+    },
+    "C": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:dark_oak_sword_case"
+  }
+}

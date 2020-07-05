@@ -12,10 +12,10 @@ authors="SoFoDev"
 description='''
     Allows the user to display their swords via the use of a sword display block.
 '''
-[[dependencies.sworddisplay]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[31.2.22,)" #mandatory
+[[dependencies.sworddisplay]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31.2.22,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.sworddisplay]]
