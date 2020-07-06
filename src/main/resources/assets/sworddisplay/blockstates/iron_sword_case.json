@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sworddisplay:block/iron_sword_case"
+    },
+    "facing=south": {
+      "model": "sworddisplay:block/iron_sword_case",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sworddisplay:block/iron_sword_case",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "sworddisplay:block/iron_sword_case",
+      "y": 270
+    }
+  }
+}

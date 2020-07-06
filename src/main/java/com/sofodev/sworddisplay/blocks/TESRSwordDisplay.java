@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import static com.sofodev.sworddisplay.blocks.SwordDisplayBlock.IS_REVERSE;
 import static net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType.FIXED;
 
 @OnlyIn(Dist.CLIENT)
@@ -29,17 +30,32 @@ public class TESRSwordDisplay extends TileEntityRenderer<SwordDisplayTile> {
         ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
         matrixStack.push();
 
-        matrixStack.translate(0.500D, 0.600D, 0.500D);
+        matrixStack.translate(0.5D, 0.6D, 0.5D);
         matrixStack.scale(1F, 1F, 1F);
-        switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
-            case WEST:
-            case EAST:
-                this.rotateItem(matrixStack, 180f, 90f, -45f); // default values
-                break;
-            case NORTH:
-            case SOUTH:
-                this.rotateItem(matrixStack, 180f, 180f, -45f);
-                break;
+        if (te.getBlockState().get(IS_REVERSE)) {
+            matrixStack.translate(0, 0.03D, 0);
+            matrixStack.scale(0.94F, 0.94F, 0.94F);
+            switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
+                case WEST:
+                case EAST:
+                    this.rotateItem(matrixStack, 0, 90f, -45f); // default values
+                    break;
+                case NORTH:
+                case SOUTH:
+                    this.rotateItem(matrixStack, 0, 180f, -45f);
+                    break;
+            }
+        } else {
+            switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
+                case WEST:
+                case EAST:
+                    this.rotateItem(matrixStack, 180f, 90f, -45f); // default values
+                    break;
+                case NORTH:
+                case SOUTH:
+                    this.rotateItem(matrixStack, 180f, 180f, -45f);
+                    break;
+            }
         }
         renderer.renderItem(stack, FIXED, combinedLight, combinedOverlay, matrixStack, buffer);
 

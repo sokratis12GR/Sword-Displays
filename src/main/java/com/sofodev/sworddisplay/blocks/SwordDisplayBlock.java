@@ -16,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -51,11 +52,12 @@ public class SwordDisplayBlock extends Block {
             "tconstruct:longsword", "projecte:item.pe_dm_sword", "projecte:item.pe_rm_sword").map(SwordDisplayBlock::getItem).collect(Collectors.toList());
 
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final BooleanProperty IS_REVERSE = BooleanProperty.create("is_reverse");
     protected static final VoxelShape VOXEL = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(0, 0, 0, 16, 2, 16), Block.makeCuboidShape(2, 2, 2, 14, 5, 14), OR);
 
     public SwordDisplayBlock(Properties properties, ToolType type) {
         super(properties.hardnessAndResistance(10.0f, 1000.0f).harvestLevel(1).harvestTool(type));
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(IS_REVERSE, Boolean.FALSE));
     }
 
     public SwordDisplayBlock(ToolType type) {
@@ -102,6 +104,10 @@ public class SwordDisplayBlock extends Block {
                     ItemStack copy = stack.copy();
                     displayTile.setSword(copy);
                     stack.shrink(1);
+                    return ActionResultType.SUCCESS;
+                }
+                if (hand == Hand.MAIN_HAND && !displayTile.getSword().isEmpty() && stack.isEmpty()) {
+                    world.setBlockState(pos, state.with(IS_REVERSE, !state.get(IS_REVERSE)), 3);
                 }
             }
         }
@@ -165,7 +171,7 @@ public class SwordDisplayBlock extends Block {
         return 0;
     }
 
-    private int calculateOutput(ItemStack stack){
+    private int calculateOutput(ItemStack stack) {
         if (stack.isDamaged()) {
             int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());
             x = x > 15 ? 14 : x == 15 ? 13 : x;
@@ -182,7 +188,7 @@ public class SwordDisplayBlock extends Block {
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing());
+        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing()).with(IS_REVERSE, Boolean.FALSE);
     }
 
     @SuppressWarnings("deprecation")
@@ -205,7 +211,7 @@ public class SwordDisplayBlock extends Block {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, IS_REVERSE);
     }
 
     @SuppressWarnings("deprecation")

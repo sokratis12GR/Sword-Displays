@@ -65,7 +65,10 @@ public class SwordDisplay {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        this.setRenderLayer(SWORD_CASE, WOODEN_SWORD_CASE, DARK_OAK_SWORD_CASE, BIRCH_SWORD_CASE, ACACIA_SWORD_CASE, JUNGLE_SWORD_CASE, SPRUCE_SWORD_CASE, PRISMARINE_SWORD_CASE);
+        this.setRenderLayer(SWORD_CASE, WOODEN_SWORD_CASE, DARK_OAK_SWORD_CASE, BIRCH_SWORD_CASE,
+                ACACIA_SWORD_CASE, JUNGLE_SWORD_CASE, SPRUCE_SWORD_CASE, PRISMARINE_SWORD_CASE,
+                IRON_SWORD_CASE, GOLDEN_SWORD_CASE, DIAMOND_SWORD_CASE, EMERALD_SWORD_CASE
+        );
         ClientRegistry.bindTileEntityRenderer(SWORD_DISPLAY_TYPE.get(), TESRSwordDisplay::new);
     }
 
@@ -88,6 +91,11 @@ public class SwordDisplay {
         public static final RegistryObject<Block> JUNGLE_SWORD_DISPLAY = regWithItem("jungle_sword_display", () -> new SwordDisplayBlock(AXE));
         public static final RegistryObject<Block> SPRUCE_SWORD_DISPLAY = regWithItem("spruce_sword_display", () -> new SwordDisplayBlock(AXE));
         public static final RegistryObject<Block> PRISMARINE_SWORD_DISPLAY = regWithItem("prismarine_sword_display", () -> new SwordDisplayBlock(PICKAXE));
+        public static final RegistryObject<Block> IRON_SWORD_DISPLAY = regWithItem("iron_sword_display", () -> new SwordDisplayBlock(PICKAXE));
+        public static final RegistryObject<Block> GOLDEN_SWORD_DISPLAY = regWithItem("golden_sword_display", () -> new SwordDisplayBlock(PICKAXE));
+        public static final RegistryObject<Block> DIAMOND_SWORD_DISPLAY = regWithItem("diamond_sword_display", () -> new SwordDisplayBlock(PICKAXE));
+        public static final RegistryObject<Block> EMERALD_SWORD_DISPLAY = regWithItem("emerald_sword_display", () -> new SwordDisplayBlock(PICKAXE));
+
         //Sword Displays with Glass
         public static final RegistryObject<Block> SWORD_CASE = regWithItem("sword_case", () -> new SwordCaseBlock(PICKAXE));
         public static final RegistryObject<Block> WOODEN_SWORD_CASE = regWithItem("wooden_sword_case", () -> new SwordCaseBlock(AXE));
@@ -97,13 +105,20 @@ public class SwordDisplay {
         public static final RegistryObject<Block> JUNGLE_SWORD_CASE = regWithItem("jungle_sword_case", () -> new SwordCaseBlock(AXE));
         public static final RegistryObject<Block> SPRUCE_SWORD_CASE = regWithItem("spruce_sword_case", () -> new SwordCaseBlock(AXE));
         public static final RegistryObject<Block> PRISMARINE_SWORD_CASE = regWithItem("prismarine_sword_case", () -> new SwordCaseBlock(PICKAXE));
+        public static final RegistryObject<Block> IRON_SWORD_CASE = regWithItem("iron_sword_case", () -> new SwordCaseBlock(PICKAXE));
+        public static final RegistryObject<Block> GOLDEN_SWORD_CASE = regWithItem("golden_sword_case", () -> new SwordCaseBlock(PICKAXE));
+        public static final RegistryObject<Block> DIAMOND_SWORD_CASE = regWithItem("diamond_sword_case", () -> new SwordCaseBlock(PICKAXE));
+        public static final RegistryObject<Block> EMERALD_SWORD_CASE = regWithItem("emerald_sword_case", () -> new SwordCaseBlock(PICKAXE));
+
         //TE
         public static final RegistryObject<TileEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
                 () -> build(TileEntityType.Builder.create(SwordDisplayTile::new,
                         SWORD_DISPLAY.get(), WOODEN_SWORD_DISPLAY.get(), DARK_OAK_SWORD_DISPLAY.get(), BIRCH_SWORD_DISPLAY.get(),
                         ACACIA_SWORD_DISPLAY.get(), JUNGLE_SWORD_DISPLAY.get(), SPRUCE_SWORD_DISPLAY.get(), PRISMARINE_SWORD_DISPLAY.get(),
+                        IRON_SWORD_DISPLAY.get(), GOLDEN_SWORD_DISPLAY.get(), DIAMOND_SWORD_DISPLAY.get(), EMERALD_SWORD_DISPLAY.get(),
                         SWORD_CASE.get(), WOODEN_SWORD_CASE.get(), DARK_OAK_SWORD_CASE.get(), BIRCH_SWORD_CASE.get(),
-                        ACACIA_SWORD_CASE.get(), JUNGLE_SWORD_CASE.get(), SPRUCE_SWORD_CASE.get(), PRISMARINE_SWORD_CASE.get()
+                        ACACIA_SWORD_CASE.get(), JUNGLE_SWORD_CASE.get(), SPRUCE_SWORD_CASE.get(), PRISMARINE_SWORD_CASE.get(),
+                        IRON_SWORD_CASE.get(), GOLDEN_SWORD_CASE.get(), DIAMOND_SWORD_CASE.get(), EMERALD_SWORD_CASE.get()
                 )));
 
         public static final Set<RegistryObject<BlockItem>> ITEM_BLOCKS = registerBlockItems();

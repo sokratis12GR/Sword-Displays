@@ -1,3 +1,8 @@
+## 1.15.2-1.4.0
+
+* Added Iron, Golden, Diamond and Emerald displays
+* Added Right-Click functionality to reverse the direction that the sword is being rendered inside
+
 ## 1.15.2-1.3.0
 
 * Added the rest of the wood variants: Acacia, Birch, Dark Oak, Jungle, Spruce

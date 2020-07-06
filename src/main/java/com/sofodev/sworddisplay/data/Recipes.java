@@ -1,7 +1,9 @@
 package com.sofodev.sworddisplay.data;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
+import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.fml.RegistryObject;
@@ -10,8 +12,8 @@ import java.util.function.Consumer;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
 import static net.minecraft.block.Blocks.*;
+import static net.minecraft.item.Items.GOLD_INGOT;
 import static net.minecraft.item.Items.IRON_INGOT;
-import static net.minecraft.item.Items.STONE_SLAB;
 
 public class Recipes extends RecipeProvider implements IDataProvider, IConditionBuilder {
 
@@ -29,6 +31,10 @@ public class Recipes extends RecipeProvider implements IDataProvider, ICondition
         this.registerMaterialRecipes(consumer, JUNGLE_SWORD_DISPLAY, JUNGLE_SWORD_CASE, JUNGLE_SLAB, JUNGLE_STAIRS, JUNGLE_PLANKS);
         this.registerMaterialRecipes(consumer, SPRUCE_SWORD_DISPLAY, SPRUCE_SWORD_CASE, SPRUCE_SLAB, SPRUCE_STAIRS, SPRUCE_PLANKS);
         this.registerMaterialRecipes(consumer, PRISMARINE_SWORD_DISPLAY, PRISMARINE_SWORD_CASE, PRISMARINE_SLAB, PRISMARINE_STAIRS, SEA_LANTERN);
+        this.registerMaterialRecipes(consumer, IRON_SWORD_DISPLAY, IRON_SWORD_CASE, IRON_INGOT, STONE_BRICK_STAIRS, IRON_BLOCK);
+        this.registerMaterialRecipes(consumer, GOLDEN_SWORD_DISPLAY, GOLDEN_SWORD_CASE, GOLD_INGOT, GOLD_INGOT, GOLD_BLOCK);
+        this.registerMaterialRecipes(consumer, DIAMOND_SWORD_DISPLAY, DIAMOND_SWORD_CASE, Items.DIAMOND, Items.DIAMOND, DIAMOND_BLOCK);
+        this.registerMaterialRecipes(consumer, EMERALD_SWORD_DISPLAY, EMERALD_SWORD_CASE, Items.EMERALD, Items.EMERALD, EMERALD_BLOCK);
     }
 
     private void registerMaterialRecipes(Consumer<IFinishedRecipe> consumer, RegistryObject<Block> sdDisplay, RegistryObject<Block> sdCase, IItemProvider top, IItemProvider side, IItemProvider core) {

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:gems",
+  "pattern": [
+    "GGG",
+    "GLG",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "minecraft:gold_block"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:golden_sword_case"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:gems",
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:diamond_sword_display"
+  }
+}

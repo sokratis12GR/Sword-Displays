@@ -16,5 +16,13 @@
   "block.sworddisplay.spruce_sword_display": "Spruce Sword Display",
   "block.sworddisplay.spruce_sword_case": "Spruce Sword Case",
   "block.sworddisplay.jungle_sword_display": "Jungle Sword Display",
-  "block.sworddisplay.jungle_sword_case": "Jungle Sword Case"
+  "block.sworddisplay.jungle_sword_case": "Jungle Sword Case",
+  "block.sworddisplay.iron_sword_display": "Iron Sword Display",
+  "block.sworddisplay.iron_sword_case": "Iron Sword Case",
+  "block.sworddisplay.golden_sword_display": "Golden Sword Display",
+  "block.sworddisplay.golden_sword_case": "Golden Sword Case",
+  "block.sworddisplay.diamond_sword_display": "Diamond Sword Display",
+  "block.sworddisplay.diamond_sword_case": "Diamond Sword Case",
+  "block.sworddisplay.emerald_sword_display": "Emerald Sword Display",
+  "block.sworddisplay.emerald_sword_case": "Emerald Sword Case"
 }

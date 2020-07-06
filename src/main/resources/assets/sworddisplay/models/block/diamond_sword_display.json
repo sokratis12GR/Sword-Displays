@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base",
+  "textures": {
+    "0": "block/diamond_block",
+    "1": "sworddisplay:blocks/diamond_middle",
+    "particle": "sworddisplay:blocks/diamond_middle"
+  }
+}
