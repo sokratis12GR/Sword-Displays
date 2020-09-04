@@ -1,7 +1,6 @@
 package com.sofodev.sworddisplay.data;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;

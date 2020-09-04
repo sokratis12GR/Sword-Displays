@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -31,13 +30,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
-import static java.lang.String.format;
 import static net.minecraftforge.common.ToolType.AXE;
 import static net.minecraftforge.common.ToolType.PICKAXE;
-import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.*;
+import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 @Mod("sworddisplay")
 public class SwordDisplay {
