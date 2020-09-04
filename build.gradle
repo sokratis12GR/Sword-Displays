@@ -12,6 +12,9 @@ buildscript {
 }
 repositories {
     maven {
+        url 'https://www.dogforce-games.com/maven/'
+    }
+    maven {
         url = "https://www.cursemaven.com"
     }
 }
@@ -28,7 +31,7 @@ archivesBaseName = mod_id
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200705-1.15.1'
+    mappings channel: 'snapshot', version: '20200820-1.16.1'
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -87,8 +90,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.2.30'
-    compile fg.deobf("curse.maven:AzureDoom:2996107")
+    minecraft 'net.minecraftforge:forge:1.16.1-32.0.108'
+    //compile fg.deobf("curse.maven:AzureDoom:2996107")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

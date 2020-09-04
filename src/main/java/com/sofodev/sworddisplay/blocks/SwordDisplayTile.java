@@ -1,5 +1,6 @@
 package com.sofodev.sworddisplay.blocks;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -34,9 +35,9 @@ public class SwordDisplayTile extends BaseTile {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
-        this.loadFromNBT(compound);
+    public void read(BlockState state, CompoundNBT nbt) {
+        super.read(state, nbt);
+        this.loadFromNBT(nbt);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class SwordDisplayTile extends BaseTile {
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.read(pkt.getNbtCompound());
+        this.read(world.getBlockState(pkt.getPos()), pkt.getNbtCompound());
     }
 
     @Override
@@ -80,8 +81,8 @@ public class SwordDisplayTile extends BaseTile {
     }
 
     @Override
-    public void handleUpdateTag(CompoundNBT tag) {
-        super.handleUpdateTag(tag);
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+        super.handleUpdateTag(state, tag);
     }
 
     @Override
