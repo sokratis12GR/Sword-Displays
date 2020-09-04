@@ -1,3 +1,7 @@
+## 1.15.2-1.4.1
+
+* Added Taiwanese translation
+
 ## 1.15.2-1.4.0
 
 * Added Iron, Golden, Diamond and Emerald displays
