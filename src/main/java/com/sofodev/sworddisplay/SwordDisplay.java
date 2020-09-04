@@ -5,8 +5,6 @@ import com.sofodev.sworddisplay.blocks.SwordDisplayBlock;
 import com.sofodev.sworddisplay.blocks.SwordDisplayTile;
 import com.sofodev.sworddisplay.blocks.TESRSwordDisplay;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -14,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -26,18 +23,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
-import static java.lang.String.format;
+import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY;
 import static net.minecraftforge.common.ToolType.AXE;
 import static net.minecraftforge.common.ToolType.PICKAXE;
-import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.*;
+import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 @Mod("sworddisplay")
 public class SwordDisplay {
@@ -45,9 +39,9 @@ public class SwordDisplay {
 
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MODID);
 
     public static final ItemGroup SD_GROUP = new ItemGroup(ItemGroup.getGroupCountSafe(), MODID) {
         @Override
@@ -65,17 +59,9 @@ public class SwordDisplay {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        this.setRenderLayer(SWORD_CASE, WOODEN_SWORD_CASE, DARK_OAK_SWORD_CASE, BIRCH_SWORD_CASE,
-                ACACIA_SWORD_CASE, JUNGLE_SWORD_CASE, SPRUCE_SWORD_CASE, PRISMARINE_SWORD_CASE,
-                IRON_SWORD_CASE, GOLDEN_SWORD_CASE, DIAMOND_SWORD_CASE, EMERALD_SWORD_CASE
-        );
-        ClientRegistry.bindTileEntityRenderer(SWORD_DISPLAY_TYPE.get(), TESRSwordDisplay::new);
+        ClientRegistry.bindTileEntitySpecialRenderer(SwordDisplayTile.class, new TESRSwordDisplay());
     }
 
-    @SafeVarargs
-    private final void setRenderLayer(RegistryObject<Block>... blocks) {
-        Arrays.stream(blocks).forEach(block -> RenderTypeLookup.setRenderLayer(block.get(), RenderType.getTranslucent()));
-    }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = MOD)
     public static class RegistryEvents {

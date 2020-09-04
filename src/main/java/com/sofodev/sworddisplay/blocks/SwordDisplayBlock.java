@@ -1,6 +1,5 @@
 package com.sofodev.sworddisplay.blocks;
 
-import com.sofodev.sworddisplay.SwordDisplay;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -10,7 +9,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,13 +35,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.sofodev.sworddisplay.SwordDisplay.MODID;
 import static net.minecraft.util.math.shapes.IBooleanFunction.OR;
-import static net.minecraftforge.common.ToolType.PICKAXE;
 
 public class SwordDisplayBlock extends Block {
 
@@ -85,9 +80,14 @@ public class SwordDisplayBlock extends Block {
         }
     }
 
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
+
     @SuppressWarnings("deprecation")
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         TileEntity te = world.getTileEntity(pos);
         if (!world.isRemote && te instanceof SwordDisplayTile) {
             SwordDisplayTile displayTile = (SwordDisplayTile) te;
@@ -104,14 +104,14 @@ public class SwordDisplayBlock extends Block {
                     ItemStack copy = stack.copy();
                     displayTile.setSword(copy);
                     stack.shrink(1);
-                    return ActionResultType.SUCCESS;
+                    return true;
                 }
                 if (hand == Hand.MAIN_HAND && !displayTile.getSword().isEmpty() && stack.isEmpty()) {
                     world.setBlockState(pos, state.with(IS_REVERSE, !state.get(IS_REVERSE)), 3);
                 }
             }
         }
-        return ActionResultType.SUCCESS;
+        return true;
     }
 
     public boolean anyMatch(ItemStack stack, List<Item> items) {
