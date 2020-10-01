@@ -1,3 +1,8 @@
+## 1.16.2-1.0.3
+
+* Added bulgarian translation
+* Now it should actually work with 1.16.3
+
 ## 1.16.2-1.0.2
 
 * Made it, so the 1.16.2 version also works for 1.16.3

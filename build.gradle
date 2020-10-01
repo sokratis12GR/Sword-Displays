@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
         classpath "com.wynprice.cursemaven:CurseMaven:2.1.5"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 repositories {
@@ -18,6 +19,9 @@ repositories {
         url = "https://www.cursemaven.com"
     }
 }
+
+apply plugin: "com.matthewprenger.cursegradle"
+
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
@@ -122,5 +126,17 @@ publishing {
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
+    }
+}
+
+curseforge {
+    apiKey = project.hasProperty('api_token') ? project.api_token : '0'
+    project {
+        id = '392762'
+        changelog = file('src/main/resources/changelog.md')
+        changelogType = 'markdown'
+        releaseType = 'release'
+        addGameVersion '1.16.2'
+        addGameVersion '1.16.3'
     }
 }
