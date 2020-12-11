@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url  = 'https://plugins.gradle.org/m2/' }
+        maven { url = 'https://plugins.gradle.org/m2/' }
         jcenter()
         mavenCentral()
     }
@@ -11,9 +11,8 @@ buildscript {
     }
 }
 repositories {
-    maven {
-        url = "https://www.cursemaven.com"
-    }
+    maven { url = "https://www.cursemaven.com" }
+    maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
@@ -21,7 +20,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "com.wynprice.cursemaven"
 
-version = mc_version + '-' + version_major + '.' + version_minor + '.' + version_patch + '.'
+version = mc_version + '-' + version_major + '.' + version_minor + '.' + version_patch
 group = package_group
 archivesBaseName = mod_id
 
@@ -88,7 +87,9 @@ minecraft {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.30'
-    compile fg.deobf("curse.maven:AzureDoom:2996107")
+    compile fg.deobf("curse.maven:AzureDoom:3133476")
+    compile fg.deobf("curse.maven:curios:3021133")
+    compile fg.deobf('software.bernie.geckolib:forge-1.15.2-geckolib:3.0.0')
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
