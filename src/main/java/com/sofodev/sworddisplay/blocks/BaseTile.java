@@ -1,5 +1,6 @@
 package com.sofodev.sworddisplay.blocks;
 
+import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;

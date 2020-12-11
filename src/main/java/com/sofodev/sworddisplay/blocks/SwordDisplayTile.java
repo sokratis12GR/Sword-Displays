@@ -11,6 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY_TYPE;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
@@ -18,15 +19,11 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 public class SwordDisplayTile extends BaseTile {
 
     private ItemStack cachedSword;
+    private UUID owner;
 
     public SwordDisplayTile() {
         super(SWORD_DISPLAY_TYPE.get());
         this.cachedSword = ItemStack.EMPTY;
-    }
-
-    public SwordDisplayTile(ItemStack sword) {
-        super(SWORD_DISPLAY_TYPE.get());
-        this.cachedSword = sword;
     }
 
     @Override
@@ -49,12 +46,18 @@ public class SwordDisplayTile extends BaseTile {
 
     public CompoundNBT saveToNbt(CompoundNBT compound) {
         compound.put("displayed_item", this.cachedSword.write(new CompoundNBT()));
+        if (this.owner != null) {
+            compound.putUniqueId("owner", this.owner);
+        }
         return compound;
     }
 
     public void loadFromNBT(CompoundNBT compound) {
         if (compound.contains("displayed_item", TAG_COMPOUND)) {
             this.cachedSword = ItemStack.read(compound.getCompound("displayed_item"));
+        }
+        if (compound.hasUniqueId("owner")) {
+            this.owner = compound.getUniqueId("owner");
         }
     }
 
@@ -109,8 +112,21 @@ public class SwordDisplayTile extends BaseTile {
         return this.cachedSword;
     }
 
+    public UUID getOwner() {
+        return this.owner;
+    }
+
     public void setSword(ItemStack stack) {
         this.cachedSword = stack;
+        this.markAndUpdate();
+    }
+
+    public void setOwner(UUID owner) {
+        this.owner = owner;
+        this.markAndUpdate();
+    }
+
+    public void markAndUpdate() {
         this.markDirty();
         this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
     }
