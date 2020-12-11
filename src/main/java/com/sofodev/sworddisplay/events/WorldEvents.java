@@ -30,7 +30,7 @@ public class WorldEvents {
             SwordDisplayTile displayTile = (SwordDisplayTile) te;
             boolean isTheOwner = displayTile.getOwner() == playerUUID;
             ItemStack sword = displayTile.getSword();
-            if (!sword.isEmpty() && !isTheOwner) {
+            if (!sword.isEmpty() && !isTheOwner && displayTile.getOwner() != null && !player.abilities.isCreativeMode) {
                 event.setCanceled(true);
             }
         }
