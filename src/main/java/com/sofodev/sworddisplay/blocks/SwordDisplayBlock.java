@@ -1,5 +1,6 @@
 package com.sofodev.sworddisplay.blocks;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -35,6 +36,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -91,23 +93,31 @@ public class SwordDisplayBlock extends Block {
         TileEntity te = world.getTileEntity(pos);
         if (!world.isRemote && te instanceof SwordDisplayTile) {
             SwordDisplayTile displayTile = (SwordDisplayTile) te;
+            GameProfile profile = player.getGameProfile();
+            UUID playerUUID = profile.getId();
             if (player.isSneaking()) {
                 if (player.getActiveHand() == Hand.MAIN_HAND && player.getHeldItemMainhand().isEmpty()) {
-                    final ItemStack toDrop = displayTile.getSword().copy();
-                    displayTile.setSword(ItemStack.EMPTY);
-                    player.dropItem(toDrop, false);
+                    if (displayTile.getOwner() == playerUUID) {
+                        final ItemStack toDrop = displayTile.getSword().copy();
+                        displayTile.setSword(ItemStack.EMPTY);
+                        player.dropItem(toDrop, false);
+                    }
                 }
             } else {
                 ItemStack stack = player.getHeldItem(hand);
                 boolean isSword = stack.getItem() instanceof SwordItem || anyMatch(stack, SPECIAL_ITEMS);
+
                 if (hand == Hand.MAIN_HAND && displayTile.getSword().isEmpty() && isSword) {
                     ItemStack copy = stack.copy();
                     displayTile.setSword(copy);
+                    displayTile.setOwner(playerUUID);
                     stack.shrink(1);
                     return true;
                 }
                 if (hand == Hand.MAIN_HAND && !displayTile.getSword().isEmpty() && stack.isEmpty()) {
-                    world.setBlockState(pos, state.with(IS_REVERSE, !state.get(IS_REVERSE)), 3);
+                    if (displayTile.getOwner() == playerUUID) {
+                        world.setBlockState(pos, state.with(IS_REVERSE, !state.get(IS_REVERSE)), 3);
+                    }
                 }
             }
         }

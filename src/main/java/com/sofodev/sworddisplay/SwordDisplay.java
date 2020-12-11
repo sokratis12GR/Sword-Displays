@@ -11,7 +11,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -29,9 +31,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY;
+import static net.minecraftforge.api.distmarker.Dist.CLIENT;
 import static net.minecraftforge.common.ToolType.AXE;
 import static net.minecraftforge.common.ToolType.PICKAXE;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
+import static net.minecraftforge.fml.loading.FMLEnvironment.dist;
 
 @Mod("sworddisplay")
 public class SwordDisplay {
@@ -52,12 +56,18 @@ public class SwordDisplay {
 
     public SwordDisplay() {
         MinecraftForge.EVENT_BUS.register(this);
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        BLOCKS.register(modEventBus);
+        ITEMS.register(modEventBus);
+        TILE_ENTITIES.register(modEventBus);
+        if (dist == CLIENT) {
+            modEventBus .addListener(this::doClientStuff);
+        }
     }
 
+    @OnlyIn(CLIENT)
     private void doClientStuff(final FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntitySpecialRenderer(SwordDisplayTile.class, new TESRSwordDisplay());
     }
