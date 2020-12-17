@@ -41,6 +41,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.math.shapes.IBooleanFunction.OR;
 
 public class SwordDisplayBlock extends Block {
@@ -92,27 +93,27 @@ public class SwordDisplayBlock extends Block {
             SwordDisplayTile displayTile = (SwordDisplayTile) te;
             GameProfile profile = player.getGameProfile();
             UUID playerUUID = profile.getId();
+            boolean hasOwner = displayTile.getOwner() != null && playerUUID.equals(displayTile.getOwner());
             if (player.isSneaking()) {
-                if (player.getActiveHand() == Hand.MAIN_HAND && player.getHeldItemMainhand().isEmpty()) {
-                    if (displayTile.getOwner() == playerUUID) {
-                        final ItemStack toDrop = displayTile.getSword().copy();
-                        displayTile.setSword(ItemStack.EMPTY);
-                        player.dropItem(toDrop, false);
-                    }
+                if (player.getActiveHand() == MAIN_HAND && player.getHeldItemMainhand().isEmpty() && hasOwner) {
+                    final ItemStack toDrop = displayTile.getSword().copy();
+                    displayTile.setSword(ItemStack.EMPTY);
+                    player.dropItem(toDrop, false);
                 }
             } else {
                 ItemStack stack = player.getHeldItem(hand);
                 boolean isSword = stack.getItem() instanceof SwordItem || anyMatch(stack, SPECIAL_ITEMS);
 
-                if (hand == Hand.MAIN_HAND && displayTile.getSword().isEmpty() && isSword) {
-                    ItemStack copy = stack.copy();
-                    displayTile.setSword(copy);
-                    displayTile.setOwner(playerUUID);
-                    stack.shrink(1);
-                    return ActionResultType.SUCCESS;
-                }
-                if (hand == Hand.MAIN_HAND && !displayTile.getSword().isEmpty() && stack.isEmpty()) {
-                    if (displayTile.getOwner() == playerUUID) {
+                if (hand == MAIN_HAND) {
+                    boolean isDisplayEmpty = displayTile.getSword().isEmpty();
+                    if (isDisplayEmpty && isSword) {
+                        ItemStack copy = stack.copy();
+                        displayTile.setSword(copy);
+                        displayTile.setOwner(playerUUID);
+                        stack.shrink(1);
+                        return ActionResultType.SUCCESS;
+                    }
+                    if (!isDisplayEmpty && stack.isEmpty() && hasOwner) {
                         world.setBlockState(pos, state.with(IS_REVERSE, !state.get(IS_REVERSE)), 3);
                     }
                 }

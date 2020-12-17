@@ -107,6 +107,8 @@ public class SwordDisplay {
         public static final RegistryObject<Block> DIAMOND_SWORD_CASE = regWithItem("diamond_sword_case", () -> new SwordCaseBlock(PICKAXE));
         public static final RegistryObject<Block> EMERALD_SWORD_CASE = regWithItem("emerald_sword_case", () -> new SwordCaseBlock(PICKAXE));
 
+        public static final Set<RegistryObject<BlockItem>> ITEM_BLOCKS = registerBlockItems();
+
         //TE
         public static final RegistryObject<TileEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
                 () -> build(TileEntityType.Builder.create(SwordDisplayTile::new,
@@ -118,7 +120,6 @@ public class SwordDisplay {
                         IRON_SWORD_CASE.get(), GOLDEN_SWORD_CASE.get(), DIAMOND_SWORD_CASE.get(), EMERALD_SWORD_CASE.get()
                 )));
 
-        public static final Set<RegistryObject<BlockItem>> ITEM_BLOCKS = registerBlockItems();
 
         public static RegistryObject<Block> register(String name, Supplier<? extends Block> sup) {
             return BLOCKS.register(name, sup);

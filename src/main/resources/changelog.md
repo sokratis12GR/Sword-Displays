@@ -1,3 +1,7 @@
+## 1.16.2-1.1.2
+
+* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14
+
 ## 1.16.2-1.1.1
 
 * Added exceptions to the ownership rules, like if the previous owner doesn't exist, and if the user is in the creative
