@@ -1,3 +1,7 @@
+## 1.15.2-1.5.1
+
+* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14
+
 ## 1.15.2-1.5.0
 
 * Added an "owner" functionality

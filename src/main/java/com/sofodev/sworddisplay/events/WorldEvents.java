@@ -28,7 +28,7 @@ public class WorldEvents {
         UUID playerUUID = profile.getId();
         if (!world.isRemote && te instanceof SwordDisplayTile) {
             SwordDisplayTile displayTile = (SwordDisplayTile) te;
-            boolean isTheOwner = displayTile.getOwner() == playerUUID;
+            boolean isTheOwner = playerUUID.equals(displayTile.getOwner());
             ItemStack sword = displayTile.getSword();
             if (!sword.isEmpty() && !isTheOwner && displayTile.getOwner() != null && !player.abilities.isCreativeMode) {
                 event.setCanceled(true);
