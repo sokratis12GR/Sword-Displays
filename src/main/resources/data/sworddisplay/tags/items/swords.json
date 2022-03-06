@@ -1,0 +1,45 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "tconstruct:broadsword",
+            "required": false
+        },
+        {
+            "id": "tconstruct:cleaver",
+            "required": false
+        },
+        {
+            "id": "tconstruct:rapier",
+            "required": false
+        },
+        {
+            "id": "tconstruct:longsword",
+            "required": false
+        },
+        {
+            "id": "draconicevolution:wyvern_sword",
+            "required": false
+        },
+        {
+            "id": "draconicevolution:draconic_sword",
+            "required": false
+        },
+        {
+            "id": "projecte:item.pe_dm_sword",
+            "required": false
+        },
+        {
+            "id": "projecte:item.pe_rm_sword",
+            "required": false
+        },
+        {
+            "id": "tconstruct:sword",
+            "required": false
+        },
+        {
+            "id": "tconstruct:dagger",
+            "required": false
+        }
+    ]
+}

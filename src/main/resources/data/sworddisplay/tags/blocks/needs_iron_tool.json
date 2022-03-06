@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "sworddisplay:diamond_sword_display",
+        "sworddisplay:diamond_sword_case",
+        "sworddisplay:emerald_sword_display",
+        "sworddisplay:emerald_sword_case"
+    ]
+}

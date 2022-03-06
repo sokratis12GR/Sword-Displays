@@ -1,133 +1,113 @@
 package com.sofodev.sworddisplay.blocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY_TYPE;
-import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
+import static net.minecraft.nbt.Tag.TAG_COMPOUND;
 
 public class SwordDisplayTile extends BaseTile {
 
     private ItemStack cachedSword;
     private UUID owner;
 
-    public SwordDisplayTile() {
-        super(SWORD_DISPLAY_TYPE.get());
+    public SwordDisplayTile(BlockPos pos, BlockState state) {
+        super(SWORD_DISPLAY_TYPE.get(), pos, state);
         this.cachedSword = ItemStack.EMPTY;
     }
 
     @Override
-    public void markDirty() {
-        super.markDirty();
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        if (tag.contains("displayed_item", TAG_COMPOUND)) {
+            this.cachedSword = ItemStack.of(tag.getCompound("displayed_item"));
+        }
+        if (tag.hasUUID("owner")) {
+            this.owner = tag.getUUID("owner");
+        }
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
-        super.read(state, nbt);
-        this.loadFromNBT(nbt);
-    }
-
-    @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
-        this.saveToNbt(compound);
-        return compound;
-    }
-
-    public CompoundNBT saveToNbt(CompoundNBT compound) {
-        compound.put("displayed_item", this.cachedSword.write(new CompoundNBT()));
+    public void saveAdditional(CompoundTag tag) {
+        tag.put("displayed_item", this.cachedSword.save(new CompoundTag()));
         if (this.owner != null) {
-            compound.putUniqueId("owner", this.owner);
+            tag.putUUID("owner", this.owner);
         }
-        return compound;
+        super.saveAdditional(tag);
     }
 
-    public void loadFromNBT(CompoundNBT compound) {
-        if (compound.contains("displayed_item", TAG_COMPOUND)) {
-            this.cachedSword = ItemStack.read(compound.getCompound("displayed_item"));
-        }
-        if (compound.hasUniqueId("owner")) {
-            this.owner = compound.getUniqueId("owner");
-        }
+    public CompoundTag getUpdateTag() {
+        return this.saveWithFullMetadata();
     }
 
+    //TODO: TEST EXTENSIVELY
     @Override
     @Nullable
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 12, this.getUpdateTag());
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        this.load(pkt.getTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.read(world.getBlockState(pkt.getPos()), pkt.getNbtCompound());
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public double getMaxRenderDistanceSquared() {
-        return 65536.0D;
-    }
-
-    @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-        super.handleUpdateTag(state, tag);
-    }
-
-    @Override
-    public boolean onlyOpsCanSetNbt() {
+    public boolean onlyOpCanSetNbt() {
         return false;
     }
 
     @Override
-    public boolean receiveClientEvent(int id, int type) {
-        return super.receiveClientEvent(id, type);
+    public boolean triggerEvent(int id, int type) {
+        return super.triggerEvent(id, type);
+    }
+
+    @Nullable
+    @Override
+    public Level getLevel() {
+        return super.getLevel();
     }
 
     @Override
-    public World getWorld() {
-        return this.world;
-    }
-
-    @Override
-    public BlockPos getPos() {
-        return this.pos;
+    public BlockPos getBlockPos() {
+        return super.getBlockPos();
     }
 
     public ItemStack getSword() {
         return this.cachedSword;
     }
 
+    public void setSword(ItemStack stack) {
+        this.cachedSword = stack;
+        this.sendBlockUpdate();
+    }
+
     public UUID getOwner() {
         return this.owner;
     }
 
-    public void setSword(ItemStack stack) {
-        this.cachedSword = stack;
-        this.markAndUpdate();
-    }
-
     public void setOwner(UUID owner) {
         this.owner = owner;
-        this.markAndUpdate();
+        this.sendBlockUpdate();
     }
 
-    public void markAndUpdate() {
-        this.markDirty();
-        this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+    public void sendBlockUpdate() {
+        this.setChanged();
+        this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 }

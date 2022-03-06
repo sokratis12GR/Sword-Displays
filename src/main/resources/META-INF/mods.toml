@@ -1,6 +1,6 @@
 
 modLoader="javafml"
-loaderVersion="[33,)"
+loaderVersion="[39,)"
 license="GNU Lesser General Public License v3.0"
 [[mods]]
 modId="sworddisplay"
@@ -16,12 +16,12 @@ description='''
 [[dependencies.sworddisplay]]
     modId="forge"
     mandatory=true
-    versionRange="[33,)"
+    versionRange="[39,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.sworddisplay]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,1.17)"
+    versionRange="[1.18,1.19)"
     ordering="NONE"
     side="BOTH"

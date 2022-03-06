@@ -2,11 +2,11 @@ package com.sofodev.sworddisplay.events;
 
 import com.mojang.authlib.GameProfile;
 import com.sofodev.sworddisplay.blocks.SwordDisplayTile;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,16 +21,16 @@ public class WorldEvents {
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         BlockPos pos = event.getPos();
-        World world = (World) event.getWorld();
-        TileEntity te = world.getTileEntity(pos);
-        PlayerEntity player = event.getPlayer();
+        Level world = (Level) event.getWorld();
+        BlockEntity te = world.getBlockEntity(pos);
+        Player player = event.getPlayer();
         GameProfile profile = player.getGameProfile();
         UUID playerUUID = profile.getId();
-        if (!world.isRemote && te instanceof SwordDisplayTile) {
+        if (!world.isClientSide() && te instanceof SwordDisplayTile) {
             SwordDisplayTile displayTile = (SwordDisplayTile) te;
             boolean isTheOwner = playerUUID.equals(displayTile.getOwner());
             ItemStack sword = displayTile.getSword();
-            if (!sword.isEmpty() && !isTheOwner && displayTile.getOwner() != null && !player.abilities.isCreativeMode) {
+            if (!sword.isEmpty() && !isTheOwner && displayTile.getOwner() != null && !player.getAbilities().instabuild) {
                 event.setCanceled(true);
             }
         }

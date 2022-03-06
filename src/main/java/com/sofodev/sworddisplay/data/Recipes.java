@@ -1,27 +1,29 @@
 package com.sofodev.sworddisplay.data;
 
-import net.minecraft.block.Block;
-import net.minecraft.data.*;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
 import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
-import static net.minecraft.block.Blocks.*;
-import static net.minecraft.item.Items.GOLD_INGOT;
-import static net.minecraft.item.Items.IRON_INGOT;
+import static net.minecraft.world.item.Items.*;
 
-public class Recipes extends RecipeProvider implements IDataProvider, IConditionBuilder {
+public class Recipes extends RecipeProvider implements DataProvider, IConditionBuilder {
 
     public Recipes(DataGenerator generatorIn) {
         super(generatorIn);
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         this.registerMaterialRecipes(consumer, SWORD_DISPLAY, SWORD_CASE, STONE_SLAB, STONE_STAIRS, IRON_INGOT);
         this.registerMaterialRecipes(consumer, WOODEN_SWORD_DISPLAY, WOODEN_SWORD_CASE, OAK_SLAB, OAK_STAIRS, OAK_PLANKS);
         this.registerMaterialRecipes(consumer, ACACIA_SWORD_DISPLAY, ACACIA_SWORD_CASE, ACACIA_SLAB, ACACIA_STAIRS, ACACIA_PLANKS);
@@ -36,35 +38,35 @@ public class Recipes extends RecipeProvider implements IDataProvider, ICondition
         this.registerMaterialRecipes(consumer, EMERALD_SWORD_DISPLAY, EMERALD_SWORD_CASE, Items.EMERALD, Items.EMERALD, EMERALD_BLOCK);
     }
 
-    private void registerMaterialRecipes(Consumer<IFinishedRecipe> consumer, RegistryObject<Block> sdDisplay, RegistryObject<Block> sdCase, IItemProvider top, IItemProvider side, IItemProvider core) {
+    private void registerMaterialRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> sdDisplay, RegistryObject<Block> sdCase, ItemLike top, ItemLike side, ItemLike core) {
         this.registerDisplayRecipes(consumer, sdDisplay, top, side, core);
         this.registerCaseRecipes(consumer, sdCase, top, side, core);
     }
 
-    private void registerCaseRecipes(Consumer<IFinishedRecipe> consumer, RegistryObject<Block> block, IItemProvider top, IItemProvider side, IItemProvider core) {
-        ShapedRecipeBuilder.shapedRecipe(block.get())
-                .patternLine("GGG")
-                .patternLine("GLG")
-                .patternLine("SCS")
-                .key('L', top)
-                .key('S', side)
-                .key('C', core)
-                .key('G', GLASS_PANE)
-                .setGroup("sworddisplay:case")
-                .addCriterion("has_core", hasItem(core))
-                .build(consumer);
+    private void registerCaseRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, ItemLike core) {
+        ShapedRecipeBuilder.shaped(block.get())
+                .pattern("GGG")
+                .pattern("GLG")
+                .pattern("SCS")
+                .define('L', top)
+                .define('S', side)
+                .define('C', core)
+                .define('G', GLASS_PANE)
+                .group("sworddisplay:case")
+                .unlockedBy("has_core", has(core))
+                .save(consumer);
     }
 
-    private void registerDisplayRecipes(Consumer<IFinishedRecipe> consumer, RegistryObject<Block> block, IItemProvider top, IItemProvider side, IItemProvider core) {
-        ShapedRecipeBuilder.shapedRecipe(block.get())
-                .patternLine(" L ")
-                .patternLine("SCS")
-                .key('L', top)
-                .key('S', side)
-                .key('C', core)
-                .addCriterion("has_core", hasItem(core))
-                .setGroup("sworddisplay:display")
-                .build(consumer);
+    private void registerDisplayRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, ItemLike core) {
+        ShapedRecipeBuilder.shaped(block.get())
+                .pattern(" L ")
+                .pattern("SCS")
+                .define('L', top)
+                .define('S', side)
+                .define('C', core)
+                .group("sworddisplay:display")
+                .unlockedBy("has_core", has(core))
+                .save(consumer);
     }
 
     @Override

@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        "sworddisplay:wooden_sword_display",
+        "sworddisplay:wooden_sword_case",
+        "sworddisplay:acacia_sword_display",
+        "sworddisplay:acacia_sword_case",
+        "sworddisplay:dark_oak_sword_display",
+        "sworddisplay:dark_oak_sword_case",
+        "sworddisplay:birch_sword_display",
+        "sworddisplay:birch_sword_case",
+        "sworddisplay:spruce_sword_display",
+        "sworddisplay:spruce_sword_case",
+        "sworddisplay:jungle_sword_display",
+        "sworddisplay:jungle_sword_case"
+    ]
+}
