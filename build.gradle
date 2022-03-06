@@ -1,14 +1,12 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url  = 'https://plugins.gradle.org/m2/' }
-        jcenter()
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url "https://plugins.gradle.org/m2/" } // Required for CurseGradle
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath "com.wynprice.cursemaven:CurseMaven:2.1.5"
-        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0" //CurseForge Gradle Plugin
     }
 }
 repositories {
@@ -26,16 +24,19 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: "com.wynprice.cursemaven"
 
 version = mc_version + '-' + version_major + '.' + version_minor + '.' + version_patch
 group = package_group
 archivesBaseName = mod_id
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200820-1.16.1'
+    mappings channel: 'official', version: '1.18.1'
+
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -51,7 +52,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                sworddisplay {
                     source sourceSets.main
                 }
             }
@@ -67,7 +68,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                sworddisplay {
                     source sourceSets.main
                 }
             }
@@ -85,7 +86,7 @@ minecraft {
             args '--mod', 'sworddisplay', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                examplemod {
+                sworddisplay {
                     source sourceSets.main
                 }
             }
@@ -94,7 +95,11 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.2-33.0.36'
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.85'
+//    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    implementation fg.deobf("curse.maven:jei-238222:3599262") //JEI 1.18.1-9.2.1.69
+    implementation fg.deobf("curse.maven:tinkers-construct-74072:3648309") //Tinkers' Construct 3.4.1.46 for 1.18.1
+    implementation fg.deobf("curse.maven:mantle-74924:3634761") //Mantle 1.8.31 for 1.18.1
     //compile fg.deobf("curse.maven:AzureDoom:2996107")
 }
 
@@ -136,8 +141,7 @@ curseforge {
         changelog = file('src/main/resources/changelog.md')
         changelogType = 'markdown'
         releaseType = 'release'
-        addGameVersion '1.16.2'
-        addGameVersion '1.16.3'
-        addGameVersion '1.16.4'
+        addGameVersion '1.18.1'
+        addGameVersion '1.18.2'
     }
 }
