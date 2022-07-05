@@ -75,8 +75,8 @@
     },
     "1.18.2": {
         "1.18.1-1.1.0": "* Removed the manual \"Special Items\" section\n* Added a new TAG GROUP called \"swords\", can be found/replaced/asserted from `sworddisplay:swords` |\n`data/sworddisplay/tags/items/swords.json` which can be used to add custom items into the list of \"swords\" that can be \ndisplayed, bypassing the whole \"is a sword\" requirement. **ENSURE IT FOLLOWS THE FORMAT/SCHEME**\n* Should also support 1.18.2 natively",
-		"1.18.2-1.0.0": "* Ported to 1.18.2 fully, fixed tag issues & crashes.\n"
-	},
+        "1.18.2-1.0.0": "* Ported to 1.18.2 fully, fixed tag issues & crashes.\n"
+    },
     "1.19": {
         "1.19-1.0.0": "* Ported to 1.19.\n"
     }
