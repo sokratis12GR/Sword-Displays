@@ -1,36 +1,83 @@
 {
-  "homepage": "https://www.curseforge.com/minecraft/mc-mods/sword-displays/files",
-  "promos": {
-    "1.14.4-latest": "1.14.4-1.0.1",
-    "1.14.4-recommended": "1.14.4-1.0.1",
-    "1.15.2-latest": "1.15.2-1.4.1",
-    "1.15.2-recommended": "1.15.2-1.4.1",
-    "1.16.1-latest": "1.16.1-1.0.1",
-    "1.16.1-recommended": "1.16.1-1.0.1",
-    "1.16.2-latest": "1.16.2-1.0.1",
-    "1.16.2-recommended": "1.16.2-1.0.1"
-  },
-  "1.14.4": {
-    "1.14.4-1.0.0": "Initial 1.14.4 Release",
-    "1.14.4-1.0.1": "* Added Tawainese translation"
-  },
-  "1.15.2": {
-    "1.15.2-1.0.0": "Initial Release",
-    "1.15.2-1.0.1": "Fixed a broken pack.mcmeta",
-    "1.15.2-1.1.0": "* Added comparator input depending on the weapon's damaged state:\n  * If the Sword Display is empty, it will emit 0 strength.\n  * If the Sword Display contains an undamaged sword, it will always emit 15 strength.\n  * If the Sword Display contains a damaged sword it will follow the following formula:\n    ```java\n        int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());\n        x = x > 15 ? 14 : x == 15 ? 13 : x;\n        return 15 / x;\n    ```\n    What this means:\n      * If the damage for the weapon is far too great, or if it is nearly broken the power output would be 1.\n      * If the damage the weapon suffered is minimal or none at all, the power output would be 15 or 14.\n      * Anything else will be calculated depending on how damaged the item is. \n* Added minimum required forge version to **1.15.2-31.2.22**\n* It should work on servers now.",
-    "1.15.2-1.1.1": "Added an updateJSON for easier updates.",
-    "1.15.2-1.2.0": "* Added a wooden and a prismarine variant.\n* Added sword cases, they are displays with a glass case around them.",
-    "1.15.2-1.2.1": "* The prismarine recipes should now give you the prismarine versions of the display and the case.",
-    "1.15.2-1.3.0": "* Added the rest of the wood variants: Acacia, Birch, Dark Oak, Jungle, Spruce\n* The blocks should give the corresponding item variant when broken.\n* The Sword Case recipe should now give you the corresponding recipe output.\n* Updated the logo\n* Changed the recipes, automated the recipe creation process & advancements.",
-    "1.15.2-1.4.0": "* Added Iron, Golden, Diamond and Emerald displays\n* Added Right-Click functionality to reverse the direction that the sword is being rendered inside",
-    "1.15.2-1.4.1": "* Added Tawainese translation"
-  },  
-  "1.16.1": {
-    "1.16.1-1.0.0": "Initial 1.16.1 Release",
-    "1.16.1-1.0.1": "* Added Tawainese translation"
-  }, 
-  "1.16.2": {
-    "1.16.2-1.0.0": "Initial 1.16.2 Release",
-    "1.16.2-1.0.1": "* Added Taiwanese translation"
-  }
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/sword-displays/files",
+    "promos": {
+        "1.14.4-latest": "1.14.4-1.1.1",
+        "1.14.4-recommended": "1.14.4-1.1.1",
+        "1.15.2-latest": "1.15.2-1.5.1",
+        "1.15.2-recommended": "1.15.2-1.5.1",
+        "1.16.1-latest": "1.16.1-1.0.1",
+        "1.16.1-recommended": "1.16.1-1.0.1",
+        "1.16.2-latest": "1.16.2-1.1.2",
+        "1.16.2-recommended": "1.16.2-1.1.2",
+        "1.16.3-latest": "1.16.2-1.1.2",
+        "1.16.3-recommended": "1.16.2-1.1.2",
+        "1.16.4-latest": "1.16.2-1.1.2",
+        "1.16.4-recommended": "1.16.2-1.1.2",
+        "1.16.5-latest": "1.16.5-1.2.0",
+        "1.16.5-recommended": "1.16.5-1.2.0",
+        "1.18.1-latest": "1.18.1-1.1.0",
+        "1.18.1-recommended": "1.18.1-1.1.0",
+        "1.18.2-latest": "1.18.2-1.0.0",
+        "1.18.2-recommended": "1.18.2-1.0.0",
+        "1.19-latest": "1.19-1.0.0",
+        "1.19-recommended": "1.19-1.0.0"
+    },
+    "1.14.4": {
+        "1.14.4-1.0.0": "Initial 1.14.4 Release",
+        "1.14.4-1.0.1": "* Added Tawainese translation",
+        "1.14.4-1.1.0": "* Added an \"owner\" functionality\n  * With this being added from now on, only the user who set the sword inside the block will be able to withdraw/break\n    the block/change its modes.\n  * There only exceptions are if the owner tag is null, or the player is in creative mode.",
+        "1.14.4-1.1.1": "* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14\n"
+    },
+    "1.15.2": {
+        "1.15.2-1.0.0": "Initial Release",
+        "1.15.2-1.0.1": "Fixed a broken pack.mcmeta",
+        "1.15.2-1.1.0": "* Added comparator input depending on the weapon's damaged state:\n  * If the Sword Display is empty, it will emit 0 strength.\n  * If the Sword Display contains an undamaged sword, it will always emit 15 strength.\n  * If the Sword Display contains a damaged sword it will follow the following formula:\n    ```java\n        int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());\n        x = x > 15 ? 14 : x == 15 ? 13 : x;\n        return 15 / x;\n    ```\n    What this means:\n      * If the damage for the weapon is far too great, or if it is nearly broken the power output would be 1.\n      * If the damage the weapon suffered is minimal or none at all, the power output would be 15 or 14.\n      * Anything else will be calculated depending on how damaged the item is. \n* Added minimum required forge version to **1.15.2-31.2.22**\n* It should work on servers now.",
+        "1.15.2-1.1.1": "Added an updateJSON for easier updates.",
+        "1.15.2-1.2.0": "* Added a wooden and a prismarine variant.\n* Added sword cases, they are displays with a glass case around them.",
+        "1.15.2-1.2.1": "* The prismarine recipes should now give you the prismarine versions of the display and the case.",
+        "1.15.2-1.3.0": "* Added the rest of the wood variants: Acacia, Birch, Dark Oak, Jungle, Spruce\n* The blocks should give the corresponding item variant when broken.\n* The Sword Case recipe should now give you the corresponding recipe output.\n* Updated the logo\n* Changed the recipes, automated the recipe creation process & advancements.",
+        "1.15.2-1.4.0": "* Added Iron, Golden, Diamond and Emerald displays\n* Added Right-Click functionality to reverse the direction that the sword is being rendered inside",
+        "1.15.2-1.4.1": "* Added Tawainese translation",
+        "1.15.2-1.5.0": "* Added an \"owner\" functionality\n  * With this being added from now on, only the user who set the sword inside the block will be able to withdraw/break\n    the block/change its modes.\n  * There only exceptions are if the owner tag is null, or the player is in creative mode.",
+        "1.15.2-1.5.1": "* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14\n"
+    },
+    "1.16.1": {
+        "1.16.1-1.0.0": "Initial 1.16.1 Release",
+        "1.16.1-1.0.1": "* Added Tawainese translation"
+    },
+    "1.16.2": {
+        "1.16.2-1.0.0": "Initial 1.16.2 Release",
+        "1.16.2-1.0.1": "* Added Taiwanese translation",
+        "1.16.2-1.0.2": "* Made it, so the 1.16.2 version also works for 1.16.3",
+        "1.16.2-1.0.3": "* Added bulgarian translation\n* Now it should actually work with 1.16.3",
+        "1.16.2-1.1.0": "* Added support for 1.16.4\n* Added an \"owner\" functionality\n    * With this being added from now on, only the user who set the sword inside the block will be able to withdraw/break\n      the block/change its modes.",
+        "1.16.2-1.1.1": "* Added exceptions to the ownership rules, like if the previous owner doesn't exist, and if the user is in the creative\n  mode.",
+        "1.16.2-1.1.2": "* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14\n"
+    },
+    "1.16.3": {
+        "1.16.2-1.0.2": "* Made it, so the 1.16.2 version also works for 1.16.3",
+        "1.16.2-1.0.3": "* Added bulgarian translation\n* Now it should actually work with 1.16.3",
+        "1.16.2-1.1.0": "* Added support for 1.16.4\n* Added an \"owner\" functionality\n    * With this being added from now on, only the user who set the sword inside the block will be able to withdraw/break\n      the block/change its modes.",
+        "1.16.2-1.1.1": "* Added exceptions to the ownership rules, like if the previous owner doesn't exist, and if the user is in the creative\n  mode.",
+        "1.16.2-1.1.2": "* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14\n"
+    },
+    "1.16.4": {
+        "1.16.2-1.1.0": "* Added support for 1.16.4\n* Added an \"owner\" functionality\n    * With this being added from now on, only the user who set the sword inside the block will be able to withdraw/break\n      the block/change its modes.",
+        "1.16.2-1.1.1": "* Added exceptions to the ownership rules, like if the previous owner doesn't exist, and if the user is in the creative\n  mode.",
+        "1.16.2-1.1.2": "* Ownership should no longer break upon world reload. #IMPORTANT #Fixes #14\n"
+    },
+    "1.16.5": {
+        "1.16.5-1.2.0": "Ported to 1.16.5"
+    },
+    "1.18.1": {
+        "1.18.1-1.0.0": "Ported to 1.18.1",
+        "1.18.1-1.1.0": "* Removed the manual \"Special Items\" section\n* Added a new TAG GROUP called \"swords\", can be found/replaced/asserted from `sworddisplay:swords` |\n`data/sworddisplay/tags/items/swords.json` which can be used to add custom items into the list of \"swords\" that can be \ndisplayed, bypassing the whole \"is a sword\" requirement. **ENSURE IT FOLLOWS THE FORMAT/SCHEME**\n* Should also support 1.18.2 natively"
+    },
+    "1.18.2": {
+        "1.18.1-1.1.0": "* Removed the manual \"Special Items\" section\n* Added a new TAG GROUP called \"swords\", can be found/replaced/asserted from `sworddisplay:swords` |\n`data/sworddisplay/tags/items/swords.json` which can be used to add custom items into the list of \"swords\" that can be \ndisplayed, bypassing the whole \"is a sword\" requirement. **ENSURE IT FOLLOWS THE FORMAT/SCHEME**\n* Should also support 1.18.2 natively",
+		"1.18.2-1.0.0": "* Ported to 1.18.2 fully, fixed tag issues & crashes.\n"
+	},
+    "1.19": {
+        "1.19-1.0.0": "* Ported to 1.19.\n"
+    }
 }
