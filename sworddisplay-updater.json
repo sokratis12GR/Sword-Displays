@@ -19,8 +19,8 @@
         "1.18.1-recommended": "1.18.1-1.1.0",
         "1.18.2-latest": "1.18.2-1.0.0",
         "1.18.2-recommended": "1.18.2-1.0.0",
-        "1.19-latest": "1.19-1.0.0",
-        "1.19-recommended": "1.19-1.0.0"
+        "1.19-latest": "1.19-1.1.0",
+        "1.19-recommended": "1.19-1.1.0"
     },
     "1.14.4": {
         "1.14.4-1.0.0": "Initial 1.14.4 Release",
@@ -78,6 +78,7 @@
         "1.18.2-1.0.0": "* Ported to 1.18.2 fully, fixed tag issues & crashes.\n"
     },
     "1.19": {
-        "1.19-1.0.0": "* Ported to 1.19.\n"
+        "1.19-1.0.0": "* Ported to 1.19.\n",
+        "1.19-1.1.0": "* Updated to support forge version 41.0.64\n* **REQUIRES** Forge 41.0.64+ to work."
     }
 }
