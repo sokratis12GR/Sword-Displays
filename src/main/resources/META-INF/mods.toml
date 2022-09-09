@@ -1,11 +1,12 @@
-
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[41,)"
+license="GNU Lesser General Public License v3.0"
+issueTrackerURL="https://github.com/sokratis12GR/Sword-Displays/issues" #optional
 [[mods]]
 modId="sworddisplay"
 version="${file.jarVersion}"
 displayName="Sword Displays"
-updateJSONURL="https://raw.githubusercontent.com/sokratis12GR/Sword-Displays/master/sworddisplay-updater.json"
+updateJSONURL="https://raw.githubusercontent.com/sokratis12GR/Sword-Displays/1.19/sworddisplay-updater.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/sword-displays"
 logoFile="logo.png"
 authors="SoFoDev"
@@ -15,12 +16,12 @@ description='''
 [[dependencies.sworddisplay]]
     modId="forge"
     mandatory=true
-    versionRange="[31.2.22,)"
+    versionRange="[41.0.64,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.sworddisplay]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
