@@ -1,83 +1,71 @@
 package com.sofodev.sworddisplay.blocks;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Quaternion;
-import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.sofodev.sworddisplay.blocks.SwordDisplayBlock.IS_REVERSE;
-import static net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType.FIXED;
+import static net.minecraft.client.renderer.block.model.ItemTransforms.TransformType.FIXED;
 
 @OnlyIn(Dist.CLIENT)
-public class TESRSwordDisplay extends TileEntityRenderer<SwordDisplayTile> {
+public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
 
-    public TESRSwordDisplay(TileEntityRendererDispatcher dispatcher) {
-        super(dispatcher);
+    public TESRSwordDisplay(BlockEntityRendererProvider.Context dispatcher) {
     }
 
-    private void renderItem(TileEntity te, ItemStack stack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+    public void renderItem(SwordDisplayTile tile, ItemStack stack, float partialTicks, PoseStack matrix, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
-        matrixStack.push();
+        matrix.pushPose();
 
-        matrixStack.translate(0.5D, 0.6D, 0.5D);
-        matrixStack.scale(1F, 1F, 1F);
-        if (te.getBlockState().get(IS_REVERSE)) {
-            matrixStack.translate(0, 0.03D, 0);
-            matrixStack.scale(0.94F, 0.94F, 0.94F);
-            switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
-                case WEST:
-                case EAST:
-                    this.rotateItem(matrixStack, 0, 90f, -45f); // default values
-                    break;
-                case NORTH:
-                case SOUTH:
-                    this.rotateItem(matrixStack, 0, 180f, -45f);
-                    break;
+        matrix.translate(0.5D, 0.6D, 0.5D);
+        matrix.scale(1F, 1F, 1F);
+        if (tile.getBlockState().getValue(IS_REVERSE)) {
+            matrix.translate(0, 0.03D, 0);
+            matrix.scale(0.94F, 0.94F, 0.94F);
+            switch (tile.getBlockState().getValue(SwordDisplayBlock.FACING)) {
+                case WEST, EAST -> this.rotateItem(matrix, 0, 90f, -45f); // default values
+                case NORTH, SOUTH -> this.rotateItem(matrix, 0, 180f, -45f);
             }
         } else {
-            switch (te.getBlockState().get(SwordDisplayBlock.FACING)) {
-                case WEST:
-                case EAST:
-                    this.rotateItem(matrixStack, 180f, 90f, -45f); // default values
-                    break;
-                case NORTH:
-                case SOUTH:
-                    this.rotateItem(matrixStack, 180f, 180f, -45f);
-                    break;
+            switch (tile.getBlockState().getValue(SwordDisplayBlock.FACING)) {
+                case WEST, EAST -> this.rotateItem(matrix, 180f, 90f, -45f); // default values
+                case NORTH, SOUTH -> this.rotateItem(matrix, 180f, 180f, -45f);
             }
         }
-        renderer.renderItem(stack, FIXED, combinedLight, combinedOverlay, matrixStack, buffer);
+        renderer.renderStatic(stack, FIXED, combinedLight, combinedOverlay, matrix, buffer, 1);
 
-        matrixStack.pop();
+        matrix.popPose();
     }
 
-    private void rotateItem(MatrixStack matrixStack, float a, float b, float c) {
-        matrixStack.rotate(Vector3f.XP.rotationDegrees(a));
-        matrixStack.rotate(Vector3f.YP.rotationDegrees(b));
-        matrixStack.rotate(Vector3f.ZP.rotationDegrees(c));
+    private void rotateItem(PoseStack matrix, float a, float b, float c) {
+        matrix.mulPose(Vector3f.XP.rotationDegrees(a));
+        matrix.mulPose(Vector3f.YP.rotationDegrees(b));
+        matrix.mulPose(Vector3f.ZP.rotationDegrees(c));
     }
 
     @Override
-    public void render(SwordDisplayTile te, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-        ItemStack sword = te.getSword();
+    public void render(SwordDisplayTile tile, float partialTicks, PoseStack matrix, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+        ItemStack sword = tile.getSword();
         if (!sword.isEmpty()) {
-            this.renderItem(te, sword, matrixStack, buffer, combinedLight, combinedOverlay);
+            this.renderItem(tile, sword, partialTicks, matrix, buffer, combinedLight, combinedOverlay);
         }
     }
 
     @Override
-    public boolean isGlobalRenderer(SwordDisplayTile te) {
+    public boolean shouldRenderOffScreen(SwordDisplayTile p_112306_) {
         return true;
     }
+
+    @Override
+    public int getViewDistance() {
+        return 256;
+    }
+
 }

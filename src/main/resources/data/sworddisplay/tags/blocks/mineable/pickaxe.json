@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        "sworddisplay:sword_display",
+        "sworddisplay:sword_case",
+        "sworddisplay:prismarine_sword_display",
+        "sworddisplay:prismarine_sword_case",
+        "sworddisplay:iron_sword_display",
+        "sworddisplay:iron_sword_case",
+        "sworddisplay:golden_sword_display",
+        "sworddisplay:golden_sword_case",
+        "sworddisplay:diamond_sword_display",
+        "sworddisplay:diamond_sword_case",
+        "sworddisplay:emerald_sword_display",
+        "sworddisplay:emerald_sword_case"
+    ]
+}
