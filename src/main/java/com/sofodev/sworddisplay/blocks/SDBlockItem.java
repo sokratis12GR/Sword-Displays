@@ -11,6 +11,6 @@ public class SDBlockItem extends BlockItem {
     }
 
     public SDBlockItem(Block blockIn) {
-        super(blockIn, new Properties().tab(SwordDisplay.SD_GROUP));
+        super(blockIn, new Properties());
     }
 }

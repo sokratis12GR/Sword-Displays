@@ -2,7 +2,7 @@
   "parent": "sworddisplay:block/base/sword_display_base",
   "textures": {
     "0": "block/iron_block",
-    "1": "sworddisplay:blocks/iron_middle",
-    "particle": "sworddisplay:blocks/iron_middle"
+    "1": "sworddisplay:block/iron_middle",
+    "particle": "sworddisplay:block/iron_middle"
   }
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "zh_tw.lang File",
-  "itemGroup.sworddisplay": "Sword Displays",
+  "tabs.sworddisplay.core": "Sword Displays",
   "block.sworddisplay.sword_display": "石劍架",
   "block.sworddisplay.sword_case": "石劍罩",
   "block.sworddisplay.wooden_sword_display": "橡木劍架",

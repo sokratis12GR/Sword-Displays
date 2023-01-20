@@ -1,6 +1,6 @@
 {
   "_comment": "en_us.lang File",
-  "itemGroup.sworddisplay": "Sword Displays",
+  "tabs.sworddisplay.core": "Sword Displays",
   "block.sworddisplay.sword_display": "Sword Display",
   "block.sworddisplay.sword_case": "Sword Case",
   "block.sworddisplay.wooden_sword_display": "Wooden Sword Display",

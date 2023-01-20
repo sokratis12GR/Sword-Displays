@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "sworddisplay:blocks/stone_bot",
-		"3": "sworddisplay:blocks/stone_top",
-		"particle": "sworddisplay:blocks/stone_bot"
+		"0": "sworddisplay:block/stone_bot",
+		"3": "sworddisplay:block/stone_top",
+		"particle": "sworddisplay:block/stone_bot"
 	},
 	"elements": [
 		{

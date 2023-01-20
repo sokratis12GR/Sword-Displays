@@ -4,6 +4,8 @@ import com.sofodev.sworddisplay.blocks.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -11,6 +13,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -38,13 +42,6 @@ public class SwordDisplay {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
-
-    public static final CreativeModeTab SD_GROUP = new CreativeModeTab(CreativeModeTab.getGroupCountSafe(), MODID) {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(SWORD_DISPLAY.get());
-        }
-    };
 
     public SwordDisplay() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -94,6 +91,7 @@ public class SwordDisplay {
         public static final RegistryObject<Block> GOLDEN_SWORD_CASE = registerBlockWithItem("golden_sword_case", () -> new SwordCaseBlock(copy(STONE)));
         public static final RegistryObject<Block> DIAMOND_SWORD_CASE = registerBlockWithItem("diamond_sword_case", () -> new SwordCaseBlock(copy(DIAMOND_BLOCK)));
         public static final RegistryObject<Block> EMERALD_SWORD_CASE = registerBlockWithItem("emerald_sword_case", () -> new SwordCaseBlock(copy(DIAMOND_BLOCK)));
+
         //endregion
         public static <BLOCK extends Block> RegistryObject<BLOCK> registerBlockWithItem(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items, Supplier<BLOCK> blockSupplier, Function<BLOCK, Item> itemFactory) {
             RegistryObject<BLOCK> block = blocks.register(name, blockSupplier);
@@ -113,6 +111,43 @@ public class SwordDisplay {
 
         private static <T extends BlockEntity> BlockEntityType<T> build(BlockEntityType.Builder<T> builder) {
             return builder.build(null);
+        }
+
+        public static CreativeModeTab SD_GROUP;
+
+        @SubscribeEvent
+        public static void registerTabs(CreativeModeTabEvent.Register event) {
+            SD_GROUP = event.registerCreativeModeTab(new ResourceLocation(MODID, "core"), builder -> builder.icon(() -> new ItemStack(SWORD_DISPLAY.get()))
+                    .title(Component.translatable("tabs.sworddisplay.core"))
+                    .withBackgroundLocation(new ResourceLocation(MODID, "textures/gui/container/creative_inventory/tab_sword_displays.png"))
+                    .withLabelColor(0xFFFFFF)
+                    .withSearchBar(40)
+                    .displayItems((featureFlags, output, hasOp) -> {
+                        output.accept(SWORD_DISPLAY.get());
+                        output.accept(SWORD_CASE.get());
+                        output.accept(WOODEN_SWORD_DISPLAY.get());
+                        output.accept(WOODEN_SWORD_CASE.get());
+                        output.accept(DARK_OAK_SWORD_DISPLAY.get());
+                        output.accept(DARK_OAK_SWORD_CASE.get());
+                        output.accept(BIRCH_SWORD_DISPLAY.get());
+                        output.accept(BIRCH_SWORD_CASE.get());
+                        output.accept(ACACIA_SWORD_DISPLAY.get());
+                        output.accept(ACACIA_SWORD_CASE.get());
+                        output.accept(JUNGLE_SWORD_DISPLAY.get());
+                        output.accept(JUNGLE_SWORD_CASE.get());
+                        output.accept(SPRUCE_SWORD_DISPLAY.get());
+                        output.accept(SPRUCE_SWORD_CASE.get());
+                        output.accept(PRISMARINE_SWORD_DISPLAY.get());
+                        output.accept(PRISMARINE_SWORD_CASE.get());
+                        output.accept(IRON_SWORD_DISPLAY.get());
+                        output.accept(IRON_SWORD_CASE.get());
+                        output.accept(GOLDEN_SWORD_DISPLAY.get());
+                        output.accept(GOLDEN_SWORD_CASE.get());
+                        output.accept(DIAMOND_SWORD_DISPLAY.get());
+                        output.accept(DIAMOND_SWORD_CASE.get());
+                        output.accept(EMERALD_SWORD_DISPLAY.get());
+                        output.accept(EMERALD_SWORD_CASE.get());
+                    }));
         }
 
     }

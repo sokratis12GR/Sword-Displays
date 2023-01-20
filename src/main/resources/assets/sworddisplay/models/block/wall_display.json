@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "sworddisplay:blocks/sword_display",
-		"particle": "sworddisplay:blocks/sword_display"
+		"0": "sworddisplay:block/sword_display",
+		"particle": "sworddisplay:block/sword_display"
 	},
 	"elements": [
 		{

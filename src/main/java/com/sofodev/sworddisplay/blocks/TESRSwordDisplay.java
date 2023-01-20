@@ -1,7 +1,7 @@
 package com.sofodev.sworddisplay.blocks;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -45,9 +45,9 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
     }
 
     private void rotateItem(PoseStack matrix, float a, float b, float c) {
-        matrix.mulPose(Vector3f.XP.rotationDegrees(a));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(b));
-        matrix.mulPose(Vector3f.ZP.rotationDegrees(c));
+        matrix.mulPose(Axis.XP.rotationDegrees(a));
+        matrix.mulPose(Axis.YP.rotationDegrees(b));
+        matrix.mulPose(Axis.ZP.rotationDegrees(c));
     }
 
     @Override

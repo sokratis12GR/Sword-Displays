@@ -3,6 +3,7 @@ package com.sofodev.sworddisplay.data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
@@ -19,11 +20,11 @@ import static net.minecraft.world.item.Items.*;
 public class Recipes extends RecipeProvider implements DataProvider, IConditionBuilder {
 
     public Recipes(DataGenerator generatorIn) {
-        super(generatorIn);
+        super(generatorIn.getPackOutput());
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         this.registerMaterialRecipes(consumer, SWORD_DISPLAY, SWORD_CASE, STONE_SLAB, STONE_STAIRS, IRON_INGOT);
         this.registerMaterialRecipes(consumer, WOODEN_SWORD_DISPLAY, WOODEN_SWORD_CASE, OAK_SLAB, OAK_STAIRS, OAK_PLANKS);
         this.registerMaterialRecipes(consumer, ACACIA_SWORD_DISPLAY, ACACIA_SWORD_CASE, ACACIA_SLAB, ACACIA_STAIRS, ACACIA_PLANKS);
@@ -44,7 +45,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
     }
 
     private void registerCaseRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, ItemLike core) {
-        ShapedRecipeBuilder.shaped(block.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern("GGG")
                 .pattern("GLG")
                 .pattern("SCS")
@@ -58,7 +59,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
     }
 
     private void registerDisplayRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, ItemLike core) {
-        ShapedRecipeBuilder.shaped(block.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS,block.get())
                 .pattern(" L ")
                 .pattern("SCS")
                 .define('L', top)
@@ -67,10 +68,5 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
                 .group("sworddisplay:display")
                 .unlockedBy("has_core", has(core))
                 .save(consumer);
-    }
-
-    @Override
-    public String getName() {
-        return "Recipes";
     }
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "bg_bg.lang File",
-  "itemGroup.sworddisplay": "Мечови Дисплей",
+  "tabs.sworddisplay.core": "Мечови Дисплей",
   "block.sworddisplay.sword_display": "Мечови Дисплей",
   "block.sworddisplay.sword_case": "Мечова Витрина",
   "block.sworddisplay.wooden_sword_display": "Дървен Дисплей",

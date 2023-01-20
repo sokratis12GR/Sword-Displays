@@ -16,12 +16,12 @@ description='''
 [[dependencies.sworddisplay]]
     modId="forge"
     mandatory=true
-    versionRange="[41.0.64,)"
+    versionRange="[41.1.5,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.sworddisplay]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19,1.20)"
+    versionRange="[1.19.3,1.20)"
     ordering="NONE"
     side="BOTH"

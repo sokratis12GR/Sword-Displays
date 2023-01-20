@@ -1,9 +1,9 @@
 {
   "parent": "sworddisplay:block/base/sword_case_base",
   "textures": {
-    "0": "sworddisplay:blocks/acacia_bot",
-    "1": "sworddisplay:blocks/acacia_top",
-    "2": "sworddisplay:blocks/glass",
-    "particle": "sworddisplay:blocks/acacia_top"
+    "0": "sworddisplay:block/acacia_bot",
+    "1": "sworddisplay:block/acacia_top",
+    "2": "sworddisplay:block/glass",
+    "particle": "sworddisplay:block/acacia_top"
   }
 }

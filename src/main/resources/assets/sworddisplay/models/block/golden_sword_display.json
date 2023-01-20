@@ -2,7 +2,7 @@
   "parent": "sworddisplay:block/base/sword_display_base",
   "textures": {
     "0": "block/gold_block",
-    "1": "sworddisplay:blocks/golden_middle",
-    "particle": "sworddisplay:blocks/golden_middle"
+    "1": "sworddisplay:block/golden_middle",
+    "particle": "sworddisplay:block/golden_middle"
   }
 }
