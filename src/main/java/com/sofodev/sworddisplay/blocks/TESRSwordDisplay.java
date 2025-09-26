@@ -7,12 +7,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.sofodev.sworddisplay.blocks.SwordDisplayBlock.IS_REVERSE;
-import static net.minecraft.client.renderer.block.model.ItemTransforms.TransformType.FIXED;
 
 @OnlyIn(Dist.CLIENT)
 public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
@@ -39,7 +39,7 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
                 case NORTH, SOUTH -> this.rotateItem(matrix, 180f, 180f, -45f);
             }
         }
-        renderer.renderStatic(stack, FIXED, combinedLight, combinedOverlay, matrix, buffer, 1);
+        renderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLight, combinedOverlay, matrix, buffer, tile.getLevel(), 1);
 
         matrix.popPose();
     }

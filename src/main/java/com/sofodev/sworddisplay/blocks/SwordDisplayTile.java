@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.SWORD_DISPLAY_TYPE;
+import static com.sofodev.sworddisplay.registry.ModBlocks.SWORD_DISPLAY_TYPE;
 import static net.minecraft.nbt.Tag.TAG_COMPOUND;
 
 public class SwordDisplayTile extends BaseTile {

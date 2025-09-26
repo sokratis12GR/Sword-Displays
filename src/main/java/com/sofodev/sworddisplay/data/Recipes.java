@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
-import static com.sofodev.sworddisplay.SwordDisplay.RegistryEvents.*;
+import static com.sofodev.sworddisplay.registry.ModBlocks.*;
 import static net.minecraft.world.item.Items.*;
 
 public class Recipes extends RecipeProvider implements DataProvider, IConditionBuilder {
@@ -59,7 +59,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
     }
 
     private void registerDisplayRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, ItemLike core) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS,block.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern(" L ")
                 .pattern("SCS")
                 .define('L', top)

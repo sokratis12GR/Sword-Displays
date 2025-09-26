@@ -35,7 +35,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
 import java.util.UUID;
 
 import static net.minecraft.world.InteractionHand.MAIN_HAND;
@@ -47,7 +46,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
     public static final BooleanProperty IS_REVERSE = BooleanProperty.create("is_reverse");
     protected static final VoxelShape VOXEL = Shapes.join(box(0, 0, 0, 16, 2, 16), box(2, 2, 2, 14, 5, 14), OR);
 
-    public static final TagKey<Item> SWORDS = ItemTags.create(new ResourceLocation("sworddisplay:swords"));
+    public static final TagKey<Item> SWORDS = ItemTags.create(ResourceLocation.parse("sworddisplay:swords"));
 
     public SwordDisplayBlock(Properties properties) {
         super(properties.strength(10.0f, 1000.0f).noOcclusion());
@@ -57,7 +56,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
     }
 
     public static Item getItem(String name) {
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(name));
+        return ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(name));
     }
 
     @SuppressWarnings("deprecation")
@@ -120,21 +119,6 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    public boolean anyMatch(ItemStack stack, List<Item> items) {
-        return items.stream().anyMatch(item -> stack.getItem() == item);
-    }
-
-    //    @Override
-    //    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-    //        ItemStack itemstack = super.getCloneItemStack(state, target, world, pos, player);
-    //        SwordDisplayTile tileTrophy = (SwordDisplayTile) world.getBlockEntity(pos);
-    //        CompoundTag nbttagcompound = tileTrophy.saveAdditional(new CompoundTag());
-    //        tile.setChanged();
-    //        if (!nbttagcompound.isEmpty()) {
-    //            itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
-    //        }
-    //        return itemstack;
-    //    }
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         return super.getCloneItemStack(state, target, world, pos, player);

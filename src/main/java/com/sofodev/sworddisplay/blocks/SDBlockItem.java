@@ -1,6 +1,5 @@
 package com.sofodev.sworddisplay.blocks;
 
-import com.sofodev.sworddisplay.SwordDisplay;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 
