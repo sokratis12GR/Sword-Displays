@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base",
+  "textures": {
+    "0": "block/gold_block",
+    "1": "sworddisplay:block/gold_middle",
+    "particle": "sworddisplay:block/gol_middle"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "parent": "sworddisplay:block/base/sword_display_base",
   "textures": {
-    "0": "block/iron_block",
-    "1": "sworddisplay:block/iron_middle",
-    "particle": "sworddisplay:block/iron_middle"
+    "0": "minecraft:block/iron_block",
+    "1": "minecraft:block/iron_block",
+    "particle": "minecraft:block/iron_block"
   }
 }

@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "sworddisplay:display",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "L": {
+      "item": "minecraft:acacia_planks"
+    },
+    "S": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
   "pattern": [
     " L ",
     "SCS"
   ],
-  "key": {
-    "L": {
-      "item": "minecraft:acacia_slab"
-    },
-    "S": {
-      "item": "minecraft:acacia_stairs"
-    },
-    "C": {
-      "item": "minecraft:acacia_planks"
-    }
-  },
   "result": {
     "item": "sworddisplay:acacia_sword_display"
-  }
+  },
+  "show_notification": true
 }

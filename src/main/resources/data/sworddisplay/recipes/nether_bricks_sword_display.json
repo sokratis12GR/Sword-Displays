@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "L": {
+      "item": "minecraft:nether_brick"
+    },
+    "S": {
+      "item": "minecraft:nether_brick"
+    }
+  },
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "result": {
+    "item": "sworddisplay:nether_bricks_sword_display"
+  },
+  "show_notification": true
+}

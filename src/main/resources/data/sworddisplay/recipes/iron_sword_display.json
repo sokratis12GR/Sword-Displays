@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "sworddisplay:gems",
-  "pattern": [
-    " L ",
-    "SCS"
-  ],
+  "category": "misc",
+  "group": "sworddisplay:display",
   "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
     "L": {
       "item": "minecraft:iron_ingot"
     },
     "S": {
       "item": "minecraft:iron_ingot"
-    },
-    "C": {
-      "item": "minecraft:iron_block"
     }
   },
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
   "result": {
     "item": "sworddisplay:iron_sword_display"
-  }
+  },
+  "show_notification": true
 }

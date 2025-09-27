@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sworddisplay:sword_case"
+    ]
+  },
+  "criteria": {
+    "has_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:iron_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sworddisplay:sword_case"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_core",
+      "has_the_recipe"
+    ]
+  ]
+}

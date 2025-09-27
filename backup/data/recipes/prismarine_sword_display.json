@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:display",
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:prismarine_slab"
+    },
+    "S": {
+      "item": "minecraft:prismarine_stairs"
+    },
+    "C": {
+      "item": "minecraft:sea_lantern"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:prismarine_sword_display"
+  }
+}

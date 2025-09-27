@@ -1,26 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "sworddisplay:case",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "L": {
+      "item": "minecraft:spruce_planks"
+    },
+    "S": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
   "pattern": [
     "GGG",
     "GLG",
     "SCS"
   ],
-  "key": {
-    "L": {
-      "item": "minecraft:spruce_slab"
-    },
-    "S": {
-      "item": "minecraft:spruce_stairs"
-    },
-    "C": {
-      "item": "minecraft:spruce_planks"
-    },
-    "G": {
-      "item": "minecraft:glass_pane"
-    }
-  },
   "result": {
     "item": "sworddisplay:spruce_sword_case"
-  }
+  },
+  "show_notification": true
 }

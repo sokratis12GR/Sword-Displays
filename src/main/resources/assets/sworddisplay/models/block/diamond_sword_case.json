@@ -1,9 +1,9 @@
 {
   "parent": "sworddisplay:block/base/sword_case_base",
   "textures": {
-    "0": "block/diamond_block",
-    "1": "sworddisplay:block/diamond_middle",
+    "0": "minecraft:block/diamond_block",
+    "1": "minecraft:block/diamond_block",
     "2": "sworddisplay:block/glass",
-    "particle": "sworddisplay:block/diamond_middle"
+    "particle": "minecraft:block/diamond_block"
   }
 }

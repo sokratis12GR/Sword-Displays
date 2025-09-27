@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base",
+  "textures": {
+    "0": "block/emerald_block",
+    "1": "block/emerald_block",
+    "particle": "block/emerald_block"
+  }
+}

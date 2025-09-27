@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sworddisplay:iron_sword_display"
+    ]
+  },
+  "criteria": {
+    "has_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:iron_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sworddisplay:iron_sword_display"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_core",
+      "has_the_recipe"
+    ]
+  ]
+}

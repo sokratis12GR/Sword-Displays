@@ -1,19 +1,34 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "sworddisplay:block/emerald_sword_case"
+    "facing=east,is_reverse=false": {
+      "model": "sworddisplay:block/emerald_sword_case",
+      "y": 270
     },
-    "facing=south": {
+    "facing=east,is_reverse=true": {
+      "model": "sworddisplay:block/emerald_sword_case",
+      "y": 270
+    },
+    "facing=north,is_reverse=false": {
       "model": "sworddisplay:block/emerald_sword_case",
       "y": 180
     },
-    "facing=west": {
+    "facing=north,is_reverse=true": {
+      "model": "sworddisplay:block/emerald_sword_case",
+      "y": 180
+    },
+    "facing=south,is_reverse=false": {
+      "model": "sworddisplay:block/emerald_sword_case"
+    },
+    "facing=south,is_reverse=true": {
+      "model": "sworddisplay:block/emerald_sword_case"
+    },
+    "facing=west,is_reverse=false": {
       "model": "sworddisplay:block/emerald_sword_case",
       "y": 90
     },
-    "facing=east": {
+    "facing=west,is_reverse=true": {
       "model": "sworddisplay:block/emerald_sword_case",
-      "y": 270
+      "y": 90
     }
   }
 }

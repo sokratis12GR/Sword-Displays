@@ -1,26 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "sworddisplay:case",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "L": {
+      "item": "minecraft:acacia_planks"
+    },
+    "S": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
   "pattern": [
     "GGG",
     "GLG",
     "SCS"
   ],
-  "key": {
-    "L": {
-      "item": "minecraft:acacia_slab"
-    },
-    "S": {
-      "item": "minecraft:acacia_stairs"
-    },
-    "C": {
-      "item": "minecraft:acacia_planks"
-    },
-    "G": {
-      "item": "minecraft:glass_pane"
-    }
-  },
   "result": {
     "item": "sworddisplay:acacia_sword_case"
-  }
+  },
+  "show_notification": true
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sworddisplay:dark_oak_sword_case"
+    ]
+  },
+  "criteria": {
+    "has_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:dark_oak_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sworddisplay:dark_oak_sword_case"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_core",
+      "has_the_recipe"
+    ]
+  ]
+}

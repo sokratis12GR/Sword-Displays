@@ -1,26 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "sworddisplay:case",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "L": {
+      "item": "minecraft:prismarine"
+    },
+    "S": {
+      "item": "minecraft:prismarine"
+    }
+  },
   "pattern": [
     "GGG",
     "GLG",
     "SCS"
   ],
-  "key": {
-    "L": {
-      "item": "minecraft:prismarine_slab"
-    },
-    "S": {
-      "item": "minecraft:prismarine_stairs"
-    },
-    "C": {
-      "item": "minecraft:sea_lantern"
-    },
-    "G": {
-      "item": "minecraft:glass_pane"
-    }
-  },
   "result": {
     "item": "sworddisplay:prismarine_sword_case"
-  }
+  },
+  "show_notification": true
 }

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sworddisplay:case",
+  "pattern": [
+    "GGG",
+    "GLG",
+    "SCS"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:jungle_slab"
+    },
+    "S": {
+      "item": "minecraft:jungle_stairs"
+    },
+    "C": {
+      "item": "minecraft:jungle_planks"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "sworddisplay:jungle_sword_case"
+  }
+}

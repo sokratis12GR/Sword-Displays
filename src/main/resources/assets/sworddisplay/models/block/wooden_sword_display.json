@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base",
-  "textures": {
-    "0": "sworddisplay:block/wood_bot",
-    "1": "sworddisplay:block/wood_top",
-    "particle": "sworddisplay:block/wood_top"
-  }
-}

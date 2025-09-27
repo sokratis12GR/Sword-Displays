@@ -1,0 +1,9 @@
+{
+  "parent": "sworddisplay:block/base/sword_case_base",
+  "textures": {
+    "0": "block/gold_block",
+    "1": "sworddisplay:block/gold_middle",
+    "2": "sworddisplay:block/glass",
+    "particle": "sworddisplay:block/gold_middle"
+  }
+}
