@@ -1,6 +1,7 @@
 package com.sofodev.sworddisplay.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -27,30 +28,54 @@ public class SwordDisplayTile extends BaseTile {
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
         if (tag.contains("displayed_item", TAG_COMPOUND)) {
-            this.cachedSword = ItemStack.of(tag.getCompound("displayed_item"));
+            this.cachedSword = ItemStack.parseOptional(provider, tag.getCompound("displayed_item"));
         }
         if (tag.hasUUID("owner")) {
             this.owner = tag.getUUID("owner");
         }
     }
+//
+//    @Override
+//    public void load(CompoundTag tag) {
+//        super.load(tag);
+//        if (tag.contains("displayed_item", TAG_COMPOUND)) {
+//            this.cachedSword = ItemStack.of(tag.getCompound("displayed_item"));
+//        }
+//        if (tag.hasUUID("owner")) {
+//            this.owner = tag.getUUID("owner");
+//        }
+//    }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        tag.put("displayed_item", this.cachedSword.save(new CompoundTag()));
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        tag.put("displayed_item", this.cachedSword.saveOptional(provider));
         if (this.owner != null) {
             tag.putUUID("owner", this.owner);
         }
-        super.saveAdditional(tag);
+        super.saveAdditional(tag, provider);
     }
 
-    public CompoundTag getUpdateTag() {
-        return this.saveWithFullMetadata();
+//    @Override
+//    public void saveAdditional(CompoundTag tag) {
+//        tag.put("displayed_item", this.cachedSword.save(new CompoundTag()));
+//        if (this.owner != null) {
+//            tag.putUUID("owner", this.owner);
+//        }
+//        super.saveAdditional(tag);
+//    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+        return this.saveWithFullMetadata(provider);
     }
 
-    //TODO: TEST EXTENSIVELY
+//    public CompoundTag getUpdateTag() {
+//        return this.saveWithFullMetadata();
+//    }
+
     @Override
     @Nullable
     public Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -58,14 +83,25 @@ public class SwordDisplayTile extends BaseTile {
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.load(pkt.getTag());
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookup) {
+        this.loadCustomOnly(pkt.getTag(), lookup);
     }
 
+//    @Override
+//    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+//        this.load(pkt.getTag());
+//    }
+
+
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        super.handleUpdateTag(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider holders) {
+        super.handleUpdateTag(tag, holders);
     }
+
+//    @Override
+//    public void handleUpdateTag(CompoundTag tag) {
+//        super.handleUpdateTag(tag);
+//    }
 
     @Override
     public boolean onlyOpCanSetNbt() {
@@ -108,6 +144,6 @@ public class SwordDisplayTile extends BaseTile {
 
     public void sendBlockUpdate() {
         this.setChanged();
-        this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
     }
 }

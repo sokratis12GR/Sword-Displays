@@ -74,10 +74,10 @@ public class ModBlocks {
             String baseName = getBaseName(base);
 
             RegistryObject<Block> display = registerBlockWithItem(baseName + "_sword_display",
-                    () -> new SwordDisplayBlock(Block.Properties.copy(STONE)));
+                    () -> new SwordDisplayBlock(Block.Properties.ofFullCopy(STONE)));
 
             RegistryObject<Block> swordCase = registerBlockWithItem(baseName + "_sword_case",
-                    () -> new SwordCaseBlock(Block.Properties.copy(STONE)));
+                    () -> new SwordCaseBlock(Block.Properties.ofFullCopy(STONE)));
 
             // Determine top/side/core materials
             ItemLike top = base;

@@ -1,9 +1,10 @@
 package com.sofodev.sworddisplay.data;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
@@ -15,19 +16,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 import static com.sofodev.sworddisplay.registry.ModBlocks.registryHelper;
 import static net.minecraft.world.item.Items.GLASS_PANE;
 
 public class Recipes extends RecipeProvider implements DataProvider, IConditionBuilder {
 
-    public Recipes(DataGenerator generatorIn) {
-        super(generatorIn.getPackOutput());
+    public Recipes(DataGenerator generatorIn, CompletableFuture<HolderLookup.Provider> provider) {
+        super(generatorIn.getPackOutput(), provider);
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(RecipeOutput consumer) {
         registryHelper.forEach(entry -> {
             // Get the display/case blocks
             RegistryObject<Block> displayRO = entry.getDisplayBlock();
@@ -43,13 +44,13 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
         });
     }
 
-    private void registerMaterialRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> sdDisplay, RegistryObject<Block> sdCase, ItemLike top, ItemLike side, TagKey<Item> core) {
+    private void registerMaterialRecipes(RecipeOutput consumer, RegistryObject<Block> sdDisplay, RegistryObject<Block> sdCase, ItemLike top, ItemLike side, TagKey<Item> core) {
 
         this.registerDisplayRecipes(consumer, sdDisplay, top, side, core);
         this.registerCaseRecipes(consumer, sdCase, top, side, core);
     }
 
-    private void registerCaseRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, TagKey<Item> core) {
+    private void registerCaseRecipes(RecipeOutput consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, TagKey<Item> core) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern("GGG")
                 .pattern("GLG")
@@ -63,7 +64,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
                 .save(consumer);
     }
 
-    private void registerDisplayRecipes(Consumer<FinishedRecipe> consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, TagKey<Item> core) {
+    private void registerDisplayRecipes(RecipeOutput consumer, RegistryObject<Block> block, ItemLike top, ItemLike side, TagKey<Item> core) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern(" L ")
                 .pattern("SCS")

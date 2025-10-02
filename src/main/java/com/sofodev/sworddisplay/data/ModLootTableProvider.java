@@ -1,6 +1,7 @@
 package com.sofodev.sworddisplay.data;
 
 import com.sofodev.sworddisplay.registry.ModBlocks;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
@@ -9,21 +10,25 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import static com.sofodev.sworddisplay.registry.ModBlocks.registryHelper;
 
 public class ModLootTableProvider extends LootTableProvider {
-    public ModLootTableProvider(PackOutput output) {
-        super(output, Set.of(), List.of(
-                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK)
-        ));
+    public ModLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+        super(output,
+                Set.of(),
+                List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK)),
+                provider
+        );
     }
 
     private static class ModBlockLootTables extends BlockLootSubProvider {
-        protected ModBlockLootTables() {
-            super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+        protected ModBlockLootTables(HolderLookup.Provider provider) {
+            super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
         }
 
         @Override
@@ -33,16 +38,20 @@ public class ModLootTableProvider extends LootTableProvider {
             for (ModBlocks.BlockRegistryEntry entry : entries) {
                 RegistryObject<Block> caseBlock = entry.getCaseBlock();
                 RegistryObject<Block> displayBlock = entry.getDisplayBlock();
-                add(caseBlock.get(), this::createSingleItemTable);
-                add(displayBlock.get(), this::createSingleItemTable);
+                dropSelf(caseBlock.get());
+                dropSelf(displayBlock.get());
             }
         }
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            return ModBlocks.BLOCKS.getEntries().stream()
-                    .map(e -> e.get())
-                    .toList();
+            List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList();
+            List<Block> blocks = new ArrayList<>();
+            for (ModBlocks.BlockRegistryEntry entry : entries) {
+                entry.getCaseBlock().ifPresent(blocks::add);
+                entry.getDisplayBlock().ifPresent(blocks::add);
+            }
+            return blocks;
         }
     }
 }

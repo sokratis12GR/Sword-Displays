@@ -9,8 +9,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,6 +22,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -80,9 +83,8 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity te = world.getBlockEntity(pos);
         if (!world.isClientSide() && te instanceof SwordDisplayTile displayTile) {
             GameProfile profile = player.getGameProfile();
@@ -95,7 +97,6 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                     player.drop(toDrop, false);
                 }
             } else {
-                ItemStack stack = player.getItemInHand(hand);
 
                 boolean isInGroup = stack.is(SWORDS); // Checks if the ItemStack is in the specified Tag Group, bypasses SwordItem requirement.
 
@@ -108,7 +109,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                         displayTile.setSword(copy);
                         displayTile.setOwner(playerUUID);
                         stack.shrink(1);
-                        return InteractionResult.SUCCESS;
+                        return ItemInteractionResult.SUCCESS;
                     }
                     if (!isDisplayEmpty && stack.isEmpty() && hasOwner) {
                         world.setBlock(pos, state.setValue(IS_REVERSE, !state.getValue(IS_REVERSE)), 3);
@@ -116,13 +117,14 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                 }
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-        return super.getCloneItemStack(state, target, world, pos, player);
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
+        return super.getCloneItemStack(state, target, level, pos, player);
     }
+
 
     @Override
     @SuppressWarnings("deprecation")
@@ -219,7 +221,8 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public boolean isValidSpawn(BlockState state, BlockGetter world, BlockPos pos, SpawnPlacements.Type type, EntityType<?> entityType) {
+    public boolean isValidSpawn(BlockState state, BlockGetter level, BlockPos pos, SpawnPlacementType type, EntityType<?> entityType) {
         return false;
     }
+
 }

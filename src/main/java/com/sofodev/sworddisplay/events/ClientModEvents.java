@@ -19,9 +19,9 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void doClientStuff(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            registryHelper.forEach(ro ->
-                    ItemBlockRenderTypes.setRenderLayer(ro.getCaseBlock().get(), RenderType.cutout())
-            );
+//            registryHelper.forEach(ro ->
+//                    ItemBlockRenderTypes.setRenderLayer(ro.getCaseBlock().get(), RenderType.cutout())
+//            );
 
             BlockEntityRenderers.register(SWORD_DISPLAY_TYPE.get(), TESRSwordDisplay::new);
         });
