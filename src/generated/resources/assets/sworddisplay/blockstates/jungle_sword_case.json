@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,is_reverse=false": {
+      "model": "sworddisplay:block/jungle_sword_case",
+      "y": 270
+    },
+    "facing=east,is_reverse=true": {
+      "model": "sworddisplay:block/jungle_sword_case",
+      "y": 270
+    },
+    "facing=north,is_reverse=false": {
+      "model": "sworddisplay:block/jungle_sword_case",
+      "y": 180
+    },
+    "facing=north,is_reverse=true": {
+      "model": "sworddisplay:block/jungle_sword_case",
+      "y": 180
+    },
+    "facing=south,is_reverse=false": {
+      "model": "sworddisplay:block/jungle_sword_case"
+    },
+    "facing=south,is_reverse=true": {
+      "model": "sworddisplay:block/jungle_sword_case"
+    },
+    "facing=west,is_reverse=false": {
+      "model": "sworddisplay:block/jungle_sword_case",
+      "y": 90
+    },
+    "facing=west,is_reverse=true": {
+      "model": "sworddisplay:block/jungle_sword_case",
+      "y": 90
+    }
+  }
+}

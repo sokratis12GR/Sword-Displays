@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:case",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "L": {
+      "item": "minecraft:oak_planks"
+    },
+    "S": {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GLG",
+    "SCS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:oak_sword_case"
+  }
+}

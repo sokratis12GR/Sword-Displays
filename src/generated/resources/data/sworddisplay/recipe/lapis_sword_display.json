@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "S": {
+      "item": "minecraft:lapis_lazuli"
+    }
+  },
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:lapis_sword_display"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "sworddisplay:block/base/sword_case_base",
+  "textures": {
+    "0": "minecraft:block/lapis_block",
+    "1": "minecraft:block/lapis_block",
+    "2": "sworddisplay:block/glass",
+    "particle": "minecraft:block/lapis_block"
+  }
+}

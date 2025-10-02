@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "L": {
+      "item": "minecraft:birch_planks"
+    },
+    "S": {
+      "item": "minecraft:birch_planks"
+    }
+  },
+  "pattern": [
+    " L ",
+    "SCS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:birch_sword_display"
+  }
+}
