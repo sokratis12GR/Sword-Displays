@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base",
-  "textures": {
-    "0": "sworddisplay:block/acacia_bot",
-    "1": "sworddisplay:block/acacia_top",
-    "particle": "sworddisplay:block/acacia_top"
-  }
-}
