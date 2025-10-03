@@ -1,24 +1,24 @@
 Sword Displays
 ---
 
-![](https://i.imgur.com/BhNFAPN.png "Sword Displays")
+![](./showcase_old1.png "Sword Displays")
 
 [![](https://cf.way2muchnoise.eu/full_392762_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sword-displays)
 [![](http://cf.way2muchnoise.eu/versions/392762.svg)](https://www.curseforge.com/minecraft/mc-mods/sword-displays)
 
 ## Crafting Recipes:
 
-![](https://i.imgur.com/pGCvCtB.png "Sword Case Recipe")
-![](https://i.imgur.com/OqDhlsF.png "Sword Display Recipe")
+![](./recipes_case.png "Sword Case Recipes")
+![](./recipes_display.png "Sword Display Recipes")
 
 ## Comparator Caculations
 
 ```java
         // x = maxDamage : (maxDamage - currentDamage)
-        // if (x > 15) x = 14;
-        // if (x == 15) x = 13;
-        // return 15 / x
-        int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());
-        x = x > 15 ? 14 : x == 15 ? 13 : x;
+// if (x > 15) x = 14;
+// if (x == 15) x = 13;
+// return 15 / x
+int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());
+x = x > 15 ? 14 : x == 15 ? 13 : x;
         return 15 / x;
 ```
