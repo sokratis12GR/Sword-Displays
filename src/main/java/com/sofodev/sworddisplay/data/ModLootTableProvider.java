@@ -36,10 +36,12 @@ public class ModLootTableProvider extends LootTableProvider {
             List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
 
             for (ModBlocks.BlockRegistryEntry entry : entries) {
-                RegistryObject<Block> caseBlock = entry.getCaseBlock();
-                RegistryObject<Block> displayBlock = entry.getDisplayBlock();
+                RegistryObject<Block> caseBlock = entry.blocks().caseBlock();
+                RegistryObject<Block> displayBlock = entry.blocks().displayBlock();
+                RegistryObject<Block> wallBlock = entry.blocks().wallDisplay();
                 dropSelf(caseBlock.get());
                 dropSelf(displayBlock.get());
+                dropSelf(wallBlock.get());
             }
         }
 
@@ -48,8 +50,9 @@ public class ModLootTableProvider extends LootTableProvider {
             List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList();
             List<Block> blocks = new ArrayList<>();
             for (ModBlocks.BlockRegistryEntry entry : entries) {
-                entry.getCaseBlock().ifPresent(blocks::add);
-                entry.getDisplayBlock().ifPresent(blocks::add);
+                entry.blocks().caseBlock().ifPresent(blocks::add);
+                entry.blocks().displayBlock().ifPresent(blocks::add);
+                entry.blocks().wallDisplay().ifPresent(blocks::add);
             }
             return blocks;
         }

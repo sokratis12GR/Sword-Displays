@@ -31,6 +31,7 @@ public class DataGeneratorEvent {
         // Server-side data: recipes
         if (event.includeServer()) {
             generator.addProvider(true, new Recipes(generator, provider));
+            generator.addProvider(true, new ModBlockTagProvider(packOutput, provider, event.getExistingFileHelper()));
             generator.addProvider(true, new ModLootTableProvider(packOutput, provider));
             generator.addProvider(true, new ModLanguageProvider(packOutput));
         }
