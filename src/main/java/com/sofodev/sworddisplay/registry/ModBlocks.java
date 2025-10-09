@@ -1,13 +1,11 @@
 package com.sofodev.sworddisplay.registry;
 
-import com.sofodev.sworddisplay.blocks.SDBlockItem;
-import com.sofodev.sworddisplay.blocks.SwordCaseBlock;
-import com.sofodev.sworddisplay.blocks.SwordDisplayBlock;
-import com.sofodev.sworddisplay.blocks.SwordDisplayTile;
+import com.sofodev.sworddisplay.blocks.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,40 +22,41 @@ import java.util.stream.Stream;
 
 import static com.sofodev.sworddisplay.SwordDisplay.MODID;
 import static com.sofodev.sworddisplay.registry.ModItems.ITEMS;
-import static net.minecraft.world.level.block.Blocks.*;
 
 public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
 
-    private static final Block[] BASE_BLOCKS = new Block[]{
-            STONE, OAK_PLANKS, DARK_OAK_PLANKS, BIRCH_PLANKS, ACACIA_PLANKS, JUNGLE_PLANKS, SPRUCE_PLANKS,
-            MANGROVE_PLANKS, CHERRY_PLANKS, CRIMSON_PLANKS,
-            PRISMARINE, IRON_BLOCK, GOLD_BLOCK, DIAMOND_BLOCK, EMERALD_BLOCK, OBSIDIAN, STONE_BRICKS,
-            END_STONE_BRICKS, NETHERITE_BLOCK, NETHER_BRICKS, PURPUR_BLOCK, QUARTZ_BLOCK, LAPIS_BLOCK, REDSTONE_BLOCK
-    };
-
-    // Map of special blocks → replacement recipe item
-    public static final Map<String, Item> SPECIAL_BLOCKS = new HashMap<>();
+    public static final Map<String, BlockAndItemEntry> BLOCK_AND_ITEM_MAP = new HashMap<>();
 
     static {
-        SPECIAL_BLOCKS.put("gold", Items.GOLD_INGOT);
-        SPECIAL_BLOCKS.put("iron", Items.IRON_INGOT);
-        SPECIAL_BLOCKS.put("diamond", Items.DIAMOND);
-        SPECIAL_BLOCKS.put("emerald", Items.EMERALD);
-        SPECIAL_BLOCKS.put("obsidian", Items.OBSIDIAN);
-        SPECIAL_BLOCKS.put("stone_bricks", Items.STONE_BRICKS);
-        SPECIAL_BLOCKS.put("end_stone_bricks", Items.END_STONE);
-        SPECIAL_BLOCKS.put("netherite", Items.NETHERITE_INGOT);
-        SPECIAL_BLOCKS.put("nether_bricks", Items.NETHER_BRICK);
-        SPECIAL_BLOCKS.put("purpur", Items.PURPUR_BLOCK);
-        SPECIAL_BLOCKS.put("quartz", Items.QUARTZ);
-        SPECIAL_BLOCKS.put("lapis", Items.LAPIS_LAZULI);
-        SPECIAL_BLOCKS.put("redstone", Items.REDSTONE);
-        SPECIAL_BLOCKS.put("mangrove", Items.MANGROVE_PLANKS);
-        SPECIAL_BLOCKS.put("cherry", Items.CHERRY_PLANKS);
-        SPECIAL_BLOCKS.put("crimson", Items.CRIMSON_PLANKS);
+        BLOCK_AND_ITEM_MAP.put("gold", new BlockAndItemEntry(Blocks.GOLD_BLOCK, Items.GOLD_INGOT));
+        BLOCK_AND_ITEM_MAP.put("iron", new BlockAndItemEntry(Blocks.IRON_BLOCK, Items.IRON_INGOT));
+        BLOCK_AND_ITEM_MAP.put("copper", new BlockAndItemEntry(Blocks.COPPER_BLOCK, Items.COPPER_INGOT));
+        BLOCK_AND_ITEM_MAP.put("diamond", new BlockAndItemEntry(Blocks.DIAMOND_BLOCK, Items.DIAMOND));
+        BLOCK_AND_ITEM_MAP.put("emerald", new BlockAndItemEntry(Blocks.EMERALD_BLOCK, Items.EMERALD));
+        BLOCK_AND_ITEM_MAP.put("amethyst", new BlockAndItemEntry(Blocks.AMETHYST_BLOCK, Items.AMETHYST_SHARD));
+        BLOCK_AND_ITEM_MAP.put("obsidian", new BlockAndItemEntry(Blocks.OBSIDIAN, Items.OBSIDIAN));
+        BLOCK_AND_ITEM_MAP.put("stone_bricks", new BlockAndItemEntry(Blocks.STONE_BRICKS, Items.STONE_BRICKS));
+        BLOCK_AND_ITEM_MAP.put("end_stone_bricks", new BlockAndItemEntry(Blocks.END_STONE_BRICKS, Items.END_STONE));
+        BLOCK_AND_ITEM_MAP.put("netherite", new BlockAndItemEntry(Blocks.NETHERITE_BLOCK, Items.NETHERITE_INGOT));
+        BLOCK_AND_ITEM_MAP.put("nether_bricks", new BlockAndItemEntry(Blocks.NETHER_BRICKS, Items.NETHER_BRICK));
+        BLOCK_AND_ITEM_MAP.put("purpur", new BlockAndItemEntry(Blocks.PURPUR_BLOCK, Items.PURPUR_BLOCK));
+        BLOCK_AND_ITEM_MAP.put("quartz", new BlockAndItemEntry(Blocks.QUARTZ_BLOCK, Items.QUARTZ));
+        BLOCK_AND_ITEM_MAP.put("lapis", new BlockAndItemEntry(Blocks.LAPIS_BLOCK, Items.LAPIS_LAZULI));
+        BLOCK_AND_ITEM_MAP.put("redstone", new BlockAndItemEntry(Blocks.REDSTONE_BLOCK, Items.REDSTONE));
+        BLOCK_AND_ITEM_MAP.put("mangrove", new BlockAndItemEntry(Blocks.MANGROVE_PLANKS, Items.MANGROVE_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("cherry", new BlockAndItemEntry(Blocks.CHERRY_PLANKS, Items.CHERRY_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("crimson", new BlockAndItemEntry(Blocks.CRIMSON_PLANKS, Items.CRIMSON_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("oak", new BlockAndItemEntry(Blocks.OAK_PLANKS, Items.OAK_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("birch", new BlockAndItemEntry(Blocks.BIRCH_PLANKS, Items.BIRCH_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("spruce", new BlockAndItemEntry(Blocks.SPRUCE_PLANKS, Items.SPRUCE_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("acacia", new BlockAndItemEntry(Blocks.ACACIA_PLANKS, Items.ACACIA_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("jungle", new BlockAndItemEntry(Blocks.JUNGLE_PLANKS, Items.JUNGLE_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("dark_oak", new BlockAndItemEntry(Blocks.DARK_OAK_PLANKS, Items.DARK_OAK_PLANKS));
+        BLOCK_AND_ITEM_MAP.put("prismarine", new BlockAndItemEntry(Blocks.PRISMARINE, Items.PRISMARINE));
+        BLOCK_AND_ITEM_MAP.put("stone", new BlockAndItemEntry(Blocks.STONE, Items.STONE));
     }
 
 
@@ -70,26 +69,25 @@ public class ModBlocks {
     }
 
     public static void registerAll() {
-        for (Block base : BASE_BLOCKS) {
-            String baseName = getBaseName(base);
+        BLOCK_AND_ITEM_MAP.forEach((baseName, entry) -> {
 
-            RegistryObject<Block> display = registerBlockWithItem(baseName + "_sword_display",
-                    () -> new SwordDisplayBlock(Block.Properties.ofFullCopy(STONE)));
+            RegistryObject<Block> display = registerBlockWithItem(
+                    baseName + "_sword_display",
+                    () -> new SwordDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+            );
 
-            RegistryObject<Block> swordCase = registerBlockWithItem(baseName + "_sword_case",
-                    () -> new SwordCaseBlock(Block.Properties.ofFullCopy(STONE)));
+            RegistryObject<Block> swordCase = registerBlockWithItem(
+                    baseName + "_sword_case",
+                    () -> new SwordCaseBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+            );
 
-            // Determine top/side/core materials
-            ItemLike top = base;
-            ItemLike side = base;
-            ItemLike core = base;
-            boolean isSpecial = SPECIAL_BLOCKS.containsKey(baseName);
-            if (isSpecial) {
-                top = side = core = SPECIAL_BLOCKS.get(baseName);
-            }
+            RegistryObject<Block> wallDisplay = registerBlockWithItem(
+                    baseName + "_wall_display",
+                    () -> new SwordWallDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+            );
 
-            REGISTRY_LIST.add(new BlockRegistryEntry(baseName, isSpecial, display, swordCase, top, side, core));
-        }
+            REGISTRY_LIST.add(new BlockRegistryEntry(baseName, new BlockDisplays(display, swordCase, wallDisplay), entry.item(), entry.isWooden()));
+        });
     }
 
     public static String getBaseName(Block block) {
@@ -105,7 +103,10 @@ public class ModBlocks {
             () -> build(BlockEntityType.Builder.of(
                     SwordDisplayTile::new,
                     REGISTRY_LIST.stream()
-                            .flatMap(entry -> Stream.of(entry.displayBlock.get(), entry.caseBlock.get()))
+                            .flatMap(entry ->
+                                    Stream.of(entry.blocks().displayBlock().get(),
+                                            entry.blocks().caseBlock().get(),
+                                            entry.blocks().wallDisplay().get()))
                             .toArray(Block[]::new)
             )));
 
@@ -123,52 +124,17 @@ public class ModBlocks {
         return registerBlockWithItem(name, blockSupplier, SDBlockItem::new);
     }
 
-    public static class BlockRegistryEntry {
-        private final String key;
-        private final boolean isSpecial;
-        private final RegistryObject<Block> displayBlock;
-        private final RegistryObject<Block> caseBlock;
-        private final ItemLike topMaterial;
-        private final ItemLike sideMaterial;
-        private final ItemLike coreMaterial;
+    public record BlockDisplays(RegistryObject<Block> displayBlock, RegistryObject<Block> caseBlock,
+                                RegistryObject<Block> wallDisplay){}
 
-        public BlockRegistryEntry(String key, boolean isSpecial, RegistryObject<Block> displayBlock,
-                                  RegistryObject<Block> caseBlock, ItemLike top, ItemLike side, ItemLike core) {
-            this.key = key;
-            this.isSpecial = isSpecial;
-            this.displayBlock = displayBlock;
-            this.caseBlock = caseBlock;
-            this.topMaterial = top;
-            this.sideMaterial = side;
-            this.coreMaterial = core;
-        }
+    public record BlockRegistryEntry(String key, BlockDisplays blocks,
+                                     ItemLike coreMaterial, boolean isWooden) {
+    }
 
-        public String getKey() {
-            return key;
-        }
+    public record BlockAndItemEntry(Block block, Item item) {
 
-        public boolean isSpecial() {
-            return isSpecial;
-        }
-
-        public RegistryObject<Block> getDisplayBlock() {
-            return displayBlock;
-        }
-
-        public RegistryObject<Block> getCaseBlock() {
-            return caseBlock;
-        }
-
-        public ItemLike getTopMaterial() {
-            return topMaterial;
-        }
-
-        public ItemLike getSideMaterial() {
-            return sideMaterial;
-        }
-
-        public ItemLike getCoreMaterial() {
-            return coreMaterial;
+        public boolean isWooden() {
+            return ForgeRegistries.BLOCKS.getKey(block).getPath().contains("plank");
         }
     }
 }

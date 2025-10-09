@@ -8,16 +8,13 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacementType;
-import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -36,7 +33,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.UUID;
 
@@ -58,17 +54,12 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                 .setValue(IS_REVERSE, Boolean.FALSE));
     }
 
-    public static Item getItem(String name) {
-        return ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(name));
-    }
 
-    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
         return VOXEL;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getCollisionShape(BlockState p_60572_, BlockGetter p_60573_, BlockPos p_60574_, CollisionContext p_60575_) {
         return VOXEL;
@@ -98,13 +89,12 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                 }
             } else {
 
-                boolean isInGroup = stack.is(SWORDS); // Checks if the ItemStack is in the specified Tag Group, bypasses SwordItem requirement.
-
-                boolean isSword = stack.getItem() instanceof SwordItem || isInGroup;
+                boolean isInGroup = stack.is(SWORDS);
+                boolean isWeapon = stack.is(ItemTags.SWORDS) || stack.is(ItemTags.WEAPON_ENCHANTABLE) || stack.is(ItemTags.AXES) || isInGroup;
 
                 if (hand == MAIN_HAND) {
                     boolean isDisplayEmpty = displayTile.getSword().isEmpty();
-                    if (isDisplayEmpty && isSword) {
+                    if (isDisplayEmpty && isWeapon) {
                         ItemStack copy = stack.copy();
                         displayTile.setSword(copy);
                         displayTile.setOwner(playerUUID);

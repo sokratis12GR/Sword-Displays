@@ -23,8 +23,9 @@ public class ModCreativeTabs {
             .title(Component.translatable("tabs.sworddisplay.core"))
             .displayItems((flags, output) -> {
                 registryHelper.forEach(entry -> {
-                    output.accept(entry.getDisplayBlock().get().asItem());
-                    output.accept(entry.getCaseBlock().get().asItem());
+                    output.accept(entry.blocks().displayBlock().get().asItem());
+                    output.accept(entry.blocks().caseBlock().get().asItem());
+                    output.accept(entry.blocks().wallDisplay().get().asItem());
                 });
             })
             .build());

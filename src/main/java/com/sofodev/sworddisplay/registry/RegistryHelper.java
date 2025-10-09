@@ -18,8 +18,8 @@ public class RegistryHelper {
     // Get the display block by base name
     public RegistryObject<Block> getDisplay(String baseName) {
         return registryList.stream()
-                .filter(entry -> entry.getKey().equals(baseName))
-                .map(ModBlocks.BlockRegistryEntry::getDisplayBlock)
+                .filter(entry -> entry.key().equals(baseName))
+                .map(entry -> entry.blocks().displayBlock())
                 .findFirst()
                 .orElse(null);
     }
@@ -27,8 +27,8 @@ public class RegistryHelper {
     // Get the case block by base name
     public RegistryObject<Block> getCase(String baseName) {
         return registryList.stream()
-                .filter(entry -> entry.getKey().equals(baseName))
-                .map(ModBlocks.BlockRegistryEntry::getCaseBlock)
+                .filter(entry -> entry.key().equals(baseName))
+                .map(entry -> entry.blocks().caseBlock())
                 .findFirst()
                 .orElse(null);
     }

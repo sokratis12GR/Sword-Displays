@@ -37,17 +37,6 @@ public class SwordDisplayTile extends BaseTile {
             this.owner = tag.getUUID("owner");
         }
     }
-//
-//    @Override
-//    public void load(CompoundTag tag) {
-//        super.load(tag);
-//        if (tag.contains("displayed_item", TAG_COMPOUND)) {
-//            this.cachedSword = ItemStack.of(tag.getCompound("displayed_item"));
-//        }
-//        if (tag.hasUUID("owner")) {
-//            this.owner = tag.getUUID("owner");
-//        }
-//    }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
@@ -58,23 +47,11 @@ public class SwordDisplayTile extends BaseTile {
         super.saveAdditional(tag, provider);
     }
 
-//    @Override
-//    public void saveAdditional(CompoundTag tag) {
-//        tag.put("displayed_item", this.cachedSword.save(new CompoundTag()));
-//        if (this.owner != null) {
-//            tag.putUUID("owner", this.owner);
-//        }
-//        super.saveAdditional(tag);
-//    }
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
         return this.saveWithFullMetadata(provider);
     }
-
-//    public CompoundTag getUpdateTag() {
-//        return this.saveWithFullMetadata();
-//    }
 
     @Override
     @Nullable
@@ -87,21 +64,11 @@ public class SwordDisplayTile extends BaseTile {
         this.loadCustomOnly(pkt.getTag(), lookup);
     }
 
-//    @Override
-//    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-//        this.load(pkt.getTag());
-//    }
-
 
     @Override
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider holders) {
         super.handleUpdateTag(tag, holders);
     }
-
-//    @Override
-//    public void handleUpdateTag(CompoundTag tag) {
-//        super.handleUpdateTag(tag);
-//    }
 
     @Override
     public boolean onlyOpCanSetNbt() {
