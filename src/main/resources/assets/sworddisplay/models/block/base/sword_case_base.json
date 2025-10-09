@@ -1,6 +1,12 @@
 {
 	"credit": "Created by Sokratis Fotkatzikis",
     "render_type": "cutout",
+    "textures": {
+      "0": "sworddisplay:block/texture",
+      "1": "sworddisplay:block/texture",
+      "2": "block/glass",
+      "particle": "sworddisplay:block/texture"
+    },
 	"elements": [
 		{
 			"name": "wood_1",

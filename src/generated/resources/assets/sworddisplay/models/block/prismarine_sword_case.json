@@ -1,9 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base",
-  "textures": {
-    "0": "sworddisplay:block/prismarine_bot",
-    "1": "sworddisplay:block/prismarine_top",
-    "2": "sworddisplay:block/glass",
-    "particle": "sworddisplay:block/prismarine_top"
-  }
-}
