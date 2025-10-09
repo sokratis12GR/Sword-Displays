@@ -110,7 +110,7 @@ dependencies {
     //Required
     implementation fg.deobf("curse.maven:thedragonlib-248055:5498886") //TheDragonLib 1.20.2-1.0.0
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.21.1:4.8.2')
-    //implementation fg.deobf("curse.maven:sword-displays-392762:4357828")
+    implementation fg.deobf("curse.maven:armorplus-237366:7077295")
 
     //Optional
     implementation fg.deobf("curse.maven:jei-238222:6614391") //jei-1.20.1-forge-15.2.0.27.jar
@@ -185,7 +185,7 @@ curseforge {
         changelog = file('src/main/resources/changelog.md')
         changelogType = 'markdown'
         releaseType = 'release'
-        addGameVersion '1.20.1'
+        addGameVersion '1.21.1'
         relations curseRelations
     }
 }
