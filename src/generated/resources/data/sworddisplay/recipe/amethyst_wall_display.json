@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display",
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "M": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:amethyst_wall_display"
+  }
+}

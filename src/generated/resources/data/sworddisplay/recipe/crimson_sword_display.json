@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "M": {
+      "item": "minecraft:crimson_planks"
+    }
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:crimson_sword_display"
+  }
+}

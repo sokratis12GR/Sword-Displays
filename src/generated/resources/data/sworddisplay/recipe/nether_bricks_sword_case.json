@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:case",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "M": {
+      "item": "minecraft:nether_brick"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GMG",
+    "MCM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:nether_bricks_sword_case"
+  }
+}
