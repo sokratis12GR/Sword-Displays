@@ -97,13 +97,12 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
             } else {
                 ItemStack stack = player.getItemInHand(hand);
 
-                boolean isInGroup = stack.is(SWORDS); // Checks if the ItemStack is in the specified Tag Group, bypasses SwordItem requirement.
-
-                boolean isSword = stack.getItem() instanceof SwordItem || isInGroup;
+                boolean isInGroup = stack.is(SWORDS);
+                boolean isWeapon = stack.is(ItemTags.SWORDS) || stack.is(ItemTags.AXES) || isInGroup;
 
                 if (hand == MAIN_HAND) {
                     boolean isDisplayEmpty = displayTile.getSword().isEmpty();
-                    if (isDisplayEmpty && isSword) {
+                    if (isDisplayEmpty && isWeapon) {
                         ItemStack copy = stack.copy();
                         displayTile.setSword(copy);
                         displayTile.setOwner(playerUUID);

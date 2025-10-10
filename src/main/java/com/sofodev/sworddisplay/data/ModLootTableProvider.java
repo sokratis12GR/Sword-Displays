@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,21 +29,28 @@ public class ModLootTableProvider extends LootTableProvider {
 
         @Override
         protected void generate() {
-            List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
+            List<ModBlocks.BlockRegistryEntry> entries = registryHelper.registryList(); // assuming getter exists
 
             for (ModBlocks.BlockRegistryEntry entry : entries) {
-                RegistryObject<Block> caseBlock = entry.getCaseBlock();
-                RegistryObject<Block> displayBlock = entry.getDisplayBlock();
-                add(caseBlock.get(), this::createSingleItemTable);
-                add(displayBlock.get(), this::createSingleItemTable);
+                RegistryObject<Block> caseBlock = entry.blocks().caseBlock();
+                RegistryObject<Block> displayBlock = entry.blocks().displayBlock();
+                RegistryObject<Block> wallBlock = entry.blocks().wallDisplay();
+                dropSelf(caseBlock.get());
+                dropSelf(displayBlock.get());
+                dropSelf(wallBlock.get());
             }
         }
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            return ModBlocks.BLOCKS.getEntries().stream()
-                    .map(e -> e.get())
-                    .toList();
+            List<ModBlocks.BlockRegistryEntry> entries = registryHelper.registryList();
+            List<Block> blocks = new ArrayList<>();
+            for (ModBlocks.BlockRegistryEntry entry : entries) {
+                entry.blocks().caseBlock().ifPresent(blocks::add);
+                entry.blocks().displayBlock().ifPresent(blocks::add);
+                entry.blocks().wallDisplay().ifPresent(blocks::add);
+            }
+            return blocks;
         }
     }
 }

@@ -21,12 +21,14 @@ public class ModLanguageProvider extends LanguageProvider {
         // Creative tab
         add("tabs.sworddisplay.core", "Sword Displays");
 
-        List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
+        List<ModBlocks.BlockRegistryEntry> entries = registryHelper.registryList(); // assuming getter exists
         for (ModBlocks.BlockRegistryEntry entry : entries) {
-            RegistryObject<Block> caseBlock = entry.getCaseBlock();
-            RegistryObject<Block> displayBlock = entry.getDisplayBlock();
+            RegistryObject<Block> caseBlock = entry.blocks().caseBlock();
+            RegistryObject<Block> displayBlock = entry.blocks().displayBlock();
+            RegistryObject<Block> wallBlock = entry.blocks().wallDisplay();
             add(caseBlock.get(), toTitleCase(caseBlock.getKey().location().getPath()));
             add(displayBlock.get(), toTitleCase(displayBlock.getKey().location().getPath()));
+            add(wallBlock.get(), toTitleCase(wallBlock.getKey().location().getPath()));
         }
     }
 

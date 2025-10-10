@@ -2,7 +2,6 @@ package com.sofodev.sworddisplay;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -13,20 +12,16 @@ import static com.sofodev.sworddisplay.registry.ModBlocks.BLOCKS;
 import static com.sofodev.sworddisplay.registry.ModBlocks.TILE_ENTITIES;
 import static com.sofodev.sworddisplay.registry.ModCreativeTabs.CREATIVE_MODE_TABS;
 import static com.sofodev.sworddisplay.registry.ModItems.ITEMS;
-import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
-@Mod("sworddisplay")
-@Mod.EventBusSubscriber(bus = MOD, modid = MODID)
+@Mod(MODID)
 public class SwordDisplay {
     public static final String MODID = "sworddisplay";
 
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public SwordDisplay() {
+    public SwordDisplay(FMLJavaModLoadingContext context) {
         MinecraftForge.EVENT_BUS.register(this);
-        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModLoadingContext modLoadingCTX = ModLoadingContext.get();
+        IEventBus modEventBus = context.getModEventBus();
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);

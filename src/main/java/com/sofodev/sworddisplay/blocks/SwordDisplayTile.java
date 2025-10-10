@@ -50,7 +50,6 @@ public class SwordDisplayTile extends BaseTile {
         return this.saveWithFullMetadata();
     }
 
-    //TODO: TEST EXTENSIVELY
     @Override
     @Nullable
     public Packet<ClientGamePacketListener> getUpdatePacket() {

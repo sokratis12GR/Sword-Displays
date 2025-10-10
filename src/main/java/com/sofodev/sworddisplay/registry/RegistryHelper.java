@@ -7,19 +7,13 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class RegistryHelper {
-
-    private final List<ModBlocks.BlockRegistryEntry> registryList;
-
-    public RegistryHelper(List<ModBlocks.BlockRegistryEntry> registryList) {
-        this.registryList = registryList;
-    }
+public record RegistryHelper(List<ModBlocks.BlockRegistryEntry> registryList) {
 
     // Get the display block by base name
     public RegistryObject<Block> getDisplay(String baseName) {
         return registryList.stream()
-                .filter(entry -> entry.getKey().equals(baseName))
-                .map(ModBlocks.BlockRegistryEntry::getDisplayBlock)
+                .filter(entry -> entry.key().equals(baseName))
+                .map(entry -> entry.blocks().displayBlock())
                 .findFirst()
                 .orElse(null);
     }
@@ -27,8 +21,8 @@ public class RegistryHelper {
     // Get the case block by base name
     public RegistryObject<Block> getCase(String baseName) {
         return registryList.stream()
-                .filter(entry -> entry.getKey().equals(baseName))
-                .map(ModBlocks.BlockRegistryEntry::getCaseBlock)
+                .filter(entry -> entry.key().equals(baseName))
+                .map(entry -> entry.blocks().caseBlock())
                 .findFirst()
                 .orElse(null);
     }
@@ -48,9 +42,5 @@ public class RegistryHelper {
     // Iterate all entries
     public void forEach(Consumer<ModBlocks.BlockRegistryEntry> consumer) {
         registryList.forEach(consumer);
-    }
-
-    public List<ModBlocks.BlockRegistryEntry> getRegistryList() {
-        return registryList;
     }
 }

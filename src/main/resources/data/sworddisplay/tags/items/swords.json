@@ -1,45 +1,69 @@
 {
-    "replace": false,
-    "values": [
-        {
-            "id": "tconstruct:broadsword",
-            "required": false
-        },
-        {
-            "id": "tconstruct:cleaver",
-            "required": false
-        },
-        {
-            "id": "tconstruct:rapier",
-            "required": false
-        },
-        {
-            "id": "tconstruct:longsword",
-            "required": false
-        },
-        {
-            "id": "draconicevolution:wyvern_sword",
-            "required": false
-        },
-        {
-            "id": "draconicevolution:draconic_sword",
-            "required": false
-        },
-        {
-            "id": "projecte:item.pe_dm_sword",
-            "required": false
-        },
-        {
-            "id": "projecte:item.pe_rm_sword",
-            "required": false
-        },
-        {
-            "id": "tconstruct:sword",
-            "required": false
-        },
-        {
-            "id": "tconstruct:dagger",
-            "required": false
-        }
-    ]
+  "replace": false,
+  "values": [
+    {
+      "id": "tconstruct:broadsword",
+      "required": false
+    },
+    {
+      "id": "tconstruct:cleaver",
+      "required": false
+    },
+    {
+      "id": "tconstruct:rapier",
+      "required": false
+    },
+    {
+      "id": "tconstruct:longsword",
+      "required": false
+    },
+    {
+      "id": "draconicevolution:wyvern_sword",
+      "required": false
+    },
+    {
+      "id": "draconicevolution:draconic_sword",
+      "required": false
+    },
+    {
+      "id": "projecte:item.pe_dm_sword",
+      "required": false
+    },
+    {
+      "id": "projecte:item.pe_rm_sword",
+      "required": false
+    },
+    {
+      "id": "tconstruct:sword",
+      "required": false
+    },
+    {
+      "id": "tconstruct:dagger",
+      "required": false
+    },
+    {
+      "id": "vampirism:heart_striker_normal",
+      "required": false
+    },
+    {
+      "id": "vampirism:heart_striker_enhanced",
+      "required": false
+    },
+    {
+      "id": "vampirism:heart_striker_ultimate",
+      "required": false
+    },
+    {
+      "id": "vampirism:heart_seeker_normal",
+      "required": false
+    },
+    {
+      "id": "vampirism:heart_seeker_enhanced",
+      "required": false
+    },
+    {
+      "id": "vampirism:heart_seeker_ultimate",
+      "required": false
+    }
+  ]
 }

@@ -1,9 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base",
-  "textures": {
-    "0": "minecraft:block/nether_bricks",
-    "1": "minecraft:block/nether_bricks",
-    "2": "sworddisplay:block/glass",
-    "particle": "minecraft:block/nether_bricks"
-  }
-}
