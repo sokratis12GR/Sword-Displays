@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,is_reverse=false,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 270
+    },
+    "facing=east,is_reverse=false,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 270
+    },
+    "facing=east,is_reverse=true,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 270
+    },
+    "facing=east,is_reverse=true,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 270
+    },
+    "facing=north,is_reverse=false,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 180
+    },
+    "facing=north,is_reverse=false,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 180
+    },
+    "facing=north,is_reverse=true,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 180
+    },
+    "facing=north,is_reverse=true,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 180
+    },
+    "facing=south,is_reverse=false,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display"
+    },
+    "facing=south,is_reverse=false,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display"
+    },
+    "facing=south,is_reverse=true,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display"
+    },
+    "facing=south,is_reverse=true,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display"
+    },
+    "facing=west,is_reverse=false,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 90
+    },
+    "facing=west,is_reverse=false,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 90
+    },
+    "facing=west,is_reverse=true,is_wall_display=false": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 90
+    },
+    "facing=west,is_reverse=true,is_wall_display=true": {
+      "model": "sworddisplay:block/stone_bricks_wall_display",
+      "y": 90
+    }
+  }
+}
