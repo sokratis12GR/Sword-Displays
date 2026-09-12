@@ -11,8 +11,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import static com.sofodev.sworddisplay.blocks.SwordDisplayBlock.IS_REVERSE;
 import static com.sofodev.sworddisplay.blocks.SwordWallDisplayBlock.IS_WALL_DISPLAY;

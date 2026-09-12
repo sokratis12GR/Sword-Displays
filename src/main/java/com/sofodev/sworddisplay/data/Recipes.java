@@ -13,8 +13,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,9 +31,9 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
     protected void buildRecipes(RecipeOutput consumer) {
         registryHelper.forEach(entry -> {
             // Get the display/case blocks
-            RegistryObject<Block> displayRO = entry.blocks().displayBlock();
-            RegistryObject<Block> caseRO = entry.blocks().caseBlock();
-            RegistryObject<Block> wallRO = entry.blocks().wallDisplay();
+            DeferredHolder<Block, Block> displayRO = entry.blocks().displayBlock();
+            DeferredHolder<Block, Block> caseRO = entry.blocks().caseBlock();
+            DeferredHolder<Block, Block> wallRO = entry.blocks().wallDisplay();
 
             // Get items for recipe ingredients
             ItemLike material = entry.coreMaterial();
@@ -44,7 +44,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
     }
 
     private void registerMaterialRecipes(RecipeOutput consumer,
-                                         RegistryObject<Block> sdDisplay, RegistryObject<Block> sdCase, RegistryObject<Block> wallDisplay,
+                                         DeferredHolder<Block, Block> sdDisplay, DeferredHolder<Block, Block> sdCase, DeferredHolder<Block, Block> wallDisplay,
                                          ItemLike material, TagKey<Item> slabs) {
 
         this.registerDisplayRecipes(consumer, sdDisplay, material, slabs);
@@ -52,7 +52,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
         this.registerWallDisplayRecipes(consumer, wallDisplay, material, slabs);
     }
 
-    private void registerCaseRecipes(RecipeOutput consumer, RegistryObject<Block> block, ItemLike material, TagKey<Item> core) {
+    private void registerCaseRecipes(RecipeOutput consumer, DeferredHolder<Block, Block> block, ItemLike material, TagKey<Item> core) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern("GGG")
                 .pattern("GMG")
@@ -65,7 +65,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
                 .save(consumer);
     }
 
-    private void registerWallDisplayRecipes(RecipeOutput consumer, RegistryObject<Block> block, ItemLike material, TagKey<Item> core) {
+    private void registerWallDisplayRecipes(RecipeOutput consumer, DeferredHolder<Block, Block> block, ItemLike material, TagKey<Item> core) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern(" G ")
                 .pattern("GMG")
@@ -77,7 +77,7 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
                 .save(consumer);
     }
 
-    private void registerDisplayRecipes(RecipeOutput consumer, RegistryObject<Block> block, ItemLike material, TagKey<Item> core) {
+    private void registerDisplayRecipes(RecipeOutput consumer, DeferredHolder<Block, Block> block, ItemLike material, TagKey<Item> core) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block.get())
                 .pattern(" M ")
                 .pattern("MCM")

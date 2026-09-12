@@ -4,8 +4,8 @@ import com.sofodev.sworddisplay.SwordDisplay;
 import com.sofodev.sworddisplay.registry.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 
@@ -23,9 +23,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
         List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
         for (ModBlocks.BlockRegistryEntry entry : entries) {
-            RegistryObject<Block> caseBlock = entry.blocks().caseBlock();
-            RegistryObject<Block> displayBlock = entry.blocks().displayBlock();
-            RegistryObject<Block> wallBlock = entry.blocks().wallDisplay();
+            DeferredHolder<Block, Block> caseBlock = entry.blocks().caseBlock();
+            DeferredHolder<Block, Block> displayBlock = entry.blocks().displayBlock();
+            DeferredHolder<Block, Block> wallBlock = entry.blocks().wallDisplay();
             add(caseBlock.get(), toTitleCase(caseBlock.getKey().location().getPath()));
             add(displayBlock.get(), toTitleCase(displayBlock.getKey().location().getPath()));
             add(wallBlock.get(), toTitleCase(wallBlock.getKey().location().getPath()));

@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +25,8 @@ import static com.sofodev.sworddisplay.registry.ModItems.ITEMS;
 
 public class ModBlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
 
     public static final Map<String, BlockAndItemEntry> BLOCK_AND_ITEM_MAP = new HashMap<>();
 
@@ -71,17 +71,17 @@ public class ModBlocks {
     public static void registerAll() {
         BLOCK_AND_ITEM_MAP.forEach((baseName, entry) -> {
 
-            RegistryObject<Block> display = registerBlockWithItem(
+            DeferredHolder<Block, Block> display = registerBlockWithItem(
                     baseName + "_sword_display",
                     () -> new SwordDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
             );
 
-            RegistryObject<Block> swordCase = registerBlockWithItem(
+            DeferredHolder<Block, Block> swordCase = registerBlockWithItem(
                     baseName + "_sword_case",
                     () -> new SwordCaseBlock(Block.Properties.ofFullCopy(Blocks.STONE))
             );
 
-            RegistryObject<Block> wallDisplay = registerBlockWithItem(
+            DeferredHolder<Block, Block> wallDisplay = registerBlockWithItem(
                     baseName + "_wall_display",
                     () -> new SwordWallDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
             );
@@ -91,7 +91,7 @@ public class ModBlocks {
     }
 
     public static String getBaseName(Block block) {
-        String name = ForgeRegistries.BLOCKS.getKey(block).getPath();
+        String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
         return name.replace("_block", "").replace("_planks", "");
     }
 
@@ -99,7 +99,7 @@ public class ModBlocks {
         return getBaseName(block).replace("_sword_display", "").replace("_sword_case", "");
     }
 
-    public static final RegistryObject<BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
             () -> build(BlockEntityType.Builder.of(
                     SwordDisplayTile::new,
                     REGISTRY_LIST.stream()
@@ -114,18 +114,18 @@ public class ModBlocks {
         return builder.build(null);
     }
 
-    public static <BLOCK extends Block> RegistryObject<BLOCK> registerBlockWithItem(String name, Supplier<BLOCK> blockSupplier, Function<BLOCK, Item> itemFactory) {
-        RegistryObject<BLOCK> block = BLOCKS.register(name, blockSupplier);
+    public static <BLOCK extends Block> DeferredHolder<Block, BLOCK> registerBlockWithItem(String name, Supplier<BLOCK> blockSupplier, Function<BLOCK, Item> itemFactory) {
+        DeferredHolder<Block, BLOCK> block = BLOCKS.register(name, blockSupplier);
         ITEMS.register(name, () -> itemFactory.apply(block.get()));
         return block;
     }
 
-    public static <BLOCK extends Block> RegistryObject<BLOCK> registerBlockWithItem(String name, Supplier<BLOCK> blockSupplier) {
+    public static <BLOCK extends Block> DeferredHolder<Block, BLOCK> registerBlockWithItem(String name, Supplier<BLOCK> blockSupplier) {
         return registerBlockWithItem(name, blockSupplier, SDBlockItem::new);
     }
 
-    public record BlockDisplays(RegistryObject<Block> displayBlock, RegistryObject<Block> caseBlock,
-                                RegistryObject<Block> wallDisplay){}
+    public record BlockDisplays(DeferredHolder<Block, Block> displayBlock, DeferredHolder<Block, Block> caseBlock,
+                                DeferredHolder<Block, Block> wallDisplay){}
 
     public record BlockRegistryEntry(String key, BlockDisplays blocks,
                                      ItemLike coreMaterial, boolean isWooden) {
@@ -134,7 +134,7 @@ public class ModBlocks {
     public record BlockAndItemEntry(Block block, Item item) {
 
         public boolean isWooden() {
-            return ForgeRegistries.BLOCKS.getKey(block).getPath().contains("plank");
+            return BuiltInRegistries.BLOCK.getKey(block).getPath().contains("plank");
         }
     }
 }

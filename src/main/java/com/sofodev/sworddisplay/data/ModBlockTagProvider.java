@@ -9,9 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -33,9 +33,9 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         TagKey<Block> SWORD_DISPLAYS = modTag("displays");
 
         for (ModBlocks.BlockRegistryEntry entry : entries) {
-            RegistryObject<Block> caseRO = entry.blocks().caseBlock();
-            RegistryObject<Block> displayRO = entry.blocks().displayBlock();
-            RegistryObject<Block> wallDisplayRO = entry.blocks().wallDisplay();
+            DeferredHolder<Block, Block> caseRO = entry.blocks().caseBlock();
+            DeferredHolder<Block, Block> displayRO = entry.blocks().displayBlock();
+            DeferredHolder<Block, Block> wallDisplayRO = entry.blocks().wallDisplay();
             addAllItems(SWORD_DISPLAYS, caseRO, displayRO, wallDisplayRO);
             if (entry.isWooden()) {
                 tag(BlockTags.MINEABLE_WITH_AXE).add(caseRO.get(), displayRO.get(), wallDisplayRO.get());
@@ -79,8 +79,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     @SafeVarargs
-    private void addAllItems(TagKey<Block> tagKey, RegistryObject<? extends Block>... items) {
-        for (RegistryObject<? extends Block> obj : items) {
+    private void addAllItems(TagKey<Block> tagKey, DeferredHolder<Block, ? extends Block>... items) {
+        for (DeferredHolder<Block, ? extends Block> obj : items) {
             tag(tagKey).add(ResourceKey.create(Registries.BLOCK, obj.getId()));
         }
     }

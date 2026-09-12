@@ -2,15 +2,16 @@ package com.sofodev.sworddisplay.events;
 
 import com.sofodev.sworddisplay.blocks.TESRSwordDisplay;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import static com.sofodev.sworddisplay.SwordDisplay.MODID;
 import static com.sofodev.sworddisplay.registry.ModBlocks.SWORD_DISPLAY_TYPE;
-import static net.minecraftforge.api.distmarker.Dist.CLIENT;
+import static net.neoforged.api.distmarker.Dist.CLIENT;
 
-@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = CLIENT)
+@EventBusSubscriber(modid = MODID, value = CLIENT)
 public class ClientModEvents {
 
     @SubscribeEvent

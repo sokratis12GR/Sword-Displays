@@ -8,7 +8,7 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +36,9 @@ public class ModLootTableProvider extends LootTableProvider {
             List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
 
             for (ModBlocks.BlockRegistryEntry entry : entries) {
-                RegistryObject<Block> caseBlock = entry.blocks().caseBlock();
-                RegistryObject<Block> displayBlock = entry.blocks().displayBlock();
-                RegistryObject<Block> wallBlock = entry.blocks().wallDisplay();
+                DeferredHolder<Block, Block> caseBlock = entry.blocks().caseBlock();
+                DeferredHolder<Block, Block> displayBlock = entry.blocks().displayBlock();
+                DeferredHolder<Block, Block> wallBlock = entry.blocks().wallDisplay();
                 dropSelf(caseBlock.get());
                 dropSelf(displayBlock.get());
                 dropSelf(wallBlock.get());
@@ -49,11 +49,13 @@ public class ModLootTableProvider extends LootTableProvider {
         protected Iterable<Block> getKnownBlocks() {
             List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList();
             List<Block> blocks = new ArrayList<>();
+
             for (ModBlocks.BlockRegistryEntry entry : entries) {
-                entry.blocks().caseBlock().ifPresent(blocks::add);
-                entry.blocks().displayBlock().ifPresent(blocks::add);
-                entry.blocks().wallDisplay().ifPresent(blocks::add);
+                blocks.add(entry.blocks().caseBlock().value());
+                blocks.add(entry.blocks().displayBlock().value());
+                blocks.add(entry.blocks().wallDisplay().value());
             }
+
             return blocks;
         }
     }
