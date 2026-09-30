@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/redstone_sword_case"
+    "model": "sworddisplay:item/redstone_sword_case"
   }
 }

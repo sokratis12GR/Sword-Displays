@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/cherry_wall_display"
+    "model": "sworddisplay:item/cherry_wall_display"
   }
 }

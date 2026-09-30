@@ -9,7 +9,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,8 +20,12 @@ public final class SDBlockTagsProvider extends BlockTagsProvider {
             Identifier.fromNamespaceAndPath(SwordDisplay.MODID, "displays")
     );
 
-    public SDBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, SwordDisplay.MODID);
+    public SDBlockTagsProvider(
+            PackOutput output,
+            CompletableFuture<HolderLookup.Provider> lookupProvider,
+            ExistingFileHelper existingFileHelper
+    ) {
+        super(output, lookupProvider, SwordDisplay.MODID, existingFileHelper);
     }
 
     @Override
@@ -35,6 +40,7 @@ public final class SDBlockTagsProvider extends BlockTagsProvider {
             Block wallDisplay = entry.blocks().wallDisplay().get();
 
             displays.add(display, swordCase, wallDisplay);
+
             if (entry.isWooden()) {
                 axe.add(display, swordCase, wallDisplay);
             } else {

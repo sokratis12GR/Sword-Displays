@@ -7,20 +7,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
+import net.minecraftforge.common.util.Result;
+import net.minecraftforge.event.level.BlockEvent;
 
 import java.util.UUID;
 
-import static com.sofodev.sworddisplay.SwordDisplay.MODID;
+;
 
-@EventBusSubscriber(modid = MODID)
-public class WorldEvents {
+public final class WorldEvents {
+    private WorldEvents() {
+    }
 
-    @SubscribeEvent
-    public static void onBlockBreak(BreakBlockEvent event) {
+    public static void register() {
+        BlockEvent.BreakEvent.BUS.addListener(WorldEvents::onBlockBreak);
+    }
+
+    private static void onBlockBreak(BlockEvent.BreakEvent event) {
         BlockPos pos = event.getPos();
         Level world = (Level) event.getLevel();
         BlockEntity te = world.getBlockEntity(pos);
@@ -31,9 +33,8 @@ public class WorldEvents {
             boolean isTheOwner = playerUUID.equals(displayTile.getOwner());
             ItemStack sword = displayTile.getSword();
             if (!sword.isEmpty() && !isTheOwner && displayTile.getOwner() != null && !player.getAbilities().instabuild) {
-                event.setCanceled(true);
+                event.setResult(Result.DENY);
             }
         }
     }
-
 }

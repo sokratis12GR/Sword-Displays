@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/mangrove_wall_display"
+    "model": "sworddisplay:item/mangrove_wall_display"
   }
 }

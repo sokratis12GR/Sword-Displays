@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/lapis_wall_display"
+    "model": "sworddisplay:item/lapis_wall_display"
   }
 }

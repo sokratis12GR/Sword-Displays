@@ -3,7 +3,7 @@ package com.sofodev.sworddisplay.data.client;
 import com.sofodev.sworddisplay.SwordDisplay;
 import com.sofodev.sworddisplay.registry.ModBlocks;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

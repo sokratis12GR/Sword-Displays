@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/amethyst_wall_display"
+    "model": "sworddisplay:item/amethyst_wall_display"
   }
 }

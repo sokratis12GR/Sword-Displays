@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/emerald_sword_display"
+    "model": "sworddisplay:item/emerald_sword_display"
   }
 }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/netherite_wall_display"
+    "model": "sworddisplay:item/netherite_wall_display"
   }
 }

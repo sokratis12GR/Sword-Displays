@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/oak_sword_display"
+    "model": "sworddisplay:item/oak_sword_display"
   }
 }

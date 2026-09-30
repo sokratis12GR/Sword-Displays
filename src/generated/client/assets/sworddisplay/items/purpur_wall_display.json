@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/purpur_wall_display"
+    "model": "sworddisplay:item/purpur_wall_display"
   }
 }

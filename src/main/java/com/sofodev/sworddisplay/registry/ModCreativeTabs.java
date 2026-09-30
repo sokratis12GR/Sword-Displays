@@ -4,8 +4,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
@@ -16,7 +16,7 @@ public class ModCreativeTabs {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SD_GROUP = register("core", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> SD_GROUP = register("core", () -> CreativeModeTab.builder()
             .icon(() -> new ItemStack(registryHelper.getDisplay("stone").get()))
             .title(Component.translatable("tabs.sworddisplay.core"))
             .displayItems((flags, output) -> {
@@ -29,7 +29,7 @@ public class ModCreativeTabs {
             .build());
 
 
-    public static DeferredHolder<CreativeModeTab, CreativeModeTab> register(String name, Supplier<? extends CreativeModeTab> sup) {
+    public static RegistryObject<CreativeModeTab> register(String name, Supplier<? extends CreativeModeTab> sup) {
         return CREATIVE_MODE_TABS.register(name, sup);
     }
 }

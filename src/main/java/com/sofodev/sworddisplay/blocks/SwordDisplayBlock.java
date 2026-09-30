@@ -41,7 +41,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
     public static final TagKey<Item> SWORDS = ItemTags.create(Identifier.parse("sworddisplay:swords"));
 
     public SwordDisplayBlock(Properties properties) {
-        super(properties.strength(10.0f, 1000.0f).noOcclusion());
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(IS_REVERSE, Boolean.FALSE));

@@ -1,98 +1,102 @@
 package com.sofodev.sworddisplay.data.client;
 
+import com.google.gson.JsonObject;
 import com.sofodev.sworddisplay.SwordDisplay;
-import com.sofodev.sworddisplay.blocks.SwordDisplayBlock;
 import com.sofodev.sworddisplay.registry.ModBlocks;
-import net.minecraft.client.data.models.BlockModelGenerators;
-import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.blockstates.PropertyDispatch;
-import net.minecraft.client.data.models.model.ModelTemplate;
-import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TextureSlot;
-import net.minecraft.client.resources.model.sprite.Material;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
-public final class SDModelProvider extends ModelProvider {
-    private static final TextureSlot TEXTURE_0 = TextureSlot.create("0");
-    private static final TextureSlot TEXTURE_1 = TextureSlot.create("1");
-
-    private static final ModelTemplate SWORD_DISPLAY = blockTemplate("sword_display_base");
-    private static final ModelTemplate SWORD_CASE = blockTemplate("sword_case_base");
-    private static final ModelTemplate WALL_DISPLAY = wallTemplate();
+public final class SDModelProvider implements DataProvider {
+    private final PackOutput.PathProvider blockStates;
+    private final PackOutput.PathProvider models;
+    private final PackOutput.PathProvider items;
 
     public SDModelProvider(PackOutput output) {
-        super(output, SwordDisplay.MODID);
+        this.blockStates = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
+        this.models = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
+        this.items = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
     }
 
     @Override
-    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+    public CompletableFuture<?> run(CachedOutput output) {
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+
         for (ModBlocks.BlockRegistryEntry entry : ModBlocks.REGISTRY_LIST) {
-            Material material = materialTexture(entry.key());
-
-            generate(blockModels, entry.blocks().displayBlock().get(), SWORD_DISPLAY, material);
-            generate(blockModels, entry.blocks().caseBlock().get(), SWORD_CASE, material);
-            generate(blockModels, entry.blocks().wallDisplay().get(), WALL_DISPLAY, material);
+            String texture = materialTexture(entry.key());
+            generate(output, futures, entry.blocks().displayBlock().get(), "sword_display_base", texture, true);
+            generate(output, futures, entry.blocks().caseBlock().get(), "sword_case_base", texture, true);
+            generate(output, futures, entry.blocks().wallDisplay().get(), "wall_display_base", texture, false);
         }
+
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
-    private static void generate(BlockModelGenerators generator, Block block, ModelTemplate template, Material texture) {
-        Identifier model = template.create(
-                block,
-                new TextureMapping()
-                        .put(TEXTURE_0, texture)
-                        .put(TEXTURE_1, texture)
-                        .put(TextureSlot.PARTICLE, texture),
-                generator.modelOutput
-        );
+    private void generate(CachedOutput output, List<CompletableFuture<?>> futures, Block block, String parentName, String texture, boolean texture1) {
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier modelId = Identifier.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
 
-        var variant = BlockModelGenerators.plainVariant(model);
+        JsonObject model = new JsonObject();
+        model.addProperty("parent", SwordDisplay.MODID + ":block/base/" + parentName);
+        JsonObject textures = new JsonObject();
+        textures.addProperty("0", texture);
+        if (texture1) {
+            textures.addProperty("1", texture);
+        }
+        textures.addProperty("particle", texture);
+        model.add("textures", textures);
+        futures.add(DataProvider.saveStable(output, model, models.json(modelId)));
 
-        generator.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(block, variant)
-                        .with(PropertyDispatch.modify(SwordDisplayBlock.FACING)
-                                .select(Direction.SOUTH, BlockModelGenerators.NOP)
-                                .select(Direction.WEST, BlockModelGenerators.Y_ROT_90)
-                                .select(Direction.NORTH, BlockModelGenerators.Y_ROT_180)
-                                .select(Direction.EAST, BlockModelGenerators.Y_ROT_270))
-        );
+        JsonObject state = new JsonObject();
+        JsonObject variants = new JsonObject();
+        addFacing(variants, "south", modelId, 0);
+        addFacing(variants, "west", modelId, 90);
+        addFacing(variants, "north", modelId, 180);
+        addFacing(variants, "east", modelId, 270);
+        state.add("variants", variants);
+        futures.add(DataProvider.saveStable(output, state, blockStates.json(id)));
 
+        Identifier itemModelId = Identifier.fromNamespaceAndPath(id.getNamespace(), "item/" + id.getPath());
+        JsonObject itemModel = new JsonObject();
+        itemModel.addProperty("parent", modelId.toString());
+        futures.add(DataProvider.saveStable(output, itemModel, models.json(itemModelId)));
+
+        JsonObject clientItem = new JsonObject();
+        JsonObject clientModel = new JsonObject();
+        clientModel.addProperty("type", "minecraft:model");
+        clientModel.addProperty("model", itemModelId.toString());
+        clientItem.add("model", clientModel);
+        futures.add(DataProvider.saveStable(output, clientItem, items.json(id)));
     }
 
-    private static ModelTemplate blockTemplate(String parent) {
-        return new ModelTemplate(
-                Optional.of(Identifier.fromNamespaceAndPath(SwordDisplay.MODID, "block/base/" + parent)),
-                Optional.empty(),
-                TEXTURE_0,
-                TEXTURE_1,
-                TextureSlot.PARTICLE
-        );
+    private static void addFacing(JsonObject variants, String facing, Identifier model, int y) {
+        JsonObject variant = new JsonObject();
+        variant.addProperty("model", model.toString());
+        if (y != 0) {
+            variant.addProperty("y", y);
+        }
+        variants.add("facing=" + facing, variant);
     }
 
-    private static ModelTemplate wallTemplate() {
-        return new ModelTemplate(
-                Optional.of(Identifier.fromNamespaceAndPath(SwordDisplay.MODID, "block/base/wall_display_base")),
-                Optional.empty(),
-                TEXTURE_0,
-                TextureSlot.PARTICLE
-        );
-    }
-
-    private static Material materialTexture(String key) {
+    private static String materialTexture(String key) {
         if (key.equals("quartz")) {
-            return new Material(Identifier.withDefaultNamespace("block/quartz_block_side"));
+            return "minecraft:block/quartz_block_side";
         }
-
         Block materialBlock = ModBlocks.BLOCK_AND_ITEM_MAP.get(key).block();
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(materialBlock);
-        return new Material(Identifier.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath()));
+        return blockId.getNamespace() + ":block/" + blockId.getPath();
+    }
+
+    @Override
+    public String getName() {
+        return "Sword Displays block and item models";
     }
 }

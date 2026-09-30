@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/copper_sword_case"
+    "model": "sworddisplay:item/copper_sword_case"
   }
 }

@@ -12,7 +12,7 @@ public class SwordCaseBlock extends SwordDisplayBlock {
     protected static final VoxelShape FULL_MODEL = Shapes.or(box(0, 2, 0, 16, 21, 16), VOXEL);
 
     public SwordCaseBlock(Properties type) {
-        super(type.dynamicShape());
+        super(type);
     }
 
     @Override

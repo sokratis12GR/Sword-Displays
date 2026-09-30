@@ -8,11 +8,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import net.minecraftforge.registries.RegistryObject;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +27,9 @@ import static com.sofodev.sworddisplay.registry.ModItems.ITEMS;
 
 public class ModBlocks {
 
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
 
     public static final Map<String, BlockAndItemEntry> BLOCK_AND_ITEM_MAP = new HashMap<>();
 
@@ -73,19 +74,22 @@ public class ModBlocks {
     public static void registerAll() {
         BLOCK_AND_ITEM_MAP.forEach((baseName, entry) -> {
 
-            DeferredHolder<Block, Block> display = registerBlockWithItem(
+            RegistryObject<Block> display = registerBlockWithItem(
                     baseName + "_sword_display",
-                    SwordDisplayBlock::new
+                    SwordDisplayBlock::new,
+                    false
             );
 
-            DeferredHolder<Block, Block> swordCase = registerBlockWithItem(
+            RegistryObject<Block> swordCase = registerBlockWithItem(
                     baseName + "_sword_case",
-                    SwordCaseBlock::new
+                    SwordCaseBlock::new,
+                    true
             );
 
-            DeferredHolder<Block, Block> wallDisplay = registerBlockWithItem(
+            RegistryObject<Block> wallDisplay = registerBlockWithItem(
                     baseName + "_wall_display",
-                    SwordWallDisplayBlock::new
+                    SwordWallDisplayBlock::new,
+                    true
             );
 
             REGISTRY_LIST.add(new BlockRegistryEntry(baseName, new BlockDisplays(display, swordCase, wallDisplay), entry.item(), entry.isWooden()));
@@ -101,28 +105,46 @@ public class ModBlocks {
         return getBaseName(block).replace("_sword_display", "").replace("_sword_case", "");
     }
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
-            () -> new BlockEntityType<>(
-                    SwordDisplayTile::new,
-                    REGISTRY_LIST.stream()
-                            .flatMap(entry ->
-                                    Stream.of(entry.blocks().displayBlock().get(),
-                                            entry.blocks().caseBlock().get(),
-                                            entry.blocks().wallDisplay().get()))
-                            .toArray(Block[]::new)
-            ));
+    public static final RegistryObject<BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE =
+            TILE_ENTITIES.register("sword_display",
+                    () -> new BlockEntityType<>(
+                            SwordDisplayTile::new,
+                            REGISTRY_LIST.stream()
+                                    .flatMap(entry ->
+                                            Stream.of(
+                                                    entry.blocks().displayBlock().get(),
+                                                    entry.blocks().caseBlock().get(),
+                                                    entry.blocks().wallDisplay().get()
+                                            ))
+                                    .collect(java.util.stream.Collectors.toSet())
+                    ));
 
 
-    public static <BLOCK extends Block> DeferredBlock<BLOCK> registerBlockWithItem(
-            String name, Function<Block.Properties, BLOCK> blockFactory) {
-        DeferredBlock<BLOCK> block = BLOCKS.registerBlock(name, blockFactory, () -> Block.Properties.ofFullCopy(Blocks.STONE));
-        ITEMS.registerItem(name, properties -> new SDBlockItem(block.get(), properties.useBlockDescriptionPrefix()));
+    public static RegistryObject<Block> registerBlockWithItem(
+            String name, Function<Block.Properties, ? extends Block> blockFactory, boolean dynamicShape) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> {
+            Block.Properties properties = Block.Properties.ofFullCopy(Blocks.STONE)
+                    .strength(10.0f, 1000.0f)
+                    .noOcclusion();
+            if (dynamicShape) {
+                properties = properties.dynamicShape();
+            }
+            // In 26.1 the registry id must be applied after all property transformations.
+            properties = properties.setId(BLOCKS.key(name));
+            return blockFactory.apply(properties);
+        });
+        ITEMS.register(name, () -> new SDBlockItem(
+                block.get(),
+                new Item.Properties()
+                        .useBlockDescriptionPrefix()
+                        .setId(ITEMS.key(name))
+        ));
         return block;
     }
 
 
-    public record BlockDisplays(DeferredHolder<Block, Block> displayBlock, DeferredHolder<Block, Block> caseBlock,
-                                DeferredHolder<Block, Block> wallDisplay){}
+    public record BlockDisplays(RegistryObject<Block> displayBlock, RegistryObject<Block> caseBlock,
+                                RegistryObject<Block> wallDisplay){}
 
     public record BlockRegistryEntry(String key, BlockDisplays blocks,
                                      ItemLike coreMaterial, boolean isWooden) {

@@ -1,9 +1,12 @@
 package com.sofodev.sworddisplay;
 
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import com.sofodev.sworddisplay.data.client.SDClientData;
 import com.sofodev.sworddisplay.data.server.SDServerData;
+import com.sofodev.sworddisplay.events.ClientModEvents;
+import com.sofodev.sworddisplay.events.WorldEvents;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +20,19 @@ public class SwordDisplay {
     public static final String MODID = "sworddisplay";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public SwordDisplay(IEventBus modEventBus) {
-        modEventBus.addListener(SDClientData::gatherData);
-        modEventBus.addListener(SDServerData::gatherData);
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
-        TILE_ENTITIES.register(modEventBus);
+    public SwordDisplay(FMLJavaModLoadingContext context) {
+        var modBusGroup = context.getModBusGroup();
+
+        GatherDataEvent.getBus(modBusGroup).addListener(event -> {
+            SDClientData.gatherData(event);
+            SDServerData.gatherData(event);
+        });
+        ClientModEvents.register();
+        WorldEvents.register();
+
+        BLOCKS.register(modBusGroup);
+        ITEMS.register(modBusGroup);
+        CREATIVE_MODE_TABS.register(modBusGroup);
+        TILE_ENTITIES.register(modBusGroup);
     }
 }

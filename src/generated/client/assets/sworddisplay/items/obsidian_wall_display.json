@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "sworddisplay:block/obsidian_wall_display"
+    "model": "sworddisplay:item/obsidian_wall_display"
   }
 }

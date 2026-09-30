@@ -81,7 +81,7 @@ public class SwordWallDisplayBlock extends SwordDisplayBlock {
 
 
     public SwordWallDisplayBlock(Properties type) {
-        super(type.dynamicShape());
+        super(type);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(IS_REVERSE, Boolean.FALSE)

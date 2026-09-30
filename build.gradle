@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.147'
+    id 'net.minecraftforge.gradle' version '7.0.40'
     id 'idea'
 }
 
@@ -13,18 +13,23 @@ base {
 }
 
 tasks.named('jar', Jar).configure {
-    archiveFileName = "${mod_name}-${minecraft_version}-${mod_version}-neo.jar"
+    archiveFileName = "${mod_id}-${minecraft_version}-${mod_version}-forge.jar"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
     mavenCentral()
 
-    // Curse Maven
     maven {
-        url = 'https://www.cursemaven.com'
+        url = 'https://maven.minecraftforge.net/'
+    }
 
+    maven {
+        url = 'https://cursemaven.com/'
         content {
             includeGroup 'curse.maven'
         }
@@ -32,7 +37,9 @@ repositories {
 }
 
 dependencies {
-    implementation "curse.maven:thedragonlib-248055:9013506"
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+
+    implementation "curse.maven:thedragonlib-248055:9012319"
 }
 
 sourceSets.main.resources {
@@ -40,68 +47,83 @@ sourceSets.main.resources {
     srcDir 'src/generated/server'
 }
 
-neoForge {
-    version = neoforge_version
-
+minecraft {
     runs {
+        configureEach {
+            workingDir = project.file("run-${name}")
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
         client {
-            client()
+            workingDir = project.file('run')
         }
 
         server {
-            server()
-            programArgument '--nogui'
+            workingDir = project.file('run')
+            args '--nogui'
         }
 
-        gameTestServer {
-            type = "gameTestServer"
-        }
 
-        clientData {
-            clientData()
-            programArguments.addAll '--mod', mod_id,
+        data {
+            workingDir = project.file('run-data')
+
+            args '--mod', mod_id,
                     '--all',
-                    '--output', file('src/generated/client').absolutePath,
+                    '--output', file('build/generated-datagen').absolutePath,
                     '--existing', file('src/main/resources').absolutePath
-        }
-
-        serverData {
-            serverData()
-            programArguments.addAll '--mod', mod_id,
-                    '--all',
-                    '--output', file('src/generated/server').absolutePath,
-                    '--existing', file('src/main/resources').absolutePath
-        }
-    }
-
-    mods {
-        sworddisplay {
-            sourceSet sourceSets.main
         }
     }
 }
 
-var replaceProperties = [
-        minecraft_version       : minecraft_version,
-        minecraft_version_range : minecraft_version_range,
-        neoforge_version        : neoforge_version,
-        neoforge_version_range  : neoforge_version_range,
-        loader_version_range    : loader_version_range,
-        mod_id                  : mod_id,
-        mod_name                : mod_name,
-        mod_license             : mod_license,
-        mod_version             : mod_version,
-        mod_authors             : mod_authors,
-        mod_description         : mod_description
-]
+tasks.matching { it.name == 'runData' }.configureEach {
+    doLast {
+        def datagenOutput = file('build/generated-datagen')
+        def clientOutput = file('src/generated/client')
+        def serverOutput = file('src/generated/server')
+
+        delete clientOutput
+        delete serverOutput
+
+        copy {
+            from datagenOutput
+            include 'assets/**'
+            into clientOutput
+        }
+
+        copy {
+            from datagenOutput
+            include 'data/**'
+            into serverOutput
+        }
+
+        println ''
+        println 'Sword Displays generated resources:'
+        println "  Client -> ${clientOutput}"
+        println "  Server -> ${serverOutput}"
+    }
+}
+
+var replaceProperties = [minecraft_version      : minecraft_version,
+                         minecraft_version_range: minecraft_version_range,
+                         forge_version          : forge_version,
+                         forge_version_range    : forge_version_range,
+                         loader_version_range   : loader_version_range,
+                         mod_id                 : mod_id,
+                         mod_name               : mod_name,
+                         mod_license            : mod_license,
+                         mod_version            : mod_version,
+                         mod_authors            : mod_authors,
+                         mod_description        : mod_description]
 
 tasks.named('processResources', ProcessResources).configure {
     inputs.properties replaceProperties
 
-    filesMatching([
-            'META-INF/neoforge.mods.toml',
-            'pack.mcmeta'
-    ]) {
+    filesMatching('META-INF/mods.toml') {
         expand replaceProperties
     }
 }
