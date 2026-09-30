@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.146'
+    id 'net.neoforged.moddev' version '2.0.147'
     id 'idea'
 }
 
@@ -9,14 +9,14 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = mod_id
+    archivesName = mod_name
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
+tasks.named('jar', Jar).configure {
+    archiveFileName = "${mod_name}-${minecraft_version}-${mod_version}-neo.jar"
 }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 repositories {
     mavenCentral()
@@ -32,12 +32,16 @@ repositories {
 }
 
 dependencies {
-    implementation "curse.maven:jei-238222:8527020"
-    implementation "curse.maven:thedragonlib-248055:5505781"
+    implementation "curse.maven:thedragonlib-248055:9013506"
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/client'
+    srcDir 'src/generated/server'
 }
 
 neoForge {
-    version = project.neo_version
+    version = neoforge_version
 
     runs {
         client {
@@ -49,36 +53,46 @@ neoForge {
             programArgument '--nogui'
         }
 
-        data {
-            data()
+        gameTestServer {
+            type = "gameTestServer"
+        }
 
-            programArguments.addAll(
-                    '--mod', project.mod_id,
+        clientData {
+            clientData()
+            programArguments.addAll '--mod', mod_id,
                     '--all',
-                    '--output', file('src/generated/resources/').absolutePath,
-                    '--existing', file('src/main/resources/').absolutePath
-            )
+                    '--output', file('src/generated/client').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+        }
+
+        serverData {
+            serverData()
+            programArguments.addAll '--mod', mod_id,
+                    '--all',
+                    '--output', file('src/generated/server').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
         }
     }
 
     mods {
-        "${mod_id}" {
+        sworddisplay {
             sourceSet sourceSets.main
         }
     }
 }
 
 var replaceProperties = [
-        minecraft_version      : minecraft_version,
-        minecraft_version_range: minecraft_version_range,
-        neo_version            : neo_version,
-        loader_version_range   : loader_version_range,
-        mod_id                 : mod_id,
-        mod_name               : mod_name,
-        mod_license            : mod_license,
-        mod_version            : mod_version,
-        mod_authors            : mod_authors,
-        mod_description        : mod_description
+        minecraft_version       : minecraft_version,
+        minecraft_version_range : minecraft_version_range,
+        neoforge_version        : neoforge_version,
+        neoforge_version_range  : neoforge_version_range,
+        loader_version_range    : loader_version_range,
+        mod_id                  : mod_id,
+        mod_name                : mod_name,
+        mod_license             : mod_license,
+        mod_version             : mod_version,
+        mod_authors             : mod_authors,
+        mod_description         : mod_description
 ]
 
 tasks.named('processResources', ProcessResources).configure {

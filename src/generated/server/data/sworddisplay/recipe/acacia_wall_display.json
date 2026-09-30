@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:acacia_planks"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:acacia_wall_display"
+  }
+}

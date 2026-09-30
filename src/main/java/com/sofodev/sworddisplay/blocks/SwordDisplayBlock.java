@@ -3,12 +3,12 @@ package com.sofodev.sworddisplay.blocks;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -16,21 +16,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.UUID;
 
@@ -39,11 +34,11 @@ import static net.minecraft.world.phys.shapes.BooleanOp.OR;
 
 public class SwordDisplayBlock extends Block implements EntityBlock {
 
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty IS_REVERSE = BooleanProperty.create("is_reverse");
     protected static final VoxelShape VOXEL = Shapes.join(box(0, 0, 0, 16, 2, 16), box(2, 2, 2, 14, 5, 14), OR);
 
-    public static final TagKey<Item> SWORDS = ItemTags.create(ResourceLocation.parse("sworddisplay:swords"));
+    public static final TagKey<Item> SWORDS = ItemTags.create(Identifier.parse("sworddisplay:swords"));
 
     public SwordDisplayBlock(Properties properties) {
         super(properties.strength(10.0f, 1000.0f).noOcclusion());
@@ -73,11 +68,11 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity te = world.getBlockEntity(pos);
         if (!world.isClientSide() && te instanceof SwordDisplayTile displayTile) {
             GameProfile profile = player.getGameProfile();
-            UUID playerUUID = profile.getId();
+            UUID playerUUID = profile.id();
             boolean hasOwner = displayTile.getOwner() != null && playerUUID.equals(displayTile.getOwner());
             if (player.isShiftKeyDown()) {
                 if (player.getUsedItemHand() == MAIN_HAND && player.getMainHandItem().isEmpty() && hasOwner) {
@@ -97,7 +92,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                         displayTile.setSword(copy);
                         displayTile.setOwner(playerUUID);
                         stack.shrink(1);
-                        return ItemInteractionResult.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     }
                     if (!isDisplayEmpty && stack.isEmpty() && hasOwner) {
                         world.setBlock(pos, state.setValue(IS_REVERSE, !state.getValue(IS_REVERSE)), 3);
@@ -105,26 +100,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
                 }
             }
         }
-        return ItemInteractionResult.SUCCESS;
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-        return super.getCloneItemStack(state, target, level, pos, player);
-    }
-
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof SwordDisplayTile) {
-                Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((SwordDisplayTile) tileentity).getSword()
-                        .copy());
-            }
-            super.onRemove(state, worldIn, pos, newState, isMoving);
-        }
+        return InteractionResult.SUCCESS;
     }
 
     @SuppressWarnings("deprecation")
@@ -135,7 +111,7 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos, Direction direction) {
         BlockEntity te = world.getBlockEntity(pos);
         if (!world.isClientSide() && te instanceof SwordDisplayTile displayTile) {
             ItemStack stack = displayTile.getSword();
@@ -169,48 +145,13 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return facing.getAxis()
-                .isHorizontal() ? stateIn : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public BlockState mirror(BlockState state, Mirror mirrorIn) {
-        return super.mirror(state, mirrorIn);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, IS_REVERSE);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-        return 1;
-    }
-
-    @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
-        return true;
-    }
-
-    @Override
-    public boolean isPossibleToRespawnInThis(BlockState p_279289_) {
-        return false;
     }
 
 }

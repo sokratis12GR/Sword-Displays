@@ -2,6 +2,8 @@ package com.sofodev.sworddisplay;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import com.sofodev.sworddisplay.data.client.SDClientData;
+import com.sofodev.sworddisplay.data.server.SDServerData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +18,8 @@ public class SwordDisplay {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public SwordDisplay(IEventBus modEventBus) {
+        modEventBus.addListener(SDClientData::gatherData);
+        modEventBus.addListener(SDServerData::gatherData);
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);

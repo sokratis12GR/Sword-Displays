@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
@@ -20,13 +20,13 @@ import static com.sofodev.sworddisplay.SwordDisplay.MODID;
 public class WorldEvents {
 
     @SubscribeEvent
-    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+    public static void onBlockBreak(BreakBlockEvent event) {
         BlockPos pos = event.getPos();
         Level world = (Level) event.getLevel();
         BlockEntity te = world.getBlockEntity(pos);
         Player player = event.getPlayer();
         GameProfile profile = player.getGameProfile();
-        UUID playerUUID = profile.getId();
+        UUID playerUUID = profile.id();
         if (!world.isClientSide() && te instanceof SwordDisplayTile displayTile) {
             boolean isTheOwner = playerUUID.equals(displayTile.getOwner());
             ItemStack sword = displayTile.getSword();

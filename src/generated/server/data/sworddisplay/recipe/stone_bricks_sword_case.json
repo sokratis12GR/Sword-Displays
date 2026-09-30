@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:case",
+  "key": {
+    "C": "#minecraft:slabs",
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:stone_bricks"
+  },
+  "pattern": [
+    "GGG",
+    "GMG",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:stone_bricks_sword_case"
+  }
+}

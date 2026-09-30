@@ -10,7 +10,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +27,7 @@ import static com.sofodev.sworddisplay.registry.ModItems.ITEMS;
 
 public class ModBlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
 
     public static final Map<String, BlockAndItemEntry> BLOCK_AND_ITEM_MAP = new HashMap<>();
@@ -73,17 +75,17 @@ public class ModBlocks {
 
             DeferredHolder<Block, Block> display = registerBlockWithItem(
                     baseName + "_sword_display",
-                    () -> new SwordDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                    SwordDisplayBlock::new
             );
 
             DeferredHolder<Block, Block> swordCase = registerBlockWithItem(
                     baseName + "_sword_case",
-                    () -> new SwordCaseBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                    SwordCaseBlock::new
             );
 
             DeferredHolder<Block, Block> wallDisplay = registerBlockWithItem(
                     baseName + "_wall_display",
-                    () -> new SwordWallDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                    SwordWallDisplayBlock::new
             );
 
             REGISTRY_LIST.add(new BlockRegistryEntry(baseName, new BlockDisplays(display, swordCase, wallDisplay), entry.item(), entry.isWooden()));
@@ -100,7 +102,7 @@ public class ModBlocks {
     }
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
-            () -> build(BlockEntityType.Builder.of(
+            () -> new BlockEntityType<>(
                     SwordDisplayTile::new,
                     REGISTRY_LIST.stream()
                             .flatMap(entry ->
@@ -108,21 +110,16 @@ public class ModBlocks {
                                             entry.blocks().caseBlock().get(),
                                             entry.blocks().wallDisplay().get()))
                             .toArray(Block[]::new)
-            )));
+            ));
 
-    private static <T extends BlockEntity> BlockEntityType<T> build(BlockEntityType.Builder<T> builder) {
-        return builder.build(null);
-    }
 
-    public static <BLOCK extends Block> DeferredHolder<Block, BLOCK> registerBlockWithItem(String name, Supplier<BLOCK> blockSupplier, Function<BLOCK, Item> itemFactory) {
-        DeferredHolder<Block, BLOCK> block = BLOCKS.register(name, blockSupplier);
-        ITEMS.register(name, () -> itemFactory.apply(block.get()));
+    public static <BLOCK extends Block> DeferredBlock<BLOCK> registerBlockWithItem(
+            String name, Function<Block.Properties, BLOCK> blockFactory) {
+        DeferredBlock<BLOCK> block = BLOCKS.registerBlock(name, blockFactory, () -> Block.Properties.ofFullCopy(Blocks.STONE));
+        ITEMS.registerItem(name, properties -> new SDBlockItem(block.get(), properties.useBlockDescriptionPrefix()));
         return block;
     }
 
-    public static <BLOCK extends Block> DeferredHolder<Block, BLOCK> registerBlockWithItem(String name, Supplier<BLOCK> blockSupplier) {
-        return registerBlockWithItem(name, blockSupplier, SDBlockItem::new);
-    }
 
     public record BlockDisplays(DeferredHolder<Block, Block> displayBlock, DeferredHolder<Block, Block> caseBlock,
                                 DeferredHolder<Block, Block> wallDisplay){}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:quartz"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:quartz_wall_display"
+  }
+}

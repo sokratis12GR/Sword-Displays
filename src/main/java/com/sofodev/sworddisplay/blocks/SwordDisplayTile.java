@@ -3,11 +3,14 @@ package com.sofodev.sworddisplay.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -15,7 +18,6 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 import static com.sofodev.sworddisplay.registry.ModBlocks.SWORD_DISPLAY_TYPE;
-import static net.minecraft.nbt.Tag.TAG_COMPOUND;
 
 public class SwordDisplayTile extends BaseTile {
 
@@ -28,25 +30,18 @@ public class SwordDisplayTile extends BaseTile {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-        if (tag.contains("displayed_item", TAG_COMPOUND)) {
-            this.cachedSword = ItemStack.parseOptional(provider, tag.getCompound("displayed_item"));
-        }
-        if (tag.hasUUID("owner")) {
-            this.owner = tag.getUUID("owner");
-        }
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.cachedSword = input.read("displayed_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+        this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        tag.put("displayed_item", this.cachedSword.saveOptional(provider));
-        if (this.owner != null) {
-            tag.putUUID("owner", this.owner);
-        }
-        super.saveAdditional(tag, provider);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        if (!this.cachedSword.isEmpty()) output.store("displayed_item", ItemStack.CODEC, this.cachedSword);
+        if (this.owner != null) output.store("owner", UUIDUtil.CODEC, this.owner);
     }
-
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
@@ -60,19 +55,11 @@ public class SwordDisplayTile extends BaseTile {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookup) {
-        this.loadCustomOnly(pkt.getTag(), lookup);
-    }
-
-
-    @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider holders) {
-        super.handleUpdateTag(tag, holders);
-    }
-
-    @Override
-    public boolean onlyOpCanSetNbt() {
-        return false;
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        super.preRemoveSideEffects(pos, state);
+        if (this.level != null && !this.cachedSword.isEmpty()) {
+            Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), this.cachedSword.copy());
+        }
     }
 
     @Override
@@ -111,6 +98,6 @@ public class SwordDisplayTile extends BaseTile {
 
     public void sendBlockUpdate() {
         this.setChanged();
-        this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
+        if (this.level != null) this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
     }
 }

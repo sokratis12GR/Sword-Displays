@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:case",
+  "key": {
+    "C": "#minecraft:slabs",
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:purpur_block"
+  },
+  "pattern": [
+    "GGG",
+    "GMG",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:purpur_sword_case"
+  }
+}

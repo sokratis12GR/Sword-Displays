@@ -110,6 +110,6 @@ public class SwordWallDisplayBlock extends SwordDisplayBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, IS_REVERSE,  IS_WALL_DISPLAY);
+        builder.add(FACING, IS_REVERSE, IS_WALL_DISPLAY);
     }
 }
