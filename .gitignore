@@ -25,3 +25,5 @@ run
 forge*changelog.txt
 /backup/
 /run-data/*
+/update.json
+/run-data-client/*
