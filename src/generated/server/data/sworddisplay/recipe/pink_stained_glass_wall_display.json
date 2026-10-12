@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_stained_glass",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:pink_stained_glass"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:pink_stained_glass_wall_display"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_metals_and_ores",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:raw_iron_block"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:raw_iron_block_wall_display"
+  }
+}

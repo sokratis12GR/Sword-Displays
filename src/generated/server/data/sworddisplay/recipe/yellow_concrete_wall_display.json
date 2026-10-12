@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_concrete",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:yellow_concrete"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:yellow_concrete_wall_display"
+  }
+}

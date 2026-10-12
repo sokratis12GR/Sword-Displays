@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_bricks",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:bricks"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:bricks_sword_display"
+  }
+}

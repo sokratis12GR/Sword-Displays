@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_ocean_and_underground",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:sea_lantern"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:sea_lantern_sword_display"
+  }
+}

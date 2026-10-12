@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_wood",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:pale_oak_planks"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:pale_oak_sword_display"
+  }
+}

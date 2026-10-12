@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_stained_glass",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:orange_stained_glass"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:orange_stained_glass_sword_display"
+  }
+}

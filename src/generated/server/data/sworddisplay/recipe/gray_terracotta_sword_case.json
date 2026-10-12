@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:case_terracotta",
+  "key": {
+    "C": "#minecraft:slabs",
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:gray_terracotta"
+  },
+  "pattern": [
+    "GGG",
+    "GMG",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:gray_terracotta_sword_case"
+  }
+}

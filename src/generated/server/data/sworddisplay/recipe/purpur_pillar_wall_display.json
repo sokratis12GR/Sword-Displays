@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_nether_and_end",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:purpur_pillar"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:purpur_pillar_wall_display"
+  }
+}

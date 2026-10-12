@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_wool",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:black_wool"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:black_wool_sword_display"
+  }
+}

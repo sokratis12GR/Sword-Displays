@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_stone",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:polished_diorite"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:polished_diorite_wall_display"
+  }
+}

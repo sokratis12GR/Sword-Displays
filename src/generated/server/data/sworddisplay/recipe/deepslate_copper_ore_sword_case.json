@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:case_metals_and_ores",
+  "key": {
+    "C": "#minecraft:slabs",
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:deepslate_copper_ore"
+  },
+  "pattern": [
+    "GGG",
+    "GMG",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:deepslate_copper_ore_sword_case"
+  }
+}

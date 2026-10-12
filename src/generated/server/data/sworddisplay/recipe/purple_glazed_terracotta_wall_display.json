@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_glazed_terracotta",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:purple_glazed_terracotta"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:purple_glazed_terracotta_wall_display"
+  }
+}
