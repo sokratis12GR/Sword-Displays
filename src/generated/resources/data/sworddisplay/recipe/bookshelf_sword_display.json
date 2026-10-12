@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_decorative",
+  "key": {
+    "C": {
+      "tag": "minecraft:slabs"
+    },
+    "M": {
+      "item": "minecraft:bookshelf"
+    }
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:bookshelf_sword_display"
+  }
+}

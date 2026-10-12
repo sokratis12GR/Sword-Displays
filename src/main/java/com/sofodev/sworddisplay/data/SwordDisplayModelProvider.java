@@ -39,7 +39,7 @@ public class SwordDisplayModelProvider extends BlockStateProvider {
             Block displayBlock = entry.blocks().displayBlock().get();
             Block caseBlock = entry.blocks().caseBlock().get();
             Block wallDisplayBlock = entry.blocks().wallDisplay().get();
-            String textureBase = getBaseNameWithoutDisplay(displayBlock);
+            String textureBase = entry.key();
 
             String displayModel = textureBase + "_sword_display";
             String caseModel = textureBase + "_sword_case";
@@ -73,27 +73,24 @@ public class SwordDisplayModelProvider extends BlockStateProvider {
                 PackType.CLIENT_RESOURCES));
     }
 
+    // Resolve textures from the actual vanilla source block rather than assuming
+    // every display registry key names a vanilla texture.
     private static @NotNull String getMcTexture(ModBlocks.BlockRegistryEntry entry) {
         String key = entry.key();
-        String mc_texture = key + "_block";
-        if (Objects.equals(key, "stone") ||
-                Objects.equals(key, "obsidian") ||
-                Objects.equals(key, "stone_bricks") ||
-                Objects.equals(key, "end_stone_bricks") ||
-                Objects.equals(key, "netherrack") ||
-                Objects.equals(key, "nether_bricks") ||
-                Objects.equals(key, "prismarine"))
-            mc_texture = key;
-        if (Objects.equals(key, "quartz")) {
-            mc_texture = key + "_block_side";
-        }
+        String blockName = net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                .getKey(ModBlocks.BLOCK_AND_ITEM_MAP.get(key).block()).getPath();
 
-        if (entry.isWooden()) {
-            mc_texture = key + "_planks";
-        }
-        return mc_texture;
+        if (entry.isWooden()) return blockName;
+        if (key.equals("quartz")) return "quartz_block_side";
+        if (key.equals("stone")) return "stone";
+        if (key.equals("sandstone")) return "sandstone";
+        if (key.equals("red_sandstone")) return "red_sandstone";
+        // These vanilla blocks use differently named side textures.
+        if (key.equals("quartz_pillar")) return "quartz_pillar";
+        if (key.equals("purpur_pillar")) return "purpur_pillar";
+        if (key.equals("smooth_basalt")) return "basalt_side";
+        return blockName;
     }
-
 
     private void makeBlockState(Block block, String modelName) {
         getVariantBuilder(block).forAllStates(state -> {

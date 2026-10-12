@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.146'
+    id 'net.darkhax.curseforgegradle' version '1.1.26'
     id 'idea'
 }
 
@@ -9,7 +10,11 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = mod_id
+    archivesName = mod_name
+}
+
+tasks.named('jar', Jar).configure {
+    archiveFileName = "${mod_id}-${minecraft_version}-${mod_version}-neo.jar"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -32,7 +37,6 @@ repositories {
 }
 
 dependencies {
-    implementation "curse.maven:jei-238222:8527020"
     implementation "curse.maven:thedragonlib-248055:5505781"
 }
 
@@ -72,6 +76,7 @@ var replaceProperties = [
         minecraft_version      : minecraft_version,
         minecraft_version_range: minecraft_version_range,
         neo_version            : neo_version,
+        neo_version_range      : neo_version_range,
         loader_version_range   : loader_version_range,
         mod_id                 : mod_id,
         mod_name               : mod_name,
@@ -94,4 +99,52 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+tasks.register('publishCurseForge',
+        net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = 'publishing'
+    description = "Publishes ${mod_name} ${mod_version} for NeoForge to CurseForge"
+
+    def token = providers.gradleProperty('curseforge_api_token')
+            .orElse(providers.environmentVariable('CURSEFORGE_API_TOKEN'))
+            .orNull
+
+    def projectId = providers.gradleProperty('curseforge_project_id')
+            .orNull
+
+    apiToken = token
+
+    // Validate credentials only when publishing is actually attempted.
+    doFirst {
+        if (!token) {
+            throw new GradleException('Missing curseforge_api_token or CURSEFORGE_API_TOKEN.')
+        }
+
+        if (!projectId) {
+            throw new GradleException('Missing curseforge_project_id.')
+        }
+    }
+
+    if (projectId) {
+        def mainFile = upload(projectId,
+                tasks.named('jar').get())
+
+        mainFile.displayName = "${mod_name} ${mod_version} for NeoForge ${minecraft_version}"
+
+        mainFile.releaseType = 'release'
+
+        def changelogFile = file('src/main/resources/changelog.md')
+
+        mainFile.changelogType = 'markdown'
+
+        mainFile.changelog = changelogFile.exists() ? changelogFile.getText('UTF-8') : "${mod_name} ${mod_version} for NeoForge ${minecraft_version}"
+
+        mainFile.addGameVersion(minecraft_version.toString())
+
+        mainFile.addModLoader('NeoForge')
+
+        mainFile.addEnvironment('Client', 'Server')
+
+        mainFile.addRequirement('thedragonlib')
+    }
 }

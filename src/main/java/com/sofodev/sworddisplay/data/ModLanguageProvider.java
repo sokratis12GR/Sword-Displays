@@ -26,9 +26,9 @@ public class ModLanguageProvider extends LanguageProvider {
             DeferredHolder<Block, Block> caseBlock = entry.blocks().caseBlock();
             DeferredHolder<Block, Block> displayBlock = entry.blocks().displayBlock();
             DeferredHolder<Block, Block> wallBlock = entry.blocks().wallDisplay();
-            add(caseBlock.get(), toTitleCase(caseBlock.getKey().location().getPath()));
-            add(displayBlock.get(), toTitleCase(displayBlock.getKey().location().getPath()));
-            add(wallBlock.get(), toTitleCase(wallBlock.getKey().location().getPath()));
+            add(caseBlock.get(), toTitleCase(entry.key()) + " Sword Case");
+            add(displayBlock.get(), toTitleCase(entry.key()) + " Sword Display");
+            add(wallBlock.get(), toTitleCase(entry.key()) + " Wall Display");
         }
     }
 

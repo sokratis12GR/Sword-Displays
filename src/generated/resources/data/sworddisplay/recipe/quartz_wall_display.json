@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:wall_display",
+  "group": "sworddisplay:wall_display_sandstone_and_quartz",
   "key": {
     "G": {
       "item": "minecraft:glass_pane"
