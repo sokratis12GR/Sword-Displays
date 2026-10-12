@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:case",
+  "group": "sworddisplay:case_ocean_and_underground",
   "key": {
     "C": "#minecraft:slabs",
     "G": "minecraft:glass_pane",

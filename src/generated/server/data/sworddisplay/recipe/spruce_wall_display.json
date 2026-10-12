@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:wall_display",
+  "group": "sworddisplay:wall_display_wood",
   "key": {
     "G": "minecraft:glass_pane",
     "M": "minecraft:spruce_planks"

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:display",
+  "group": "sworddisplay:display_metals_and_ores",
   "key": {
     "C": "#minecraft:slabs",
     "M": "minecraft:emerald"
