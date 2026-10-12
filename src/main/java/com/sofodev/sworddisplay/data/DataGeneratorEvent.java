@@ -26,6 +26,7 @@ public class DataGeneratorEvent {
             generator.addProvider(true, new SwordDisplayModelProvider(packOutput,
                     event.getExistingFileHelper(),
                     new RegistryHelper(ModBlocks.REGISTRY_LIST)));
+            generator.addProvider(true, new ModLanguageProvider(packOutput));
         }
 
         // Server-side data: recipes
@@ -33,7 +34,6 @@ public class DataGeneratorEvent {
             generator.addProvider(true, new Recipes(generator, provider));
             generator.addProvider(true, new ModBlockTagProvider(packOutput, provider, event.getExistingFileHelper()));
             generator.addProvider(true, new ModLootTableProvider(packOutput, provider));
-            generator.addProvider(true, new ModLanguageProvider(packOutput));
         }
     }
 }

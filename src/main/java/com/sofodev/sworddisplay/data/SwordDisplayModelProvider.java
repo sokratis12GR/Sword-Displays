@@ -39,7 +39,7 @@ public class SwordDisplayModelProvider extends BlockStateProvider {
             Block displayBlock = entry.blocks().displayBlock().get();
             Block caseBlock = entry.blocks().caseBlock().get();
             Block wallDisplayBlock = entry.blocks().wallDisplay().get();
-            String textureBase = getBaseNameWithoutDisplay(displayBlock);
+            String textureBase = entry.key();
 
             String displayModel = textureBase + "_sword_display";
             String caseModel = textureBase + "_sword_case";
@@ -75,25 +75,36 @@ public class SwordDisplayModelProvider extends BlockStateProvider {
 
     private static @NotNull String getMcTexture(ModBlocks.BlockRegistryEntry entry) {
         String key = entry.key();
-        String mc_texture = key + "_block";
-        if (Objects.equals(key, "stone") ||
-                Objects.equals(key, "obsidian") ||
-                Objects.equals(key, "stone_bricks") ||
-                Objects.equals(key, "end_stone_bricks") ||
-                Objects.equals(key, "netherrack") ||
-                Objects.equals(key, "nether_bricks") ||
-                Objects.equals(key, "prismarine"))
-            mc_texture = key;
-        if (Objects.equals(key, "quartz")) {
-            mc_texture = key + "_block_side";
-        }
-
-        if (entry.isWooden()) {
-            mc_texture = key + "_planks";
-        }
-        return mc_texture;
+        // Vanilla registry IDs are better texture defaults than the custom display keys.
+        // These exceptional blocks have multiple face textures or special naming.
+        if (key.equals("quartz")) return "quartz_block_side";
+        if (key.equals("smooth_stone")) return "smooth_stone";
+        if (key.equals("sandstone")) return "sandstone";
+        if (key.equals("red_sandstone")) return "red_sandstone";
+        if (key.equals("quartz_pillar")) return "quartz_pillar";
+        if (key.equals("chiseled_quartz_block")) return "chiseled_quartz_block";
+        if (key.equals("bookshelf")) return "bookshelf";
+        if (key.equals("redstone_lamp")) return "redstone_lamp";
+        if (key.equals("sea_lantern")) return "sea_lantern";
+        if (key.equals("shroomlight")) return "shroomlight";
+        if (key.equals("purpur_pillar")) return "purpur_pillar";
+        if (key.equals("sponge")) return "sponge";
+        if (key.equals("wet_sponge")) return "wet_sponge";
+        if (key.equals("sculk")) return "sculk";
+        if (key.equals("moss_block")) return "moss_block";
+        if (key.equals("crimson_nylium")) return "crimson_nylium_side";
+        if (key.equals("warped_nylium")) return "warped_nylium_side";
+        if (key.equals("dried_kelp_block")) return "dried_kelp_side";
+        if (key.equals("slime_block")) return "slime_block";
+        if (key.equals("tinted_glass")) return "tinted_glass";
+        if (key.equals("glowstone")) return "glowstone";
+        if (key.equals("prismarine_bricks")) return "prismarine_bricks";
+        if (key.equals("dark_prismarine")) return "dark_prismarine";
+        if (key.equals("chiseled_copper") || key.endsWith("_chiseled_copper")) return key;
+        if (entry.isWooden()) return key + "_planks";
+        return net.minecraftforge.registries.ForgeRegistries.BLOCKS.getKey(
+                ModBlocks.BLOCK_AND_ITEM_MAP.get(key).block()).getPath();
     }
-
 
     private void makeBlockState(Block block, String modelName) {
         getVariantBuilder(block).forAllStates(state -> {

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:display",
+  "group": "sworddisplay:display_wood",
   "key": {
     "C": {
       "tag": "minecraft:slabs"
