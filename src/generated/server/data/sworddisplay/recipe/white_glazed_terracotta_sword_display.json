@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_glazed_terracotta",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:white_glazed_terracotta"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:white_glazed_terracotta_sword_display"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_bricks",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:red_nether_bricks"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:red_nether_bricks_sword_display"
+  }
+}

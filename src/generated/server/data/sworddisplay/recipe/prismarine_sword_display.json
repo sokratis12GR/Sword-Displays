@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:display",
+  "group": "sworddisplay:display_ocean_and_underground",
   "key": {
     "C": "#minecraft:slabs",
     "M": "minecraft:prismarine"

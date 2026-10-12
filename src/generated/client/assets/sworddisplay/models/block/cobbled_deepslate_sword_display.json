@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base",
+  "textures": {
+    "0": "minecraft:block/cobbled_deepslate",
+    "1": "minecraft:block/cobbled_deepslate",
+    "particle": "minecraft:block/cobbled_deepslate"
+  }
+}

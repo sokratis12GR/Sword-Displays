@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_earth",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:rooted_dirt"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:rooted_dirt_sword_display"
+  }
+}

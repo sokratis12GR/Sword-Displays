@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_earth",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:red_sand"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:red_sand_sword_display"
+  }
+}

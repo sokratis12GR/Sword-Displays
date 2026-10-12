@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "sworddisplay:wall_display",
+  "group": "sworddisplay:wall_display_decorative",
   "key": {
     "G": "minecraft:glass_pane",
     "M": "minecraft:obsidian"

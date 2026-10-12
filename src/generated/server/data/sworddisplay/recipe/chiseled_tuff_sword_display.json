@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_stone",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:chiseled_tuff"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:chiseled_tuff_sword_display"
+  }
+}

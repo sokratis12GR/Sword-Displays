@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_earth",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:dirt"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:dirt_wall_display"
+  }
+}

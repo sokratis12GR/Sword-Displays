@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base",
+  "textures": {
+    "0": "minecraft:block/diamond_ore",
+    "1": "minecraft:block/diamond_ore",
+    "particle": "minecraft:block/diamond_ore"
+  }
+}

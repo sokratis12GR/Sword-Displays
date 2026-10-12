@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_concrete",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:gray_concrete"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:gray_concrete_sword_display"
+  }
+}
