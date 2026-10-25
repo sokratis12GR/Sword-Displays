@@ -1,7 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/wall_display_base_rack",
-  "textures": {
-    "0": "minecraft:block/pink_wool",
-    "particle": "minecraft:block/pink_wool"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/wall_display_base_rack",
-  "textures": {
-    "0": "minecraft:block/mud",
-    "particle": "minecraft:block/mud"
-  }
-}

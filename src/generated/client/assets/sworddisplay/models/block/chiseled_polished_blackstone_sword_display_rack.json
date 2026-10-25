@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base_rack",
-  "textures": {
-    "0": "minecraft:block/chiseled_polished_blackstone",
-    "1": "minecraft:block/chiseled_polished_blackstone",
-    "particle": "minecraft:block/chiseled_polished_blackstone"
-  }
-}

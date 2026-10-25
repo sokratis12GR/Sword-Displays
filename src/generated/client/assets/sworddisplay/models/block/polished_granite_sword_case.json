@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base",
-  "textures": {
-    "0": "minecraft:block/polished_granite",
-    "1": "minecraft:block/polished_granite",
-    "particle": "minecraft:block/polished_granite"
-  }
-}

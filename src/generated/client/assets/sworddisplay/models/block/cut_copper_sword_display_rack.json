@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base_rack",
-  "textures": {
-    "0": "minecraft:block/cut_copper",
-    "1": "minecraft:block/cut_copper",
-    "particle": "minecraft:block/cut_copper"
-  }
-}

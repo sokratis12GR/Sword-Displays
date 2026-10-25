@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base",
-  "textures": {
-    "0": "minecraft:block/coarse_dirt",
-    "1": "minecraft:block/coarse_dirt",
-    "particle": "minecraft:block/coarse_dirt"
-  }
-}

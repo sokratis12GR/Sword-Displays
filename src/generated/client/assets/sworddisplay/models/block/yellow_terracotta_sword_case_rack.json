@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/yellow_terracotta",
-    "1": "minecraft:block/yellow_terracotta",
-    "particle": "minecraft:block/yellow_terracotta"
-  }
-}

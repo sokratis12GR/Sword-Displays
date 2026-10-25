@@ -1,7 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/wall_display_base_rack",
-  "textures": {
-    "0": "minecraft:block/nether_gold_ore",
-    "particle": "minecraft:block/nether_gold_ore"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/wall_display_base_plaque",
-  "textures": {
-    "0": "minecraft:block/blue_concrete_powder",
-    "particle": "minecraft:block/blue_concrete_powder"
-  }
-}

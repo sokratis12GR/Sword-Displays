@@ -1,7 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/wall_display_base",
-  "textures": {
-    "0": "minecraft:block/warped_wart_block",
-    "particle": "minecraft:block/warped_wart_block"
-  }
-}

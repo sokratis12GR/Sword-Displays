@@ -1,5 +1,0 @@
-// 26.1.2	2026-10-25T03:34:18.6327399	Tags for minecraft:block mod id sworddisplay
-d5e2d8adfaf68a37061975cba40b54eb16eff362 data/minecraft/tags/block/mineable/axe.json
-412edca15dea5117924627aa25782c8ff7c4db96 data/minecraft/tags/block/mineable/pickaxe.json
-8c2199116ffeb43edb97c75f9a751c8e5a79e588 data/minecraft/tags/block/needs_stone_tool.json
-973b3173c39aac78dd818157483346e2bf62aa16 data/sworddisplay/tags/block/displays.json

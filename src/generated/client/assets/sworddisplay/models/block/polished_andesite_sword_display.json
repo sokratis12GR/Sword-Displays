@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base",
-  "textures": {
-    "0": "minecraft:block/polished_andesite",
-    "1": "minecraft:block/polished_andesite",
-    "particle": "minecraft:block/polished_andesite"
-  }
-}

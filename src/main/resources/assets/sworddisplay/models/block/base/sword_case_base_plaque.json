@@ -1,5 +1,4 @@
 {
-  "credit": "Updated by OpenAI",
   "render_type": "cutout",
   "textures": {"0":"sworddisplay:block/texture","1":"sworddisplay:block/texture","2":"block/glass","particle":"sworddisplay:block/texture"},
   "elements": [

@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/netherrack",
-    "1": "minecraft:block/netherrack",
-    "particle": "minecraft:block/netherrack"
-  }
-}

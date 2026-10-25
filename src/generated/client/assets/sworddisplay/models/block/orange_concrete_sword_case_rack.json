@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/orange_concrete",
-    "1": "minecraft:block/orange_concrete",
-    "particle": "minecraft:block/orange_concrete"
-  }
-}

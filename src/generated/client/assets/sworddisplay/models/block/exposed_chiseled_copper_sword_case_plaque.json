@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_plaque",
-  "textures": {
-    "0": "minecraft:block/exposed_chiseled_copper",
-    "1": "minecraft:block/exposed_chiseled_copper",
-    "particle": "minecraft:block/exposed_chiseled_copper"
-  }
-}

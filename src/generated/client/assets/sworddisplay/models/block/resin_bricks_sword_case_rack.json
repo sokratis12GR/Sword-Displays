@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/resin_bricks",
-    "1": "minecraft:block/resin_bricks",
-    "particle": "minecraft:block/resin_bricks"
-  }
-}

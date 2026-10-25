@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base",
-  "textures": {
-    "0": "minecraft:block/light_blue_wool",
-    "1": "minecraft:block/light_blue_wool",
-    "particle": "minecraft:block/light_blue_wool"
-  }
-}

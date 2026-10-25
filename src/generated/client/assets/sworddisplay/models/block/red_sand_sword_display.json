@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base",
-  "textures": {
-    "0": "minecraft:block/red_sand",
-    "1": "minecraft:block/red_sand",
-    "particle": "minecraft:block/red_sand"
-  }
-}

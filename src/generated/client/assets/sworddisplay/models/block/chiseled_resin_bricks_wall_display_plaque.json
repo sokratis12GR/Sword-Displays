@@ -1,7 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/wall_display_base_plaque",
-  "textures": {
-    "0": "minecraft:block/chiseled_resin_bricks",
-    "particle": "minecraft:block/chiseled_resin_bricks"
-  }
-}

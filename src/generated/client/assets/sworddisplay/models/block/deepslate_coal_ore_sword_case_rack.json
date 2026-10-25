@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/deepslate_coal_ore",
-    "1": "minecraft:block/deepslate_coal_ore",
-    "particle": "minecraft:block/deepslate_coal_ore"
-  }
-}

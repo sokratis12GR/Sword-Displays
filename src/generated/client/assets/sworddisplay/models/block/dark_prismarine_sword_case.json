@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base",
-  "textures": {
-    "0": "minecraft:block/dark_prismarine",
-    "1": "minecraft:block/dark_prismarine",
-    "particle": "minecraft:block/dark_prismarine"
-  }
-}

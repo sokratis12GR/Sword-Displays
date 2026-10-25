@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/magenta_concrete_powder",
-    "1": "minecraft:block/magenta_concrete_powder",
-    "particle": "minecraft:block/magenta_concrete_powder"
-  }
-}

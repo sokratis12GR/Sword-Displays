@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base_plaque",
-  "textures": {
-    "0": "minecraft:block/gray_terracotta",
-    "1": "minecraft:block/gray_terracotta",
-    "particle": "minecraft:block/gray_terracotta"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base",
-  "textures": {
-    "0": "minecraft:block/black_glazed_terracotta",
-    "1": "minecraft:block/black_glazed_terracotta",
-    "particle": "minecraft:block/black_glazed_terracotta"
-  }
-}

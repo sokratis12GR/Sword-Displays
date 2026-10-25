@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_display_base_rack",
-  "textures": {
-    "0": "minecraft:block/polished_diorite",
-    "1": "minecraft:block/polished_diorite",
-    "particle": "minecraft:block/polished_diorite"
-  }
-}

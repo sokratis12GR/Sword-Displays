@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_rack",
-  "textures": {
-    "0": "minecraft:block/soul_soil",
-    "1": "minecraft:block/soul_soil",
-    "particle": "minecraft:block/soul_soil"
-  }
-}

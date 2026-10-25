@@ -1,8 +1,0 @@
-{
-  "parent": "sworddisplay:block/base/sword_case_base_plaque",
-  "textures": {
-    "0": "minecraft:block/bamboo_mosaic",
-    "1": "minecraft:block/bamboo_mosaic",
-    "particle": "minecraft:block/bamboo_mosaic"
-  }
-}
