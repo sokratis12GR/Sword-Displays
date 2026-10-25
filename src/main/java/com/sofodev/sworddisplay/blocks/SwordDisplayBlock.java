@@ -1,6 +1,7 @@
 package com.sofodev.sworddisplay.blocks;
 
 import com.mojang.authlib.GameProfile;
+import com.sofodev.sworddisplay.config.SDConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,6 +36,12 @@ import static net.minecraft.world.InteractionHand.MAIN_HAND;
 import static net.minecraft.world.phys.shapes.BooleanOp.OR;
 
 public class SwordDisplayBlock extends Block implements EntityBlock {
+
+    @Override
+    public boolean isEnabled(FeatureFlagSet flags) {
+        return SDConfig.isEnabled(this);
+    }
+
 
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty IS_REVERSE = BooleanProperty.create("is_reverse");

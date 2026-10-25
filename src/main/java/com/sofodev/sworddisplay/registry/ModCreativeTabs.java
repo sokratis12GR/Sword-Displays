@@ -1,6 +1,7 @@
 package com.sofodev.sworddisplay.registry;
 
 import net.minecraft.core.registries.Registries;
+import com.sofodev.sworddisplay.config.SDConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -20,27 +21,27 @@ public class ModCreativeTabs {
             .icon(() -> new ItemStack(registryHelper.getDisplay("stone").get()))
             .title(Component.translatable("tabs.sworddisplay.core"))
             .displayItems((flags, output) -> registryHelper.forEach(entry -> {
-                output.accept(entry.blocks().displayBlock().get().asItem());
-                output.accept(entry.blocks().caseBlock().get().asItem());
-                if (!entry.key().equals("slime_block")) output.accept(entry.blocks().wallDisplay().get().asItem());
+                if (SDConfig.isEnabled(entry.blocks().displayBlock().get())) output.accept(entry.blocks().displayBlock().get().asItem());
+                if (SDConfig.isEnabled(entry.blocks().caseBlock().get())) output.accept(entry.blocks().caseBlock().get().asItem());
+                if (!entry.key().equals("slime_block")) if (SDConfig.isEnabled(entry.blocks().wallDisplay().get())) output.accept(entry.blocks().wallDisplay().get().asItem());
             })).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> PLAQUES = register("plaques", () -> CreativeModeTab.builder()
             .icon(() -> new ItemStack(ModBlocks.STYLED_ENTRIES.stream().filter(e -> e.style().equals("plaque") && e.key().equals("oak")).findFirst().orElseThrow().blocks().wallDisplay().get()))
             .title(Component.translatable("tabs.sworddisplay.plaques"))
             .displayItems((flags, output) -> ModBlocks.STYLED_ENTRIES.stream().filter(e -> e.style().equals("plaque")).forEach(entry -> {
-                output.accept(entry.blocks().displayBlock().get().asItem());
-                output.accept(entry.blocks().caseBlock().get().asItem());
-                if (!entry.key().equals("slime_block")) output.accept(entry.blocks().wallDisplay().get().asItem());
+                if (SDConfig.isEnabled(entry.blocks().displayBlock().get())) output.accept(entry.blocks().displayBlock().get().asItem());
+                if (SDConfig.isEnabled(entry.blocks().caseBlock().get())) output.accept(entry.blocks().caseBlock().get().asItem());
+                if (!entry.key().equals("slime_block")) if (SDConfig.isEnabled(entry.blocks().wallDisplay().get())) output.accept(entry.blocks().wallDisplay().get().asItem());
             })).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RACKS = register("racks", () -> CreativeModeTab.builder()
             .icon(() -> new ItemStack(ModBlocks.STYLED_ENTRIES.stream().filter(e -> e.style().equals("rack") && e.key().equals("oak")).findFirst().orElseThrow().blocks().displayBlock().get()))
             .title(Component.translatable("tabs.sworddisplay.racks"))
             .displayItems((flags, output) -> ModBlocks.STYLED_ENTRIES.stream().filter(e -> e.style().equals("rack")).forEach(entry -> {
-                output.accept(entry.blocks().displayBlock().get().asItem());
-                output.accept(entry.blocks().caseBlock().get().asItem());
-                if (!entry.key().equals("slime_block")) output.accept(entry.blocks().wallDisplay().get().asItem());
+                if (SDConfig.isEnabled(entry.blocks().displayBlock().get())) output.accept(entry.blocks().displayBlock().get().asItem());
+                if (SDConfig.isEnabled(entry.blocks().caseBlock().get())) output.accept(entry.blocks().caseBlock().get().asItem());
+                if (!entry.key().equals("slime_block")) if (SDConfig.isEnabled(entry.blocks().wallDisplay().get())) output.accept(entry.blocks().wallDisplay().get().asItem());
             })).build());
 
     public static DeferredHolder<CreativeModeTab, CreativeModeTab> register(String name, Supplier<? extends CreativeModeTab> sup) {

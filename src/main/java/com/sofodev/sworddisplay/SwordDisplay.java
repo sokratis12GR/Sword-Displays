@@ -1,6 +1,9 @@
 package com.sofodev.sworddisplay;
 
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
+import com.sofodev.sworddisplay.config.SDConfig;
 import net.neoforged.fml.common.Mod;
 import com.sofodev.sworddisplay.data.client.SDClientData;
 import com.sofodev.sworddisplay.data.server.SDServerData;
@@ -17,7 +20,8 @@ public class SwordDisplay {
     public static final String MODID = "sworddisplay";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public SwordDisplay(IEventBus modEventBus) {
+    public SwordDisplay(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, SDConfig.SPEC);
         modEventBus.addListener(SDClientData::gatherData);
         modEventBus.addListener(SDServerData::gatherData);
         modEventBus.addListener(com.sofodev.sworddisplay.network.HorizontalRotatePayload::register);
