@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "sworddisplay:block/polished_andesite_sword_display_plaque",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "sworddisplay:block/polished_andesite_sword_display_plaque",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "sworddisplay:block/polished_andesite_sword_display_plaque"
+    },
+    "facing=west": {
+      "model": "sworddisplay:block/polished_andesite_sword_display_plaque",
+      "y": 90
+    }
+  }
+}

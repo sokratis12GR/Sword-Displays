@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_nether_and_end",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:soul_sand"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:soul_sand_sword_display"
+  }
+}

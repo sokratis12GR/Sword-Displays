@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_concrete_powder",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:orange_concrete_powder"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:orange_concrete_powder_sword_display"
+  }
+}

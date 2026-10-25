@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_metals_and_ores",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:raw_copper_block"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:raw_copper_block_sword_display"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_wood",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:warped_wart_block"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:warped_wart_block_wall_display"
+  }
+}

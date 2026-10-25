@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_nether_and_end",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:nether_wart_block"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:nether_wart_block_wall_display"
+  }
+}

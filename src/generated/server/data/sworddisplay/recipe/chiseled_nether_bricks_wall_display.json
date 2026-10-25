@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_bricks",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:chiseled_nether_bricks"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:chiseled_nether_bricks_wall_display"
+  }
+}

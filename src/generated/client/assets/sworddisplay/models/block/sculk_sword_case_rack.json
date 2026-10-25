@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_case_base_rack",
+  "textures": {
+    "0": "minecraft:block/sculk",
+    "1": "minecraft:block/sculk",
+    "particle": "minecraft:block/sculk"
+  }
+}

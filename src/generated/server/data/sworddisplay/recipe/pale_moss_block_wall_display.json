@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:wall_display_ocean_and_underground",
+  "key": {
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:pale_moss_block"
+  },
+  "pattern": [
+    " G ",
+    "GMG",
+    " G "
+  ],
+  "result": {
+    "id": "sworddisplay:pale_moss_block_wall_display"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_stone",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:glowstone"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:glowstone_sword_display"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_concrete",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:brown_concrete_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:brown_concrete_sword_display_plaque"
+  }
+}

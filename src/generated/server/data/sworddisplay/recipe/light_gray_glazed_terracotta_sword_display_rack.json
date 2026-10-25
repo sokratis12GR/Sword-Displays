@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_display_glazed_terracotta",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:light_gray_glazed_terracotta_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:light_gray_glazed_terracotta_sword_display_rack"
+  }
+}

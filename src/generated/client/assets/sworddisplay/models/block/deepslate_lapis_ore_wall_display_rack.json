@@ -1,0 +1,7 @@
+{
+  "parent": "sworddisplay:block/base/wall_display_base_rack",
+  "textures": {
+    "0": "minecraft:block/deepslate_lapis_ore",
+    "particle": "minecraft:block/deepslate_lapis_ore"
+  }
+}

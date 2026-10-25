@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_display_stained_glass",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:pink_stained_glass_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:pink_stained_glass_sword_display_rack"
+  }
+}

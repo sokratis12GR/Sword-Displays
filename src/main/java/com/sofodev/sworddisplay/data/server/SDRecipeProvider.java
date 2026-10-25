@@ -38,20 +38,34 @@ public final class SDRecipeProvider extends RecipeProvider {
                 case "rack" -> Items.STICK;
                 default -> Items.GOLD_NUGGET;
             };
-            shaped(RecipeCategory.MISC, entry.blocks().displayBlock().get()).define('D', entry.originals().displayBlock().get()).define('A', accent)
-                    .pattern(" A ").pattern(" D ").unlockedBy("has_original", has(entry.originals().displayBlock().get())).save(output);
-            shaped(RecipeCategory.MISC, entry.blocks().caseBlock().get()).define('D', entry.originals().caseBlock().get()).define('A', accent)
-                    .pattern(" A ").pattern(" D ").unlockedBy("has_original", has(entry.originals().caseBlock().get())).save(output);
-            if (!entry.key().equals("slime_block")) shaped(RecipeCategory.MISC, entry.blocks().wallDisplay().get()).define('D', entry.originals().wallDisplay().get()).define('A', accent)
-                    .pattern(" A ").pattern(" D ").unlockedBy("has_original", has(entry.originals().wallDisplay().get())).save(output);
+            String group = "sworddisplay:" + entry.style() + "_";
+            String family = getMaterialFamily(entry.key());
+
+            shaped(RecipeCategory.MISC, entry.blocks().displayBlock().get())
+                    .define('D', entry.originals().displayBlock().get()).define('A', accent)
+                    .pattern(" A ").pattern(" D ")
+                    .group(group + "display_" + family)
+                    .unlockedBy("has_original", has(entry.originals().displayBlock().get())).save(output);
+            shaped(RecipeCategory.MISC, entry.blocks().caseBlock().get())
+                    .define('D', entry.originals().caseBlock().get()).define('A', accent)
+                    .pattern(" A ").pattern(" D ")
+                    .group(group + "case_" + family)
+                    .unlockedBy("has_original", has(entry.originals().caseBlock().get())).save(output);
+            if (!entry.key().equals("slime_block")) {
+                shaped(RecipeCategory.MISC, entry.blocks().wallDisplay().get())
+                        .define('D', entry.originals().wallDisplay().get()).define('A', accent)
+                        .pattern(" A ").pattern(" D ")
+                        .group(group + "wall_display_" + family)
+                        .unlockedBy("has_original", has(entry.originals().wallDisplay().get())).save(output);
+            }
         }
     }
 
     private static String getMaterialFamily(ModBlocks.BlockRegistryEntry entry) {
-        String name = entry.blocks().displayBlock().getId().getPath();
+        return getMaterialFamily(entry.key());
+    }
 
-        // Remove the generated display suffix.
-        String material = name.replaceFirst("_sword_display$", "");
+    private static String getMaterialFamily(String material) {
 
         if (containsAny(material, "oak", "spruce", "birch", "jungle", "acacia", "mangrove", "cherry", "bamboo", "crimson", "warped", "planks")) {
             return "wood";

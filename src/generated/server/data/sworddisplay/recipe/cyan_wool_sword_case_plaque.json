@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_wool",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:cyan_wool_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:cyan_wool_sword_case_plaque"
+  }
+}

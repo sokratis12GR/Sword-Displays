@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base_plaque",
+  "textures": {
+    "0": "minecraft:block/gilded_blackstone",
+    "1": "minecraft:block/gilded_blackstone",
+    "particle": "minecraft:block/gilded_blackstone"
+  }
+}

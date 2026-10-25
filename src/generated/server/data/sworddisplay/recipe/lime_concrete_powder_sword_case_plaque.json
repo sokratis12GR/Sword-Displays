@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_concrete_powder",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:lime_concrete_powder_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:lime_concrete_powder_sword_case_plaque"
+  }
+}

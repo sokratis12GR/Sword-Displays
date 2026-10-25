@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_wool",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:lime_wool_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:lime_wool_sword_display_plaque"
+  }
+}

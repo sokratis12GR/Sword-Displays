@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_wall_display_metals_and_ores",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:lapis_wall_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:lapis_wall_display_rack"
+  }
+}

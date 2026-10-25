@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_wall_display_bricks",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:red_nether_bricks_wall_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:red_nether_bricks_wall_display_plaque"
+  }
+}

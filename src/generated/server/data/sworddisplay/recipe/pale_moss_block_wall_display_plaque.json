@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_wall_display_ocean_and_underground",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:pale_moss_block_wall_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:pale_moss_block_wall_display_plaque"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_stone",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:stone_bricks_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:stone_bricks_sword_case_plaque"
+  }
+}

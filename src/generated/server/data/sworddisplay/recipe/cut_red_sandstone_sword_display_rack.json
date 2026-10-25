@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_display_sandstone_and_quartz",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:cut_red_sandstone_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:cut_red_sandstone_sword_display_rack"
+  }
+}

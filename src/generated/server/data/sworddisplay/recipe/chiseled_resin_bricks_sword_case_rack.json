@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_case_bricks",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:chiseled_resin_bricks_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:chiseled_resin_bricks_sword_case_rack"
+  }
+}

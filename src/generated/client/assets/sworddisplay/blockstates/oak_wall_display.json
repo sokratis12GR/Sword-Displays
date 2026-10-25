@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "sworddisplay:block/oak_wall_display",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "sworddisplay:block/oak_wall_display",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "sworddisplay:block/oak_wall_display"
+    },
+    "facing=west": {
+      "model": "sworddisplay:block/oak_wall_display",
+      "y": 90
+    }
+  }
+}

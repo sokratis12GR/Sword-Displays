@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:display_metals_and_ores",
+  "key": {
+    "C": "#minecraft:slabs",
+    "M": "minecraft:chiseled_copper"
+  },
+  "pattern": [
+    " M ",
+    "MCM"
+  ],
+  "result": {
+    "id": "sworddisplay:chiseled_copper_sword_display"
+  }
+}
