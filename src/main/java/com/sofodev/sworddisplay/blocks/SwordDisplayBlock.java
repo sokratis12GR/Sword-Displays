@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -74,29 +75,32 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
             GameProfile profile = player.getGameProfile();
             UUID playerUUID = profile.id();
             boolean hasOwner = displayTile.getOwner() != null && playerUUID.equals(displayTile.getOwner());
-            if (player.isShiftKeyDown()) {
-                if (player.getUsedItemHand() == MAIN_HAND && player.getMainHandItem().isEmpty() && hasOwner) {
-                    final ItemStack toDrop = displayTile.getSword().copy();
+            if (hand != MAIN_HAND) return InteractionResult.PASS;
+
+            if (player.isShiftKeyDown() && stack.isEmpty()) {
+                if (!displayTile.getSword().isEmpty() && hasOwner) {
+                    ItemStack retrieved = displayTile.getSword().copy();
                     displayTile.setSword(ItemStack.EMPTY);
-                    player.drop(toDrop, false);
+                    player.drop(retrieved, false);
                 }
-            } else {
+                return InteractionResult.SUCCESS;
+            }
 
-                boolean isInGroup = stack.is(SWORDS);
-                boolean isWeapon = stack.is(ItemTags.SWORDS) || stack.is(ItemTags.WEAPON_ENCHANTABLE) || stack.is(ItemTags.AXES) || isInGroup;
+            boolean isInGroup = stack.is(SWORDS);
+            boolean isWeapon = stack.is(ItemTags.SWORDS) || stack.is(ItemTags.WEAPON_ENCHANTABLE) || stack.is(ItemTags.AXES) || isInGroup;
 
-                if (hand == MAIN_HAND) {
-                    boolean isDisplayEmpty = displayTile.getSword().isEmpty();
-                    if (isDisplayEmpty && isWeapon) {
-                        ItemStack copy = stack.copy();
-                        displayTile.setSword(copy);
-                        displayTile.setOwner(playerUUID);
-                        stack.shrink(1);
-                        return InteractionResult.SUCCESS;
-                    }
-                    if (!isDisplayEmpty && stack.isEmpty() && hasOwner) {
-                        world.setBlock(pos, state.setValue(IS_REVERSE, !state.getValue(IS_REVERSE)), 3);
-                    }
+            if (hand == MAIN_HAND) {
+                boolean isDisplayEmpty = displayTile.getSword().isEmpty();
+                if (isDisplayEmpty && isWeapon) {
+                    ItemStack copy = stack.copyWithCount(1);
+                    displayTile.setSword(copy);
+                    displayTile.setOwner(playerUUID);
+                    stack.shrink(1);
+                    return InteractionResult.SUCCESS;
+                }
+                if (!isDisplayEmpty && stack.isEmpty() && hasOwner) {
+                    if (displayTile.consumeHorizontalClick(playerUUID)) return InteractionResult.SUCCESS;
+                    displayTile.rotateTilt();
                 }
             }
         }

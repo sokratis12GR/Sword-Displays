@@ -1,14 +1,19 @@
-### Added 200+ New Sword Display Materials!
+### Added New Weapon Plaques & Weapon Racks!
 
-Sword Displays, Sword Cases, and Wall Displays now support a huge variety of new materials, including:
+Introducing two brand-new display styles, bringing more ways to showcase your favorite swords and weapons!
 
-**Wood & Bamboo** — New wood types and bamboo variants  
-**Stone & Bricks** — Deepslate, Tuff, Sandstone, Quartz, and more  
-**Ores & Minerals** — Ore blocks, raw metals, and copper variants  
-**Nether & End** — Blackstone, Nylium, Soul Sand, Purpur, and more  
-**Natural Blocks** — Dirt, Sand, Mud, Clay, and Moss  
-**Ocean & Underground** — Prismarine, Sponges, Sculk, and Sea Lanterns  
-**Decorative Blocks** — Glass, Glowstone, Resin, Honeycomb, and more  
-**Colored Blocks** — All 16 colors of Wool, Terracotta, Concrete, Concrete Powder, Stained Glass, and Glazed Terracotta
+**Weapon Plaques** — Decorative displays with a classic Minecraft-inspired design, perfect for showcasing individual weapons.
 
-Every supported material can be used to craft a **Sword Display, Sword Case, or Wall Display**.
+**Weapon Racks** — Multi-weapon displays capable of holding up to **3 swords or weapons** simultaneously.
+
+**New Display Variants** — Both styles are available as Sword Displays, Sword Cases, and Wall Displays.
+
+**Independent Weapon Rotation** — Rotate each weapon individually in 45° increments, including horizontal rotation.
+
+**Improved Weapon Placement** — Weapons are positioned to fit their displays, with model-matched hitboxes for better interaction.
+
+**Separate Creative Tabs** — Original Sword Displays, Weapon Plaques, and Weapon Racks each have their own creative inventory tab.
+
+**Expanded Material Support** — Plaques and Racks support the same wide variety of materials as the original Sword Displays.
+
+Every supported material can now be used to craft **Weapon Plaques and Weapon Racks**, offering even more ways to customize and organize your weapon collection!

@@ -42,6 +42,14 @@ public final class SDBlockTagsProvider extends BlockTagsProvider {
             }
         }
 
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            Block display = entry.blocks().displayBlock().get();
+            Block swordCase = entry.blocks().caseBlock().get();
+            Block wallDisplay = entry.blocks().wallDisplay().get();
+            displays.add(display, swordCase, wallDisplay);
+            if (entry.isWooden()) axe.add(display, swordCase, wallDisplay);
+            else pickaxe.add(display, swordCase, wallDisplay);
+        }
         tag(BlockTags.NEEDS_STONE_TOOL).addTag(DISPLAYS);
     }
 }

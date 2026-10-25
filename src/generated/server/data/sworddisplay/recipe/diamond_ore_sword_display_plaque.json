@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:diamond_ore_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:diamond_ore_sword_display_plaque"
+  }
+}

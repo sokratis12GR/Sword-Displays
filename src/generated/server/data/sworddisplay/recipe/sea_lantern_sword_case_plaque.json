@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:sea_lantern_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:sea_lantern_sword_case_plaque"
+  }
+}

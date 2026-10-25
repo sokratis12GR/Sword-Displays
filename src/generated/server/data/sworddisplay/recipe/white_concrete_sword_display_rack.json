@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:white_concrete_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:white_concrete_sword_display_rack"
+  }
+}

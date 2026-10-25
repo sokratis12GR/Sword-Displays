@@ -20,6 +20,7 @@ public class SwordDisplay {
     public SwordDisplay(IEventBus modEventBus) {
         modEventBus.addListener(SDClientData::gatherData);
         modEventBus.addListener(SDServerData::gatherData);
+        modEventBus.addListener(com.sofodev.sworddisplay.network.HorizontalRotatePayload::register);
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);

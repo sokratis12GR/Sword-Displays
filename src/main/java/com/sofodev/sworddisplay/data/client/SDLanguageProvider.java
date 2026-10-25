@@ -21,7 +21,20 @@ public final class SDLanguageProvider extends LanguageProvider {
             add(entry.blocks().wallDisplay().get(), title(entry.key()) + " Wall Display");
         }
 
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            String styleName = switch (entry.style()) {
+                case "plaque" -> "Plaque";
+                case "rack" -> "Rack";
+                default -> title(entry.style());
+            };
+            String name = styleName + " " + title(entry.key());
+            add(entry.blocks().displayBlock().get(), name + " Sword Display");
+            add(entry.blocks().caseBlock().get(), name + " Sword Case");
+            add(entry.blocks().wallDisplay().get(), name + " Wall Display");
+        }
         add("tabs.sworddisplay.core", "Sword Displays");
+        add("tabs.sworddisplay.plaques", "Weapon Plaques");
+        add("tabs.sworddisplay.racks", "Weapon Racks");
     }
 
     private static String title(String key) {

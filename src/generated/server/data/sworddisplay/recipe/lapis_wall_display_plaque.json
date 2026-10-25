@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:lapis_wall_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:lapis_wall_display_plaque"
+  }
+}

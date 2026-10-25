@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_original": {
+      "conditions": {
+        "items": [
+          {
+            "items": "sworddisplay:purple_wool_sword_display"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "sworddisplay:purple_wool_sword_display_rack"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_original"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "sworddisplay:purple_wool_sword_display_rack"
+    ]
+  }
+}

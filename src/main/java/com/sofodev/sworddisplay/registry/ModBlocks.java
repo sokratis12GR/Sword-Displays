@@ -318,6 +318,10 @@ public class ModBlocks {
     public static final List<BlockRegistryEntry> REGISTRY_LIST = new ArrayList<>();
     public static final RegistryHelper registryHelper = new RegistryHelper(REGISTRY_LIST);
 
+    // Original entries are not modified; alternate blocks have independent registry IDs.
+    public static final List<StyledBlockEntry> STYLED_ENTRIES = new ArrayList<>();
+    public static final List<String> STYLES = List.of("plaque", "rack");
+
     static {
         registerAll();
     }
@@ -341,6 +345,12 @@ public class ModBlocks {
             );
 
             REGISTRY_LIST.add(new BlockRegistryEntry(baseName, new BlockDisplays(display, swordCase, wallDisplay), entry.item(), entry.isWooden()));
+            for (String style : STYLES) {
+                DeferredHolder<Block, Block> styledDisplay = registerBlockWithItem(baseName + "_sword_display_" + style, style.equals("rack") ? RackDisplayBlock::new : PlaqueDisplayBlock::new);
+                DeferredHolder<Block, Block> styledCase = registerBlockWithItem(baseName + "_sword_case_" + style, style.equals("rack") ? RackCaseBlock::new : PlaqueCaseBlock::new);
+                DeferredHolder<Block, Block> styledWall = registerBlockWithItem(baseName + "_wall_display_" + style, style.equals("rack") ? RackWallBlock::new : style.equals("plaque") ? PlaqueWallBlock::new : SwordWallDisplayBlock::new);
+                STYLED_ENTRIES.add(new StyledBlockEntry(baseName, style, new BlockDisplays(styledDisplay, styledCase, styledWall), entry.item(), entry.isWooden(), new BlockDisplays(display, swordCase, wallDisplay)));
+            }
         });
     }
 
@@ -356,11 +366,12 @@ public class ModBlocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
             () -> new BlockEntityType<>(
                     SwordDisplayTile::new,
-                    REGISTRY_LIST.stream()
+                    Stream.concat(REGISTRY_LIST.stream()
                             .flatMap(entry ->
                                     Stream.of(entry.blocks().displayBlock().get(),
                                             entry.blocks().caseBlock().get(),
-                                            entry.blocks().wallDisplay().get()))
+                                            entry.blocks().wallDisplay().get())),
+                            STYLED_ENTRIES.stream().flatMap(entry -> Stream.of(entry.blocks().displayBlock().get(), entry.blocks().caseBlock().get(), entry.blocks().wallDisplay().get())))
                             .toArray(Block[]::new)
             ));
 
@@ -379,6 +390,8 @@ public class ModBlocks {
     public record BlockRegistryEntry(String key, BlockDisplays blocks,
                                      ItemLike coreMaterial, boolean isWooden) {
     }
+
+    public record StyledBlockEntry(String key, String style, BlockDisplays blocks, ItemLike coreMaterial, boolean isWooden, BlockDisplays originals) {}
 
     public record BlockAndItemEntry(Block block, Item item) {
 

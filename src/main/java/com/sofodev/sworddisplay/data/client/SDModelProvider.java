@@ -42,6 +42,12 @@ public final class SDModelProvider extends ModelProvider {
             generate(blockModels, entry.blocks().caseBlock().get(), SWORD_CASE, material);
             generate(blockModels, entry.blocks().wallDisplay().get(), WALL_DISPLAY, material);
         }
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            Material material = materialTexture(entry.key());
+            generate(blockModels, entry.blocks().displayBlock().get(), blockTemplate("sword_display_base_" + entry.style()), material);
+            generate(blockModels, entry.blocks().caseBlock().get(), blockTemplate("sword_case_base_" + entry.style()), material);
+            generate(blockModels, entry.blocks().wallDisplay().get(), wallTemplate("wall_display_base_" + entry.style()), material);
+        }
     }
 
     private static void generate(BlockModelGenerators generator, Block block, ModelTemplate template, Material texture) {
@@ -77,9 +83,11 @@ public final class SDModelProvider extends ModelProvider {
         );
     }
 
-    private static ModelTemplate wallTemplate() {
+    private static ModelTemplate wallTemplate() { return wallTemplate("wall_display_base"); }
+
+    private static ModelTemplate wallTemplate(String parent) {
         return new ModelTemplate(
-                Optional.of(Identifier.fromNamespaceAndPath(SwordDisplay.MODID, "block/base/wall_display_base")),
+                Optional.of(Identifier.fromNamespaceAndPath(SwordDisplay.MODID, "block/base/" + parent)),
                 Optional.empty(),
                 TEXTURE_0,
                 TextureSlot.PARTICLE
