@@ -33,14 +33,14 @@ If a weapon doesn't fall under one of those tags, it can be added to the mod's o
 }
 ```
 
-## Comparator Caculations
+## Comparator Calculations
 
 ```java
         // x = maxDamage : (maxDamage - currentDamage)
 // if (x > 15) x = 14;
 // if (x == 15) x = 13;
 // return 15 / x
-int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamage());
+int x = stack.getMaxDamage() / (stack.getMaxDamage() - stack.getDamageValue());
 x = x > 15 ? 14 : x == 15 ? 13 : x;
         return 15 / x;
 ```
