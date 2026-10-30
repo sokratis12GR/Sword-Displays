@@ -2,6 +2,7 @@ package com.sofodev.sworddisplay.blocks;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.sofodev.thedragonlib.client.util.PoseStackHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -100,7 +101,7 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile, T
                 pose.scale(0.33F, 0.44F, 0.33F);
                 pose.mulPose(Axis.YP.rotationDegrees(state.rackHorizontal[i] * 45.0F));
                 pose.mulPose(Axis.ZP.rotationDegrees(-state.rackTilt[i] * 45.0F));
-                rotateItem(pose, 180.0F, 180.0F, -45.0F);
+                PoseStackHelper.rotateItem(pose, 180.0F, 180.0F, -45.0F);
                 state.rackSwords[i].submit(pose, collector, state.lightCoords, 0, 0);
                 pose.popPose();
             }
@@ -109,16 +110,16 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile, T
         }
         if (state.sword.isEmpty()) return;
         pose.pushPose();
-        if (!state.wallDisplay) translateAndScale(pose, new Vec3(0.5F, 0.6F, 0.5F), new Vec3(1F, 1F, 1F));
+        if (!state.wallDisplay) PoseStackHelper.translateAndScale(pose, new Vec3(0.5F, 0.6F, 0.5F), new Vec3(1F, 1F, 1F));
         else {
             // Plaques display a larger weapon; original wall displays keep their scale.
             float size = state.plaqueWall ? 0.66F : 0.33F;
             Vec3 scale = new Vec3(size, size, size);
             switch (state.facing) {
-                case EAST -> translateAndScale(pose, new Vec3(0.825F, 0.5F, 0.5F), scale);
-                case WEST -> translateAndScale(pose, new Vec3(0.175F, 0.5F, 0.5F), scale);
-                case SOUTH -> translateAndScale(pose, new Vec3(0.5F, 0.5F, 0.825F), scale);
-                case NORTH -> translateAndScale(pose, new Vec3(0.5F, 0.5F, 0.175F), scale);
+                case EAST -> PoseStackHelper.translateAndScale(pose, new Vec3(0.825F, 0.5F, 0.5F), scale);
+                case WEST -> PoseStackHelper.translateAndScale(pose, new Vec3(0.175F, 0.5F, 0.5F), scale);
+                case SOUTH -> PoseStackHelper.translateAndScale(pose, new Vec3(0.5F, 0.5F, 0.825F), scale);
+                case NORTH -> PoseStackHelper.translateAndScale(pose, new Vec3(0.5F, 0.5F, 0.175F), scale);
                 default -> { }
             }
         }
@@ -133,33 +134,22 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile, T
         pose.popPose();
     }
 
-    private static void translateAndScale(PoseStack pose, Vec3 location, Vec3 scale) {
-        pose.translate(location.x, location.y, location.z);
-        pose.scale((float) scale.x, (float) scale.y, (float) scale.z);
-    }
-
     private static void applyFacingRotation(PoseStack pose, Direction facing, boolean reverse) {
         if (reverse) {
             switch (facing) {
-                case WEST, EAST -> rotateItem(pose, 0, 90f, -45f);
-                case NORTH, SOUTH -> rotateItem(pose, 0, 180f, -45f);
+                case WEST, EAST -> PoseStackHelper.rotateItem(pose, 0, 90f, -45f);
+                case NORTH, SOUTH -> PoseStackHelper.rotateItem(pose, 0, 180f, -45f);
                 default -> {
                 }
             }
         } else {
             switch (facing) {
-                case WEST, EAST -> rotateItem(pose, 180f, 90f, -45f);
-                case NORTH, SOUTH -> rotateItem(pose, 180f, 180f, -45f);
+                case WEST, EAST -> PoseStackHelper.rotateItem(pose, 180f, 90f, -45f);
+                case NORTH, SOUTH -> PoseStackHelper.rotateItem(pose, 180f, 180f, -45f);
                 default -> {
                 }
             }
         }
-    }
-
-    private static void rotateItem(PoseStack pose, float a, float b, float c) {
-        pose.mulPose(Axis.XP.rotationDegrees(a));
-        pose.mulPose(Axis.YP.rotationDegrees(b));
-        pose.mulPose(Axis.ZP.rotationDegrees(c));
     }
 
     @Override

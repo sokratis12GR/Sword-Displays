@@ -1,8 +1,11 @@
 package com.sofodev.sworddisplay;
 
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
+import com.sofodev.sworddisplay.client.ClientConfigScreen;
 import com.sofodev.sworddisplay.config.SDConfig;
 import net.neoforged.fml.common.Mod;
 import com.sofodev.sworddisplay.data.client.SDClientData;
@@ -22,6 +25,9 @@ public class SwordDisplay {
 
     public SwordDisplay(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, SDConfig.SPEC);
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
+            ClientConfigScreen.register(modContainer);
+        }
         modEventBus.addListener(SDClientData::gatherData);
         modEventBus.addListener(SDServerData::gatherData);
         modEventBus.addListener(com.sofodev.sworddisplay.network.HorizontalRotatePayload::register);

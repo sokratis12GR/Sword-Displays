@@ -35,6 +35,26 @@ public final class SDLanguageProvider extends LanguageProvider {
         add("tabs.sworddisplay.core", "Sword Displays");
         add("tabs.sworddisplay.plaques", "Weapon Plaques");
         add("tabs.sworddisplay.racks", "Weapon Racks");
+
+        addConfigFamily("original", "Original", "original");
+        addConfigFamily("plaque", "Plaques", "plaque");
+        addConfigFamily("rack", "Racks", "rack");
+    }
+
+    private void addConfigFamily(String family, String label, String adjective) {
+        add("sworddisplay.configuration." + family, label);
+        add("sworddisplay.configuration." + family + ".enabled", "Enable All " + label);
+        add("sworddisplay.configuration." + family + ".enabled.tooltip",
+                "Enable all " + adjective + " blocks and items. Overrides the individual options below (restart required).");
+        add("sworddisplay.configuration." + family + ".display", "Enable Displays");
+        add("sworddisplay.configuration." + family + ".display.tooltip",
+                "Enable " + adjective + " display blocks and items (restart required).");
+        add("sworddisplay.configuration." + family + ".case", "Enable Cases");
+        add("sworddisplay.configuration." + family + ".case.tooltip",
+                "Enable " + adjective + " case blocks and items (restart required).");
+        add("sworddisplay.configuration." + family + ".wall", "Enable Wall Displays");
+        add("sworddisplay.configuration." + family + ".wall.tooltip",
+                "Enable " + adjective + " wall display blocks and items (restart required).");
     }
 
     private static String title(String key) {

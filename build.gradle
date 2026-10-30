@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "curse.maven:thedragonlib-248055:9013506"
+    implementation "curse.maven:thedragonlib-248055:9369985"
 }
 
 sourceSets.main.resources {
