@@ -10,6 +10,7 @@ public final class ClientModEvents {
 
     public static void register() {
         EntityRenderersEvent.RegisterRenderers.BUS.addListener(ClientModEvents::registerRenderers);
+        ClientHorizontalRotation.register();
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

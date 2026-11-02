@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base_plaque",
+  "textures": {
+    "0": "minecraft:block/moss_block",
+    "1": "minecraft:block/moss_block",
+    "particle": "minecraft:block/moss_block"
+  }
+}

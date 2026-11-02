@@ -37,6 +37,13 @@ public final class SDModelProvider implements DataProvider {
             generate(output, futures, entry.blocks().wallDisplay().get(), "wall_display_base", texture, false);
         }
 
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            String texture = materialTexture(entry.key());
+            generate(output, futures, entry.blocks().displayBlock().get(), "sword_display_base_" + entry.style(), texture, true);
+            generate(output, futures, entry.blocks().caseBlock().get(), "sword_case_base_" + entry.style(), texture, true);
+            generate(output, futures, entry.blocks().wallDisplay().get(), "wall_display_base_" + entry.style(), texture, false);
+        }
+
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 

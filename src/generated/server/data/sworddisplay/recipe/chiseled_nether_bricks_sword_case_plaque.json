@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_bricks",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:chiseled_nether_bricks_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:chiseled_nether_bricks_sword_case_plaque"
+  }
+}

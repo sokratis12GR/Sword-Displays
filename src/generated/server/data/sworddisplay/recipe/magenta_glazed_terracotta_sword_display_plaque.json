@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_glazed_terracotta",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:magenta_glazed_terracotta_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:magenta_glazed_terracotta_sword_display_plaque"
+  }
+}

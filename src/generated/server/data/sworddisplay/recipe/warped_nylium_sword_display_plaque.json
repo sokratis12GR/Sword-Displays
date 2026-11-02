@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_wood",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:warped_nylium_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:warped_nylium_sword_display_plaque"
+  }
+}

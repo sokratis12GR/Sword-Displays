@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_wall_display_stained_glass",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:cyan_stained_glass_wall_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:cyan_stained_glass_wall_display_plaque"
+  }
+}

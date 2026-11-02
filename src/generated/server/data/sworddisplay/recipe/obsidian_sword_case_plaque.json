@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_decorative",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:obsidian_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:obsidian_sword_case_plaque"
+  }
+}

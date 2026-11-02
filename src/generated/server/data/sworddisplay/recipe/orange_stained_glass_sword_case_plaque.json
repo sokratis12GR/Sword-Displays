@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_stained_glass",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:orange_stained_glass_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:orange_stained_glass_sword_case_plaque"
+  }
+}

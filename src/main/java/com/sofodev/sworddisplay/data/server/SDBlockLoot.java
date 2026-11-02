@@ -20,15 +20,22 @@ public final class SDBlockLoot extends BlockLootSubProvider {
             dropSelf(entry.blocks().caseBlock().get());
             dropSelf(entry.blocks().wallDisplay().get());
         }
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            dropSelf(entry.blocks().displayBlock().get());
+            dropSelf(entry.blocks().caseBlock().get());
+            dropSelf(entry.blocks().wallDisplay().get());
+        }
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ModBlocks.REGISTRY_LIST.stream()
+        return java.util.stream.Stream.concat(ModBlocks.REGISTRY_LIST.stream()
                 .flatMap(entry -> java.util.stream.Stream.of(
                         entry.blocks().displayBlock().get(),
                         entry.blocks().caseBlock().get(),
-                        entry.blocks().wallDisplay().get()))
+                        entry.blocks().wallDisplay().get())),
+                        ModBlocks.STYLED_ENTRIES.stream().flatMap(entry -> java.util.stream.Stream.of(
+                                entry.blocks().displayBlock().get(), entry.blocks().caseBlock().get(), entry.blocks().wallDisplay().get())))
                 .toList();
     }
 }

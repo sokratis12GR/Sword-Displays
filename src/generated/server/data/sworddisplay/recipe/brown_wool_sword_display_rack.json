@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_display_wool",
+  "key": {
+    "A": "minecraft:stick",
+    "D": "sworddisplay:brown_wool_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:brown_wool_sword_display_rack"
+  }
+}

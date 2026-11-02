@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_stone",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:end_stone_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:end_stone_sword_display_plaque"
+  }
+}

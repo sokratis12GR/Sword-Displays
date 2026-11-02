@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_wall_display_wood",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:crimson_wall_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:crimson_wall_display_plaque"
+  }
+}

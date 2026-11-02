@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_wood",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:crimson_nylium_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:crimson_nylium_sword_case_plaque"
+  }
+}

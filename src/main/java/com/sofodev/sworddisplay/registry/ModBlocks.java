@@ -315,6 +315,10 @@ public class ModBlocks {
     public static final List<BlockRegistryEntry> REGISTRY_LIST = new ArrayList<>();
     public static final RegistryHelper registryHelper = new RegistryHelper(REGISTRY_LIST);
 
+    // Original entries are not modified; alternate blocks have independent registry IDs.
+    public static final List<StyledBlockEntry> STYLED_ENTRIES = new ArrayList<>();
+    public static final List<String> STYLES = List.of("plaque", "rack");
+
     static {
         registerAll();
     }
@@ -329,6 +333,13 @@ public class ModBlocks {
             RegistryObject<Block> wallDisplay = registerBlockWithItem(baseName + "_wall_display", SwordWallDisplayBlock::new, true);
 
             REGISTRY_LIST.add(new BlockRegistryEntry(baseName, new BlockDisplays(display, swordCase, wallDisplay), entry.item(), entry.isWooden()));
+
+            for (String style : STYLES) {
+                RegistryObject<Block> styledDisplay = registerBlockWithItem(baseName + "_sword_display_" + style, style.equals("rack") ? RackDisplayBlock::new : PlaqueDisplayBlock::new, false);
+                RegistryObject<Block> styledCase = registerBlockWithItem(baseName + "_sword_case_" + style, style.equals("rack") ? RackCaseBlock::new : PlaqueCaseBlock::new, true);
+                RegistryObject<Block> styledWall = registerBlockWithItem(baseName + "_wall_display_" + style, style.equals("rack") ? RackWallBlock::new : PlaqueWallBlock::new, true);
+                STYLED_ENTRIES.add(new StyledBlockEntry(baseName, style, new BlockDisplays(styledDisplay, styledCase, styledWall), entry.item(), entry.isWooden(), new BlockDisplays(display, swordCase, wallDisplay)));
+            }
         });
     }
 
@@ -341,7 +352,10 @@ public class ModBlocks {
         return getBaseName(block).replace("_sword_display", "").replace("_sword_case", "");
     }
 
-    public static final RegistryObject<BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display", () -> new BlockEntityType<>(SwordDisplayTile::new, REGISTRY_LIST.stream().flatMap(entry -> Stream.of(entry.blocks().displayBlock().get(), entry.blocks().caseBlock().get(), entry.blocks().wallDisplay().get())).collect(java.util.stream.Collectors.toSet())));
+    public static final RegistryObject<BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display", () -> new BlockEntityType<>(SwordDisplayTile::new, Stream.concat(
+            REGISTRY_LIST.stream().flatMap(entry -> Stream.of(entry.blocks().displayBlock().get(), entry.blocks().caseBlock().get(), entry.blocks().wallDisplay().get())),
+            STYLED_ENTRIES.stream().flatMap(entry -> Stream.of(entry.blocks().displayBlock().get(), entry.blocks().caseBlock().get(), entry.blocks().wallDisplay().get()))
+    ).collect(java.util.stream.Collectors.toSet())));
 
 
     public static RegistryObject<Block> registerBlockWithItem(String name, Function<Block.Properties, ? extends Block> blockFactory, boolean dynamicShape) {
@@ -364,6 +378,9 @@ public class ModBlocks {
     }
 
     public record BlockRegistryEntry(String key, BlockDisplays blocks, ItemLike coreMaterial, boolean isWooden) {
+    }
+
+    public record StyledBlockEntry(String key, String style, BlockDisplays blocks, ItemLike coreMaterial, boolean isWooden, BlockDisplays originals) {
     }
 
     public record BlockAndItemEntry(Block block, Item item) {

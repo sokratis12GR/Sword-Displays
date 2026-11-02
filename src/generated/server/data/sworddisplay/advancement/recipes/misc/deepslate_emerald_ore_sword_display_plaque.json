@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_original": {
+      "conditions": {
+        "items": [
+          {
+            "items": "sworddisplay:deepslate_emerald_ore_sword_display"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "sworddisplay:deepslate_emerald_ore_sword_display_plaque"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_original"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "sworddisplay:deepslate_emerald_ore_sword_display_plaque"
+    ]
+  }
+}

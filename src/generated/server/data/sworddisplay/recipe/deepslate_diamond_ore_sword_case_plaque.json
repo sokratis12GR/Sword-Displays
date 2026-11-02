@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_metals_and_ores",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:deepslate_diamond_ore_sword_case"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:deepslate_diamond_ore_sword_case_plaque"
+  }
+}

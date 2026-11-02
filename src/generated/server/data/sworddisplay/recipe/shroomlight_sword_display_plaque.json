@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_nether_and_end",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:shroomlight_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:shroomlight_sword_display_plaque"
+  }
+}

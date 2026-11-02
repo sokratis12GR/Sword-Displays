@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_glass_and_lighting",
+  "key": {
+    "A": "minecraft:leather",
+    "D": "sworddisplay:tinted_glass_sword_display"
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "id": "sworddisplay:tinted_glass_sword_display_plaque"
+  }
+}
