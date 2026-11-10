@@ -170,9 +170,8 @@ tasks.register('publishCurseForge',
 
         mainFile.addModLoader('NeoForge')
 
-        mainFile.addEnvironment('Client', 'Server')
+        mainFile.addGameVersion('Client', 'Server')
 
-        mainFile.addRequirement('geckolib')
         mainFile.addRequirement('thedragonlib')
     }
 }
