@@ -9,7 +9,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/sword-displays"
 updateJSONURL = "https://sokratis.space/sworddisplay/1.21-neo/update.json" #optional
-logoFile="swordisplay.png"
+logoFile= "sword_displays.png"
 authors="${mod_authors}"
 description='''${mod_description}'''
 
