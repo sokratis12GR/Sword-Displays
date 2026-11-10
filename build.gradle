@@ -149,6 +149,10 @@ modrinth {
     gameVersions = [minecraft_version.toString()]
     loaders = ['neoforge']
 
+    dependencies {
+        required.project 'thedragonlib'
+    }
+
     changelog = changelogText
 }
 
