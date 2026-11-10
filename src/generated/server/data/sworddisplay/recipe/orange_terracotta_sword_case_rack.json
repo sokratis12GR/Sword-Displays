@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_case_terracotta",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "D": {
+      "item": "sworddisplay:orange_terracotta_sword_case"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:orange_terracotta_sword_case_rack"
+  }
+}

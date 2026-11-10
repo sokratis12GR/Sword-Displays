@@ -1,0 +1,7 @@
+{
+  "parent": "sworddisplay:block/base/wall_display_base_rack",
+  "textures": {
+    "0": "minecraft:block/coarse_dirt",
+    "particle": "minecraft:block/coarse_dirt"
+  }
+}

@@ -18,8 +18,10 @@ public class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        // Creative tab
+        // Creative tabs
         add("tabs.sworddisplay.core", "Sword Displays");
+        add("tabs.sworddisplay.plaques", "Weapon Plaques");
+        add("tabs.sworddisplay.racks", "Weapon Racks");
 
         List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
         for (ModBlocks.BlockRegistryEntry entry : entries) {
@@ -29,6 +31,16 @@ public class ModLanguageProvider extends LanguageProvider {
             add(caseBlock.get(), toTitleCase(entry.key()) + " Sword Case");
             add(displayBlock.get(), toTitleCase(entry.key()) + " Sword Display");
             add(wallBlock.get(), toTitleCase(entry.key()) + " Wall Display");
+        }
+
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            String stylePrefix = toTitleCase(entry.style());
+            DeferredHolder<Block, Block> caseBlock = entry.blocks().caseBlock();
+            DeferredHolder<Block, Block> displayBlock = entry.blocks().displayBlock();
+            DeferredHolder<Block, Block> wallBlock = entry.blocks().wallDisplay();
+            add(caseBlock.get(), stylePrefix + " " + toTitleCase(entry.key()) + " Sword Case");
+            add(displayBlock.get(), stylePrefix + " " + toTitleCase(entry.key()) + " Sword Display");
+            add(wallBlock.get(), stylePrefix + " " + toTitleCase(entry.key()) + " Wall Display");
         }
     }
 

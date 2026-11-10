@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sworddisplay:soul_sand_wall_display_plaque"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "sworddisplay:blocks/soul_sand_wall_display_plaque"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_metals_and_ores",
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "D": {
+      "item": "sworddisplay:weathered_cut_copper_sword_display"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:weathered_cut_copper_sword_display_plaque"
+  }
+}

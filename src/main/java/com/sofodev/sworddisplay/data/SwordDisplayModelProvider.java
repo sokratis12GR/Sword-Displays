@@ -68,6 +68,40 @@ public class SwordDisplayModelProvider extends BlockStateProvider {
             makeBlockState(wallDisplayBlock, wallDisplayModel);
         }
 
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            Block displayBlock = entry.blocks().displayBlock().get();
+            Block caseBlock = entry.blocks().caseBlock().get();
+            Block wallDisplayBlock = entry.blocks().wallDisplay().get();
+            String textureBase = entry.key();
+            String style = entry.style();
+
+            String displayModel = textureBase + "_sword_display_" + style;
+            String caseModel = textureBase + "_sword_case_" + style;
+            String wallDisplayModel = textureBase + "_wall_display_" + style;
+            String mc_texture = getMcTexture(ModBlocks.BLOCK_AND_ITEM_MAP.get(textureBase), textureBase, entry.isWooden());
+            ResourceLocation zeroTex = ResourceLocation.withDefaultNamespace("block/" + mc_texture);
+
+            models().withExistingParent("block/" + displayModel, modLoc("block/base/sword_display_base_" + style))
+                    .texture("0", zeroTex)
+                    .texture("1", zeroTex)
+                    .texture("particle", zeroTex);
+            models().withExistingParent("block/" + wallDisplayModel, modLoc("block/base/wall_display_base_" + style))
+                    .texture("0", zeroTex)
+                    .texture("particle", zeroTex);
+            models().withExistingParent("block/" + caseModel, modLoc("block/base/sword_case_base_" + style))
+                    .texture("0", zeroTex)
+                    .texture("1", zeroTex)
+                    .texture("particle", zeroTex);
+
+            itemModels().getBuilder(displayModel).parent(new ModelFile.UncheckedModelFile(modLoc("block/" + displayModel)));
+            itemModels().getBuilder(caseModel).parent(new ModelFile.UncheckedModelFile(modLoc("block/" + caseModel)));
+            itemModels().getBuilder(wallDisplayModel).parent(new ModelFile.UncheckedModelFile(modLoc("block/" + wallDisplayModel)));
+
+            makeBlockState(displayBlock, displayModel);
+            makeBlockState(caseBlock, caseModel);
+            makeBlockState(wallDisplayBlock, wallDisplayModel);
+        }
+
         System.out.println("Checking parent: " + modLoc("block/base/sword_display_base") +
                 " exists=" + existingFileHelper.exists(modLoc("block/base/sword_display_base"),
                 PackType.CLIENT_RESOURCES));
@@ -76,11 +110,14 @@ public class SwordDisplayModelProvider extends BlockStateProvider {
     // Resolve textures from the actual vanilla source block rather than assuming
     // every display registry key names a vanilla texture.
     private static @NotNull String getMcTexture(ModBlocks.BlockRegistryEntry entry) {
-        String key = entry.key();
-        String blockName = net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                .getKey(ModBlocks.BLOCK_AND_ITEM_MAP.get(key).block()).getPath();
+        return getMcTexture(ModBlocks.BLOCK_AND_ITEM_MAP.get(entry.key()), entry.key(), entry.isWooden());
+    }
 
-        if (entry.isWooden()) return blockName;
+    private static @NotNull String getMcTexture(ModBlocks.BlockAndItemEntry blockAndItemEntry, String key, boolean isWooden) {
+        String blockName = net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                .getKey(blockAndItemEntry.block()).getPath();
+
+        if (isWooden) return blockName;
         if (key.equals("quartz")) return "quartz_block_side";
         if (key.equals("stone")) return "stone";
         if (key.equals("sandstone")) return "sandstone";

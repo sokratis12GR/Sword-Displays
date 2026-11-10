@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_case_concrete_powder",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "D": {
+      "item": "sworddisplay:pink_concrete_powder_sword_case"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:pink_concrete_powder_sword_case_rack"
+  }
+}

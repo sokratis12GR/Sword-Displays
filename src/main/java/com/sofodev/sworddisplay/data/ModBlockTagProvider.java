@@ -43,6 +43,18 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(caseRO.get(), displayRO.get(), wallDisplayRO.get());
             }
         }
+
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            DeferredHolder<Block, Block> caseRO = entry.blocks().caseBlock();
+            DeferredHolder<Block, Block> displayRO = entry.blocks().displayBlock();
+            DeferredHolder<Block, Block> wallDisplayRO = entry.blocks().wallDisplay();
+            addAllItems(SWORD_DISPLAYS, caseRO, displayRO, wallDisplayRO);
+            if (entry.isWooden()) {
+                tag(BlockTags.MINEABLE_WITH_AXE).add(caseRO.get(), displayRO.get(), wallDisplayRO.get());
+            } else {
+                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(caseRO.get(), displayRO.get(), wallDisplayRO.get());
+            }
+        }
         mirrorMinecraftTag(BlockTags.NEEDS_STONE_TOOL, SWORD_DISPLAYS);
 
     }

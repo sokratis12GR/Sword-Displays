@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_wall_display_metals_and_ores",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "D": {
+      "item": "sworddisplay:diamond_wall_display"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:diamond_wall_display_rack"
+  }
+}

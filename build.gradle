@@ -1,8 +1,9 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.146'
-    id 'net.darkhax.curseforgegradle' version '1.1.26'
+    id 'net.neoforged.moddev' version '2.0.147'
+    id 'net.darkhax.curseforgegradle' version '1.1.18'
+    id 'com.modrinth.minotaur' version '2.10.0'
     id 'idea'
 }
 
@@ -20,7 +21,9 @@ tasks.named('jar', Jar).configure {
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 sourceSets.main.resources {
-    srcDir 'src/generated/resources'
+    srcDir 'src/generated/client'
+    srcDir 'src/generated/server'
+    exclude '.cache/**'
 }
 
 repositories {
@@ -37,11 +40,11 @@ repositories {
 }
 
 dependencies {
-    implementation "curse.maven:thedragonlib-248055:5505781"
+    implementation "curse.maven:thedragonlib-248055:9533057"
 }
 
 neoForge {
-    version = project.neo_version
+    version = neoforge_version
 
     runs {
         client {
@@ -53,20 +56,29 @@ neoForge {
             programArgument '--nogui'
         }
 
-        data {
-            data()
+        gameTestServer {
+            type = "gameTestServer"
+        }
 
-            programArguments.addAll(
-                    '--mod', project.mod_id,
-                    '--all',
-                    '--output', file('src/generated/resources/').absolutePath,
-                    '--existing', file('src/main/resources/').absolutePath
-            )
+        clientData {
+            data()
+            programArguments.addAll '--mod', mod_id,
+                    '--client',
+                    '--output', file('src/generated/client').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+        }
+
+        serverData {
+            data()
+            programArguments.addAll '--mod', mod_id,
+                    '--server',
+                    '--output', file('src/generated/server').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
         }
     }
 
     mods {
-        "${mod_id}" {
+        sworddisplay {
             sourceSet sourceSets.main
         }
     }
@@ -75,8 +87,8 @@ neoForge {
 var replaceProperties = [
         minecraft_version      : minecraft_version,
         minecraft_version_range: minecraft_version_range,
-        neo_version            : neo_version,
-        neo_version_range      : neo_version_range,
+        neoforge_version       : neoforge_version,
+        neoforge_version_range : neoforge_version_range,
         loader_version_range   : loader_version_range,
         mod_id                 : mod_id,
         mod_name               : mod_name,
@@ -100,6 +112,21 @@ tasks.named('processResources', ProcessResources).configure {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
 tasks.register('publishCurseForge',
         net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     group = 'publishing'
@@ -145,6 +172,41 @@ tasks.register('publishCurseForge',
 
         mainFile.addEnvironment('Client', 'Server')
 
+        mainFile.addRequirement('geckolib')
         mainFile.addRequirement('thedragonlib')
     }
+}
+
+modrinth {
+    token = providers.gradleProperty('modrinth_api_token')
+            .orElse(providers.environmentVariable('MODRINTH_TOKEN'))
+            .orNull
+
+    projectId = providers.gradleProperty('modrinth_project_id').orNull
+
+    versionNumber = "${minecraft_version}-${mod_version}"
+    versionName = "${mod_name} ${mod_version} for NeoForge ${minecraft_version}"
+    versionType = 'release'
+
+    uploadFile = tasks.named('jar').get()
+
+    gameVersions = [minecraft_version.toString()]
+    loaders = ['neoforge']
+
+    def changelogFile = file('src/main/resources/changelog.md')
+    changelog = changelogFile.exists() ? changelogFile.getText('UTF-8') : "${mod_name} ${mod_version} for NeoForge ${minecraft_version}"
+}
+
+tasks.register('publishModrinth') {
+    group = 'publishing'
+    description = "Publishes ${mod_name} ${mod_version} for NeoForge to Modrinth"
+
+    dependsOn tasks.named('modrinth')
+}
+
+tasks.register('publishAll') {
+    group = 'publishing'
+    description = "Publishes ${mod_name} ${mod_version} for NeoForge to CurseForge and Modrinth"
+
+    dependsOn 'publishCurseForge', 'publishModrinth'
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_wall_display_earth",
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "D": {
+      "item": "sworddisplay:rooted_dirt_wall_display"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:rooted_dirt_wall_display_plaque"
+  }
+}

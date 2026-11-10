@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:rack_display_stone",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "D": {
+      "item": "sworddisplay:chiseled_tuff_sword_display"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:chiseled_tuff_sword_display_rack"
+  }
+}

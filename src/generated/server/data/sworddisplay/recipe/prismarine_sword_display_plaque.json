@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_ocean_and_underground",
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "D": {
+      "item": "sworddisplay:prismarine_sword_display"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:prismarine_sword_display_plaque"
+  }
+}

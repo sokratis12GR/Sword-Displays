@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_case_metals_and_ores",
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "D": {
+      "item": "sworddisplay:coal_ore_sword_case"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:coal_ore_sword_case_plaque"
+  }
+}

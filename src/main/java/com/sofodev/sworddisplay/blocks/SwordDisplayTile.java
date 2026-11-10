@@ -21,6 +21,9 @@ public class SwordDisplayTile extends BaseTile {
 
     private ItemStack cachedSword;
     private UUID owner;
+    private final ItemStack[] additionalWeapons = {ItemStack.EMPTY, ItemStack.EMPTY};
+    private final int[] rackHorizontalRotations = new int[3];
+    private final int[] rackTiltRotations = new int[3];
 
     public SwordDisplayTile(BlockPos pos, BlockState state) {
         super(SWORD_DISPLAY_TYPE.get(), pos, state);
@@ -36,6 +39,16 @@ public class SwordDisplayTile extends BaseTile {
         if (tag.hasUUID("owner")) {
             this.owner = tag.getUUID("owner");
         }
+        if (tag.contains("displayed_item_2", TAG_COMPOUND)) {
+            this.additionalWeapons[0] = ItemStack.parseOptional(provider, tag.getCompound("displayed_item_2"));
+        }
+        if (tag.contains("displayed_item_3", TAG_COMPOUND)) {
+            this.additionalWeapons[1] = ItemStack.parseOptional(provider, tag.getCompound("displayed_item_3"));
+        }
+        for (int i = 0; i < 3; i++) {
+            rackHorizontalRotations[i] = Math.floorMod(tag.getInt("rack_horizontal_" + i), 8);
+            rackTiltRotations[i] = Math.floorMod(tag.getInt("rack_tilt_" + i), 8);
+        }
     }
 
     @Override
@@ -43,6 +56,12 @@ public class SwordDisplayTile extends BaseTile {
         tag.put("displayed_item", this.cachedSword.saveOptional(provider));
         if (this.owner != null) {
             tag.putUUID("owner", this.owner);
+        }
+        if (!additionalWeapons[0].isEmpty()) tag.put("displayed_item_2", additionalWeapons[0].saveOptional(provider));
+        if (!additionalWeapons[1].isEmpty()) tag.put("displayed_item_3", additionalWeapons[1].saveOptional(provider));
+        if (isRack()) for (int i = 0; i < 3; i++) {
+            tag.putInt("rack_horizontal_" + i, rackHorizontalRotations[i]);
+            tag.putInt("rack_tilt_" + i, rackTiltRotations[i]);
         }
         super.saveAdditional(tag, provider);
     }
@@ -91,6 +110,19 @@ public class SwordDisplayTile extends BaseTile {
         return super.getBlockPos();
     }
 
+    /** Slots 1 and 2 are only used by rack blocks; slot 0 keeps the original save key. */
+    public ItemStack getWeapon(int slot) {
+        if (slot < 0 || slot > 2) return ItemStack.EMPTY;
+        return slot == 0 ? cachedSword : additionalWeapons[slot - 1];
+    }
+
+    public void setWeapon(int slot, ItemStack weapon) {
+        if (slot < 0 || slot > 2) return;
+        if (slot == 0) { setSword(weapon); return; }
+        additionalWeapons[slot - 1] = weapon;
+        sendBlockUpdate();
+    }
+
     public ItemStack getSword() {
         return this.cachedSword;
     }
@@ -98,6 +130,31 @@ public class SwordDisplayTile extends BaseTile {
     public void setSword(ItemStack stack) {
         this.cachedSword = stack;
         this.sendBlockUpdate();
+    }
+
+    public boolean isRack() {
+        return getBlockState().getBlock() instanceof RackDisplayBlock
+                || getBlockState().getBlock() instanceof RackCaseBlock
+                || getBlockState().getBlock() instanceof RackWallBlock;
+    }
+
+    public int getRackHorizontalRotation(int slot) { return rackHorizontalRotations[Math.max(0, Math.min(2, slot))]; }
+    public int getRackTiltRotation(int slot) { return rackTiltRotations[Math.max(0, Math.min(2, slot))]; }
+
+    public void rotateRackHorizontal(int slot) {
+        if (slot < 0 || slot > 2) return;
+        rackHorizontalRotations[slot] = (rackHorizontalRotations[slot] + 1) % 8;
+        sendBlockUpdate();
+    }
+
+    public void rotateRackTilt(int slot) {
+        if (slot < 0 || slot > 2) return;
+        rackTiltRotations[slot] = (rackTiltRotations[slot] + 1) % 8;
+        sendBlockUpdate();
+    }
+
+    public boolean consumeHorizontalClick(UUID playerId) {
+        return false;
     }
 
     public UUID getOwner() {

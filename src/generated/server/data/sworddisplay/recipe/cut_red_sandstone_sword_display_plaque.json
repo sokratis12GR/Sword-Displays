@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sworddisplay:plaque_display_sandstone_and_quartz",
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "D": {
+      "item": "sworddisplay:cut_red_sandstone_sword_display"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "sworddisplay:cut_red_sandstone_sword_display_plaque"
+  }
+}

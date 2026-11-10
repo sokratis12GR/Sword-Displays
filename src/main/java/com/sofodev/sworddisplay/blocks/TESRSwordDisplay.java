@@ -20,6 +20,9 @@ import static com.sofodev.sworddisplay.blocks.SwordWallDisplayBlock.IS_WALL_DISP
 @OnlyIn(Dist.CLIENT)
 public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
 
+    private static final double[] NORTH_SOUTH_SLOT_X_PX = {3.2D, 8.0D, 12.8D};
+    private static final double[] EAST_WEST_SLOT_X_PX = {5.0D, 8.0D, 11.0D};
+
     private final ItemRenderer renderer;
 
     public TESRSwordDisplay(BlockEntityRendererProvider.Context dispatcher) {
@@ -31,10 +34,12 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
 
         boolean isReverse = tile.getBlockState().getValue(IS_REVERSE);
         boolean isWallDisplay = tile.getBlockState().getOptionalValue(IS_WALL_DISPLAY).orElse(false);
+        boolean isPlaqueWall = tile.getBlockState().getBlock() instanceof PlaqueWallBlock;
         Direction facing = tile.getBlockState().getValue(SwordDisplayBlock.FACING);
 
         var fullSize = new Vec3(1F, 1F, 1F);
-        var wallSize = new Vec3(0.33F, 0.33F, 0.33F);
+        float wallScale = isPlaqueWall ? 0.66F : 0.33F;
+        var wallSize = new Vec3(wallScale, wallScale, wallScale);
         var middleLocation = new Vec3(0.5F, 0.6F, 0.5F);
 
         if (!isWallDisplay) translateAndScale(matrix, middleLocation, fullSize);
@@ -90,10 +95,45 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
 
     @Override
     public void render(SwordDisplayTile tile, float partialTicks, PoseStack matrix, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+        if (tile.isRack()) {
+            renderRack(tile, matrix, buffer, combinedLight, combinedOverlay);
+            return;
+        }
         ItemStack sword = tile.getSword();
         if (!sword.isEmpty()) {
             this.renderItem(tile, sword, partialTicks, matrix, buffer, combinedLight, combinedOverlay);
         }
+    }
+
+    private void renderRack(SwordDisplayTile tile, PoseStack matrix, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+        Direction facing = tile.getBlockState().getValue(SwordDisplayBlock.FACING);
+        boolean isWallDisplay = tile.getBlockState().getOptionalValue(IS_WALL_DISPLAY).orElse(false);
+        boolean isCase = tile.getBlockState().getBlock() instanceof RackCaseBlock;
+        boolean eastWest = facing == Direction.EAST || facing == Direction.WEST;
+
+        double mountZPixels = isWallDisplay ? (eastWest ? 3.25D : 13.75D)
+                : isCase ? (eastWest ? 3.25D : 12.75D)
+                : (eastWest ? 5.25D : 10.75D);
+        double mountYPixels = isWallDisplay ? 8.0D : 10.0D;
+        double[] slotXPixels = eastWest ? EAST_WEST_SLOT_X_PX : NORTH_SOUTH_SLOT_X_PX;
+
+        matrix.pushPose();
+        matrix.translate(0.5D, 0.0D, 0.5D);
+        matrix.mulPose(Axis.YP.rotationDegrees(facing.toYRot()));
+
+        for (int i = 0; i < 3; i++) {
+            ItemStack weapon = tile.getWeapon(i);
+            if (weapon.isEmpty()) continue;
+            matrix.pushPose();
+            matrix.translate((slotXPixels[i] - 8.0D) / 16.0D, mountYPixels / 16.0D, (mountZPixels - 8.0D) / 16.0D);
+            matrix.scale(0.33F, 0.44F, 0.33F);
+            matrix.mulPose(Axis.YP.rotationDegrees(tile.getRackHorizontalRotation(i) * 45.0F));
+            matrix.mulPose(Axis.ZP.rotationDegrees(-tile.getRackTiltRotation(i) * 45.0F));
+            rotateItem(matrix, 180.0F, 180.0F, -45.0F);
+            renderer.renderStatic(weapon, ItemDisplayContext.FIXED, combinedLight, combinedOverlay, matrix, buffer, tile.getLevel(), 1);
+            matrix.popPose();
+        }
+        matrix.popPose();
     }
 
     @Override

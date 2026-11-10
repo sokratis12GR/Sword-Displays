@@ -43,6 +43,12 @@ public class ModLootTableProvider extends LootTableProvider {
                 dropSelf(displayBlock.get());
                 dropSelf(wallBlock.get());
             }
+
+            for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+                dropSelf(entry.blocks().caseBlock().get());
+                dropSelf(entry.blocks().displayBlock().get());
+                dropSelf(entry.blocks().wallDisplay().get());
+            }
         }
 
         @Override
@@ -51,6 +57,12 @@ public class ModLootTableProvider extends LootTableProvider {
             List<Block> blocks = new ArrayList<>();
 
             for (ModBlocks.BlockRegistryEntry entry : entries) {
+                blocks.add(entry.blocks().caseBlock().value());
+                blocks.add(entry.blocks().displayBlock().value());
+                blocks.add(entry.blocks().wallDisplay().value());
+            }
+
+            for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
                 blocks.add(entry.blocks().caseBlock().value());
                 blocks.add(entry.blocks().displayBlock().value());
                 blocks.add(entry.blocks().wallDisplay().value());

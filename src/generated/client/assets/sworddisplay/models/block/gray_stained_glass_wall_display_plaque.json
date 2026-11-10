@@ -1,0 +1,7 @@
+{
+  "parent": "sworddisplay:block/base/wall_display_base_plaque",
+  "textures": {
+    "0": "minecraft:block/gray_stained_glass",
+    "particle": "minecraft:block/gray_stained_glass"
+  }
+}

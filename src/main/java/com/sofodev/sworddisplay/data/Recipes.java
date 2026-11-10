@@ -42,6 +42,49 @@ public class Recipes extends RecipeProvider implements DataProvider, IConditionB
             // Register recipes
             registerMaterialRecipes(consumer, displayRO, caseRO, wallRO, material, (ItemTags.SLABS), family(entry.key()));
         });
+
+        for (ModBlocks.StyledBlockEntry entry : ModBlocks.STYLED_ENTRIES) {
+            registerStyledRecipes(consumer, entry);
+        }
+    }
+
+    private void registerStyledRecipes(RecipeOutput consumer, ModBlocks.StyledBlockEntry entry) {
+        ItemLike accent = switch (entry.style()) {
+            case "plaque" -> net.minecraft.world.item.Items.LEATHER;
+            case "rack" -> net.minecraft.world.item.Items.STICK;
+            default -> net.minecraft.world.item.Items.GOLD_NUGGET;
+        };
+        String group = "sworddisplay:" + entry.style() + "_";
+        String family = family(entry.key());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, entry.blocks().displayBlock().get())
+                .pattern(" A ")
+                .pattern(" D ")
+                .define('D', entry.originals().displayBlock().get())
+                .define('A', accent)
+                .group(group + "display_" + family)
+                .unlockedBy("has_original", has(entry.originals().displayBlock().get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, entry.blocks().caseBlock().get())
+                .pattern(" A ")
+                .pattern(" D ")
+                .define('D', entry.originals().caseBlock().get())
+                .define('A', accent)
+                .group(group + "case_" + family)
+                .unlockedBy("has_original", has(entry.originals().caseBlock().get()))
+                .save(consumer);
+
+        if (!entry.key().equals("slime_block")) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, entry.blocks().wallDisplay().get())
+                    .pattern(" A ")
+                    .pattern(" D ")
+                    .define('D', entry.originals().wallDisplay().get())
+                    .define('A', accent)
+                    .group(group + "wall_display_" + family)
+                    .unlockedBy("has_original", has(entry.originals().wallDisplay().get()))
+                    .save(consumer);
+        }
     }
 
     private void registerMaterialRecipes(RecipeOutput consumer,

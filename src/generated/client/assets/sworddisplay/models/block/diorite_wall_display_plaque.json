@@ -1,0 +1,7 @@
+{
+  "parent": "sworddisplay:block/base/wall_display_base_plaque",
+  "textures": {
+    "0": "minecraft:block/diorite",
+    "particle": "minecraft:block/diorite"
+  }
+}

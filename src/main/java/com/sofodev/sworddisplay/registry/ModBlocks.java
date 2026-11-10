@@ -317,6 +317,10 @@ public class ModBlocks {
     public static final List<BlockRegistryEntry> REGISTRY_LIST = new ArrayList<>();
     public static final RegistryHelper registryHelper = new RegistryHelper(REGISTRY_LIST);
 
+    // Original entries are not modified; alternate blocks have independent registry IDs.
+    public static final List<StyledBlockEntry> STYLED_ENTRIES = new ArrayList<>();
+    public static final List<String> STYLES = List.of("plaque", "rack");
+
     static {
         registerAll();
     }
@@ -340,6 +344,33 @@ public class ModBlocks {
             );
 
             REGISTRY_LIST.add(new BlockRegistryEntry(baseName, new BlockDisplays(display, swordCase, wallDisplay), entry.item(), entry.isWooden()));
+
+            for (String style : STYLES) {
+                boolean isRack = style.equals("rack");
+
+                DeferredHolder<Block, Block> styledDisplay = registerBlockWithItem(
+                        baseName + "_sword_display_" + style,
+                        () -> isRack
+                                ? new RackDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                                : new PlaqueDisplayBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                );
+
+                DeferredHolder<Block, Block> styledCase = registerBlockWithItem(
+                        baseName + "_sword_case_" + style,
+                        () -> isRack
+                                ? new RackCaseBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                                : new PlaqueCaseBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                );
+
+                DeferredHolder<Block, Block> styledWall = registerBlockWithItem(
+                        baseName + "_wall_display_" + style,
+                        () -> isRack
+                                ? new RackWallBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                                : new PlaqueWallBlock(Block.Properties.ofFullCopy(Blocks.STONE))
+                );
+
+                STYLED_ENTRIES.add(new StyledBlockEntry(baseName, style, new BlockDisplays(styledDisplay, styledCase, styledWall), entry.item(), entry.isWooden(), new BlockDisplays(display, swordCase, wallDisplay)));
+            }
         });
     }
 
@@ -355,11 +386,16 @@ public class ModBlocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SwordDisplayTile>> SWORD_DISPLAY_TYPE = TILE_ENTITIES.register("sword_display",
             () -> build(BlockEntityType.Builder.of(
                     SwordDisplayTile::new,
-                    REGISTRY_LIST.stream()
-                            .flatMap(entry ->
-                                    Stream.of(entry.blocks().displayBlock().get(),
-                                            entry.blocks().caseBlock().get(),
-                                            entry.blocks().wallDisplay().get()))
+                    Stream.concat(REGISTRY_LIST.stream()
+                                    .flatMap(entry ->
+                                            Stream.of(entry.blocks().displayBlock().get(),
+                                                    entry.blocks().caseBlock().get(),
+                                                    entry.blocks().wallDisplay().get())),
+                            STYLED_ENTRIES.stream()
+                                    .flatMap(entry ->
+                                            Stream.of(entry.blocks().displayBlock().get(),
+                                                    entry.blocks().caseBlock().get(),
+                                                    entry.blocks().wallDisplay().get())))
                             .toArray(Block[]::new)
             )));
 
@@ -382,6 +418,10 @@ public class ModBlocks {
 
     public record BlockRegistryEntry(String key, BlockDisplays blocks,
                                      ItemLike coreMaterial, boolean isWooden) {
+    }
+
+    public record StyledBlockEntry(String key, String style, BlockDisplays blocks,
+                                    ItemLike coreMaterial, boolean isWooden, BlockDisplays originals) {
     }
 
     public record BlockAndItemEntry(Block block, Item item) {

@@ -1,0 +1,8 @@
+{
+  "parent": "sworddisplay:block/base/sword_display_base_plaque",
+  "textures": {
+    "0": "minecraft:block/polished_tuff",
+    "1": "minecraft:block/polished_tuff",
+    "particle": "minecraft:block/polished_tuff"
+  }
+}

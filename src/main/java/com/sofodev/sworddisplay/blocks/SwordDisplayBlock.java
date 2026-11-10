@@ -1,6 +1,7 @@
 package com.sofodev.sworddisplay.blocks;
 
 import com.mojang.authlib.GameProfile;
+import com.sofodev.sworddisplay.config.SDConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -50,6 +52,11 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(IS_REVERSE, Boolean.FALSE));
+    }
+
+    @Override
+    public boolean isEnabled(FeatureFlagSet flags) {
+        return SDConfig.isEnabled(this);
     }
 
 
@@ -119,9 +126,13 @@ public class SwordDisplayBlock extends Block implements EntityBlock {
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof SwordDisplayTile) {
-                Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((SwordDisplayTile) tileentity).getSword()
-                        .copy());
+            if (tileentity instanceof SwordDisplayTile displayTile) {
+                for (int slot = 0; slot < 3; slot++) {
+                    ItemStack weapon = displayTile.getWeapon(slot);
+                    if (!weapon.isEmpty()) {
+                        Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), weapon.copy());
+                    }
+                }
             }
             super.onRemove(state, worldIn, pos, newState, isMoving);
         }

@@ -1,5 +1,7 @@
 package com.sofodev.sworddisplay.blocks;
 
+import com.sofodev.sworddisplay.config.SDConfig;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 
@@ -11,5 +13,10 @@ public class SDBlockItem extends BlockItem {
 
     public SDBlockItem(Block blockIn) {
         super(blockIn, new Properties());
+    }
+
+    @Override
+    public boolean isEnabled(FeatureFlagSet flags) {
+        return SDConfig.isEnabled(getBlock());
     }
 }
