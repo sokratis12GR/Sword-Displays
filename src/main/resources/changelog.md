@@ -24,4 +24,4 @@ Added an in-game configuration screen (accessible from the Mods list) for editin
 
 Added a master "enabled" toggle for each display family (Original, Plaques, Racks) that overrides its individual display/case/wall options, making it quicker to disable a whole group at once.
 
-Requires TheDragonLib 1.2.0 or newer.
+Requires TheDragonLib 1.2.1 or newer.

@@ -56,7 +56,9 @@ public class TESRSwordDisplay implements BlockEntityRenderer<SwordDisplayTile> {
             applyReverseTransform(matrix);
         }
 
+        matrix.mulPose(Axis.YP.rotationDegrees(tile.getHorizontalRotation() * 45.0F));
         applyFacingRotation(matrix, facing, isReverse);
+        matrix.mulPose(Axis.ZP.rotationDegrees(-tile.getTiltRotation() * 45.0F));
 
         renderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLight, combinedOverlay, matrix, buffer, tile.getLevel(), 1);
 

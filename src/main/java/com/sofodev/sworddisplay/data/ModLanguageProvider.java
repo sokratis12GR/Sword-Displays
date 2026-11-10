@@ -23,6 +23,15 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tabs.sworddisplay.plaques", "Weapon Plaques");
         add("tabs.sworddisplay.racks", "Weapon Racks");
 
+        // Configuration screen
+        String config = "sworddisplay.configuration.";
+        add(config + "title", "Sword Displays Configuration");
+        add(config + "section.sworddisplay.common.toml", "Common Settings");
+        add(config + "section.sworddisplay.common.toml.title", "Sword Displays Common Settings");
+        addConfigFamily("original", "Original Displays");
+        addConfigFamily("plaque", "Weapon Plaques");
+        addConfigFamily("rack", "Weapon Racks");
+
         List<ModBlocks.BlockRegistryEntry> entries = registryHelper.getRegistryList(); // assuming getter exists
         for (ModBlocks.BlockRegistryEntry entry : entries) {
             DeferredHolder<Block, Block> caseBlock = entry.blocks().caseBlock();
@@ -42,6 +51,23 @@ public class ModLanguageProvider extends LanguageProvider {
             add(displayBlock.get(), stylePrefix + " " + toTitleCase(entry.key()) + " Sword Display");
             add(wallBlock.get(), stylePrefix + " " + toTitleCase(entry.key()) + " Wall Display");
         }
+    }
+
+    private void addConfigFamily(String family, String name) {
+        String key = "sworddisplay.configuration." + family;
+        add(key, name);
+        add(key + ".button", "Configure " + name);
+        add(key + ".tooltip", "Settings for " + name + ".");
+        add(key + ".enabled", "Enable All " + name);
+        add(key + ".enabled.tooltip", "Enable all " + name + ". Overrides the individual options below (restart required).");
+        addConfigType(key, "display", "Sword Displays", name);
+        addConfigType(key, "case", "Sword Cases", name);
+        addConfigType(key, "wall", "Wall Displays", name);
+    }
+
+    private void addConfigType(String familyKey, String type, String typeName, String familyName) {
+        add(familyKey + "." + type, typeName);
+        add(familyKey + "." + type + ".tooltip", "Enable " + typeName + " for " + familyName + " (restart required).");
     }
 
     private static String toTitleCase(String input) {

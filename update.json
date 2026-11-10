@@ -1,0 +1,13 @@
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/sword-displays/files/all",
+  "promos": {
+    "1.21.1-latest": "1.2.0",
+    "1.21.1-recommended": "1.2.0"
+  },
+  "1.21.1": {
+    "1.0.0": "* Ported to 26.1.2 NeoForge",
+    "1.0.1": "* Added a proper update checker link.",
+    "1.1.0": "Added 200+ New Sword Display Materials!\n\nSword Displays, Sword Cases, and Wall Displays now support a huge variety of new materials in **Minecraft 1.21.1**, including:\n\n**Wood & Bamboo** — New wood types and bamboo variants  \n**Stone & Bricks** — Deepslate, Tuff, Sandstone, Quartz, and more  \n**Ores & Minerals** — Ore blocks, raw metals, and copper variants  \n**Nether & End** — Blackstone, Nylium, Soul Sand, Purpur, and more  \n**Natural Blocks** — Dirt, Sand, Mud, Clay, and Moss  \n**Ocean & Underground** — Prismarine, Sponges, Sculk, and Sea Lanterns  \n**Decorative Blocks** — Glass, Glowstone, Honeycomb, and more  \n**Colored Blocks** — All 16 colors of Wool, Terracotta, Concrete, Concrete Powder, Stained Glass, and Glazed Terracotta\n\nEvery supported material can be used to craft a **Sword Display, Sword Case, or Wall Display**.",
+    "1.2.0": "Added New Weapon Plaques & Weapon Racks!\n\n**Weapon Plaques** — Decorative displays with a classic Minecraft-inspired design, perfect for showcasing individual weapons.  \n**Weapon Racks** — Multi-weapon displays capable of holding up to **3 swords or weapons** simultaneously.  \n**New Display Variants** — Both styles are available as Sword Displays, Sword Cases, and Wall Displays.  \n**Independent Weapon Rotation** — Rotate each weapon individually in 45° increments, including horizontal rotation (Ctrl + Right-Click).  \n**Improved Weapon Placement** — Weapons are positioned to fit their displays, with model-matched hitboxes.  \n**Separate Creative Tabs** — Original Sword Displays, Weapon Plaques, and Weapon Racks each have their own tab.  \n**Expanded Material Support** — Plaques and Racks support the same materials as the original Sword Displays.\n\n**In-Game Config Screen & Family Toggles** — Edit settings from the Mods list, with a master toggle for each display family (Original, Plaques, Racks).\n\nRequires TheDragonLib 1.2.1 or newer."
+  }
+}

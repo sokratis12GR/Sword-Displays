@@ -24,6 +24,25 @@ public class SwordDisplayTile extends BaseTile {
     private final ItemStack[] additionalWeapons = {ItemStack.EMPTY, ItemStack.EMPTY};
     private final int[] rackHorizontalRotations = new int[3];
     private final int[] rackTiltRotations = new int[3];
+    // Additional optional fields; existing displayed_item/owner data remains unchanged.
+    private int horizontalRotation;
+    private int tiltRotation;
+    // Transient packet guard; never persisted in the world save.
+    private UUID horizontalClickPlayer;
+    private long horizontalClickTick = Long.MIN_VALUE;
+
+    public void markHorizontalClick(UUID playerId) {
+        horizontalClickPlayer = playerId;
+        horizontalClickTick = this.level == null ? Long.MIN_VALUE : this.level.getGameTime();
+    }
+
+    public boolean consumeHorizontalClick(UUID playerId) {
+        if (this.level == null || !playerId.equals(horizontalClickPlayer)) return false;
+        long elapsed = this.level.getGameTime() - horizontalClickTick;
+        if (elapsed < 0 || elapsed > 2) return false;
+        horizontalClickPlayer = null;
+        return true;
+    }
 
     public SwordDisplayTile(BlockPos pos, BlockState state) {
         super(SWORD_DISPLAY_TYPE.get(), pos, state);
@@ -39,15 +58,16 @@ public class SwordDisplayTile extends BaseTile {
         if (tag.hasUUID("owner")) {
             this.owner = tag.getUUID("owner");
         }
-        if (tag.contains("displayed_item_2", TAG_COMPOUND)) {
-            this.additionalWeapons[0] = ItemStack.parseOptional(provider, tag.getCompound("displayed_item_2"));
-        }
-        if (tag.contains("displayed_item_3", TAG_COMPOUND)) {
-            this.additionalWeapons[1] = ItemStack.parseOptional(provider, tag.getCompound("displayed_item_3"));
-        }
+        this.additionalWeapons[0] = tag.contains("displayed_item_2", TAG_COMPOUND)
+                ? ItemStack.parseOptional(provider, tag.getCompound("displayed_item_2")) : ItemStack.EMPTY;
+        this.additionalWeapons[1] = tag.contains("displayed_item_3", TAG_COMPOUND)
+                ? ItemStack.parseOptional(provider, tag.getCompound("displayed_item_3")) : ItemStack.EMPTY;
+        this.horizontalRotation = Math.floorMod(tag.getInt("horizontal_rotation"), 8);
+        this.tiltRotation = Math.floorMod(tag.getInt("tilt_rotation"), 8);
         for (int i = 0; i < 3; i++) {
-            rackHorizontalRotations[i] = Math.floorMod(tag.getInt("rack_horizontal_" + i), 8);
-            rackTiltRotations[i] = Math.floorMod(tag.getInt("rack_tilt_" + i), 8);
+            String h = "rack_horizontal_" + i, t = "rack_tilt_" + i;
+            rackHorizontalRotations[i] = Math.floorMod(tag.contains(h) ? tag.getInt(h) : horizontalRotation, 8);
+            rackTiltRotations[i] = Math.floorMod(tag.contains(t) ? tag.getInt(t) : tiltRotation, 8);
         }
     }
 
@@ -59,6 +79,8 @@ public class SwordDisplayTile extends BaseTile {
         }
         if (!additionalWeapons[0].isEmpty()) tag.put("displayed_item_2", additionalWeapons[0].saveOptional(provider));
         if (!additionalWeapons[1].isEmpty()) tag.put("displayed_item_3", additionalWeapons[1].saveOptional(provider));
+        if (this.horizontalRotation != 0) tag.putInt("horizontal_rotation", this.horizontalRotation);
+        if (this.tiltRotation != 0) tag.putInt("tilt_rotation", this.tiltRotation);
         if (isRack()) for (int i = 0; i < 3; i++) {
             tag.putInt("rack_horizontal_" + i, rackHorizontalRotations[i]);
             tag.putInt("rack_tilt_" + i, rackTiltRotations[i]);
@@ -153,8 +175,22 @@ public class SwordDisplayTile extends BaseTile {
         sendBlockUpdate();
     }
 
-    public boolean consumeHorizontalClick(UUID playerId) {
-        return false;
+    public int getHorizontalRotation() { return horizontalRotation; }
+
+    public int getTiltRotation() { return tiltRotation; }
+
+    public void rotateHorizontally() {
+        rotateHorizontally(1);
+    }
+
+    public void rotateHorizontally(int steps) {
+        horizontalRotation = Math.floorMod(horizontalRotation + steps, 8);
+        sendBlockUpdate();
+    }
+
+    public void rotateTilt() {
+        tiltRotation = (tiltRotation + 1) % 8;
+        sendBlockUpdate();
     }
 
     public UUID getOwner() {
@@ -168,6 +204,6 @@ public class SwordDisplayTile extends BaseTile {
 
     public void sendBlockUpdate() {
         this.setChanged();
-        this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
+        if (this.level != null) this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
     }
 }

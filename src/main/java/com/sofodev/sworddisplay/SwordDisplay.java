@@ -1,5 +1,6 @@
 package com.sofodev.sworddisplay;
 
+import com.sofodev.sworddisplay.network.HorizontalRotatePayload;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -31,5 +32,6 @@ public class SwordDisplay {
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
+        modEventBus.addListener(HorizontalRotatePayload::register);
     }
 }
